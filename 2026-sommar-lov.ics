@@ -1,0 +1,171 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//ASC Sommarlov 2026//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:ASC Sommarlov 2026
+X-WR-TIMEZONE:Europe/Stockholm
+
+BEGIN:VEVENT
+UID:asc-sommarlov-2026-end-of-year@crafttang
+DTSTAMP:20260430T000000Z
+DTSTART;VALUE=DATE:20260611
+DTEND;VALUE=DATE:20260612
+SUMMARY:End of Year Ceremony - Final School Day
+DESCRIPTION:Final school day. Students are picked up directly after the End of Year Ceremony.
+END:VEVENT
+
+BEGIN:VEVENT
+UID:asc-sommarlov-2026-jun12@crafttang
+DTSTAMP:20260430T000000Z
+DTSTART;VALUE=DATE:20260612
+DTEND;VALUE=DATE:20260613
+SUMMARY:ASC Sommarlov - Campus Vasa (closes 15:00)
+DESCRIPTION:ASC Sommarlov begins. Campus: Vasa. Early closure at 15:00.
+LOCATION:Vasa Campus
+END:VEVENT
+
+BEGIN:VEVENT
+UID:asc-sommarlov-2026-week25@crafttang
+DTSTAMP:20260430T000000Z
+DTSTART;VALUE=DATE:20260615
+DTEND;VALUE=DATE:20260619
+SUMMARY:ASC Sommarlov Week 25 - Campus Vasa (Mon-Thu only)
+DESCRIPTION:Monday-Thursday only. School closed on Friday (June 19). Campus: Vasa.\nEknäs days: Tuesday June 16 and Thursday June 18 (packed lunch required both days).
+LOCATION:Vasa Campus
+END:VEVENT
+
+BEGIN:VEVENT
+UID:asc-sommarlov-2026-eknas-jun16@crafttang
+DTSTAMP:20260430T000000Z
+DTSTART;VALUE=DATE:20260616
+DTEND;VALUE=DATE:20260617
+SUMMARY:Eknäs Day - Packed Lunch Required
+DESCRIPTION:Eknäs day (Week 25). Packed lunch is required.
+END:VEVENT
+
+BEGIN:VEVENT
+UID:asc-sommarlov-2026-eknas-jun18@crafttang
+DTSTAMP:20260430T000000Z
+DTSTART;VALUE=DATE:20260618
+DTEND;VALUE=DATE:20260619
+SUMMARY:Eknäs Day - Packed Lunch Required (closes 15:00\, bus to Kungsholmen)
+DESCRIPTION:Eknäs day (Week 25). Packed lunch is required. Early closure at 15:00.\nNOTE: Bus drops ALL students at Kungsholmen Campus at 15:00 — there is NO stop at Vasa school on this day.
+END:VEVENT
+
+BEGIN:VEVENT
+UID:asc-sommarlov-2026-week26@crafttang
+DTSTAMP:20260430T000000Z
+DTSTART;VALUE=DATE:20260622
+DTEND;VALUE=DATE:20260627
+SUMMARY:ASC Sommarlov Week 26 - Campus Vasa
+DESCRIPTION:All ASC students from Kungsholmen Campus join at Vasa for the full week.\nEknäs days: Tuesday June 23 and Thursday June 25 (packed lunch required both days).\nEarly closure Friday June 26 at 15:00.
+LOCATION:Vasa Campus
+END:VEVENT
+
+BEGIN:VEVENT
+UID:asc-sommarlov-2026-eknas-jun23@crafttang
+DTSTAMP:20260430T000000Z
+DTSTART;VALUE=DATE:20260623
+DTEND;VALUE=DATE:20260624
+SUMMARY:Eknäs Day - Packed Lunch Required
+DESCRIPTION:Eknäs day (Week 26). Packed lunch is required.
+END:VEVENT
+
+BEGIN:VEVENT
+UID:asc-sommarlov-2026-eknas-jun25@crafttang
+DTSTAMP:20260430T000000Z
+DTSTART;VALUE=DATE:20260625
+DTEND;VALUE=DATE:20260626
+SUMMARY:Eknäs Day - Packed Lunch Required
+DESCRIPTION:Eknäs day (Week 26). Packed lunch is required.
+END:VEVENT
+
+BEGIN:VEVENT
+UID:asc-sommarlov-2026-early-close-jun26@crafttang
+DTSTAMP:20260430T000000Z
+DTSTART;VALUE=DATE:20260626
+DTEND;VALUE=DATE:20260627
+SUMMARY:ASC Early Closure at 15:00 - End of Week 26
+DESCRIPTION:Early closure at 15:00 on Friday June 26. Last day before the summer break (weeks 27-30).
+END:VEVENT
+
+BEGIN:VEVENT
+UID:asc-sommarlov-2026-closed-weeks27-30@crafttang
+DTSTAMP:20260430T000000Z
+DTSTART;VALUE=DATE:20260629
+DTEND;VALUE=DATE:20260727
+SUMMARY:ASC CLOSED - Summer Break (Weeks 27-30)
+DESCRIPTION:ASC is closed for 4 weeks (weeks 27-30: June 29 - July 26).\nReopens Monday July 27 at Söder Campus.
+END:VEVENT
+
+BEGIN:VEVENT
+UID:asc-sommarlov-2026-week31-mon@crafttang
+DTSTAMP:20260430T000000Z
+DTSTART;VALUE=DATE:20260727
+DTEND;VALUE=DATE:20260728
+SUMMARY:ASC Sommarlov Week 31 - Campus Söder (Packed Lunch Required)
+DESCRIPTION:Monday July 27 at Söder Campus all day. Packed lunch required.
+LOCATION:Söder Campus
+END:VEVENT
+
+BEGIN:VEVENT
+UID:asc-sommarlov-2026-week31-eknas@crafttang
+DTSTAMP:20260430T000000Z
+DTSTART;VALUE=DATE:20260728
+DTEND;VALUE=DATE:20260801
+SUMMARY:ASC Sommarlov Week 31 - Eknäs Days (Tue-Fri)\, Lunch Provided
+DESCRIPTION:Eknäs days Tuesday-Friday (July 28-31). Drop off and pick up at Söder Campus.\nLunch is provided at Eknäs — no packed lunch needed.
+LOCATION:Söder Campus (drop-off/pick-up)
+END:VEVENT
+
+BEGIN:VEVENT
+UID:asc-sommarlov-2026-week32-vasa@crafttang
+DTSTAMP:20260430T000000Z
+DTSTART;VALUE=DATE:20260803
+DTEND;VALUE=DATE:20260807
+SUMMARY:ASC Sommarlov Week 32 - Campus Vasa (Mon-Thu)
+DESCRIPTION:Monday-Thursday at Vasa Campus. Eknäs day on Tuesday August 4 (packed lunch required).\nFriday August 7 is at Kungsholmen Campus.
+LOCATION:Vasa Campus
+END:VEVENT
+
+BEGIN:VEVENT
+UID:asc-sommarlov-2026-eknas-aug4@crafttang
+DTSTAMP:20260430T000000Z
+DTSTART;VALUE=DATE:20260804
+DTEND;VALUE=DATE:20260805
+SUMMARY:Eknäs Day - Packed Lunch Required
+DESCRIPTION:Eknäs day (Week 32). Packed lunch is required.
+END:VEVENT
+
+BEGIN:VEVENT
+UID:asc-sommarlov-2026-week32-fri@crafttang
+DTSTAMP:20260430T000000Z
+DTSTART;VALUE=DATE:20260807
+DTEND;VALUE=DATE:20260808
+SUMMARY:ASC Sommarlov Week 32 - Campus Kungsholmen (Friday only)
+DESCRIPTION:Friday August 7 at Kungsholmen Campus.
+LOCATION:Kungsholmen Campus
+END:VEVENT
+
+BEGIN:VEVENT
+UID:asc-sommarlov-2026-week33-kungsholmen@crafttang
+DTSTAMP:20260430T000000Z
+DTSTART;VALUE=DATE:20260810
+DTEND;VALUE=DATE:20260812
+SUMMARY:ASC Sommarlov Week 33 - Campus Kungsholmen (Mon-Tue)
+DESCRIPTION:Monday August 10 and Tuesday August 11 at Kungsholmen Campus.\nNo Eknäs days this week. From Wednesday\, at Vasa Campus.
+LOCATION:Kungsholmen Campus
+END:VEVENT
+
+BEGIN:VEVENT
+UID:asc-sommarlov-2026-week33-vasa@crafttang
+DTSTAMP:20260430T000000Z
+DTSTART;VALUE=DATE:20260812
+DTEND;VALUE=DATE:20260815
+SUMMARY:ASC Sommarlov Week 33 - Campus Vasa (Wed-Fri)
+DESCRIPTION:Wednesday August 12 onwards at Vasa Campus. No Eknäs days this week.
+LOCATION:Vasa Campus
+END:VEVENT
+
+END:VCALENDAR
