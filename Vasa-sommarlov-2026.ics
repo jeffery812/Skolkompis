@@ -30,7 +30,7 @@ UID:asc-sommarlov-2026-week25@crafttang
 DTSTAMP:20260430T000000Z
 DTSTART;VALUE=DATE:20260615
 DTEND;VALUE=DATE:20260619
-SUMMARY:ASC Sommarlov Week 25 - Campus Vasa (Mon-Thu only)
+SUMMARY:Campus Vasa (Mon-Thu only)
 DESCRIPTION:Monday-Thursday only. School closed on Friday (June 19). Campus: Vasa.\nEknäs days: Tuesday June 16 and Thursday June 18 (packed lunch required both days).
 LOCATION:Vasa Campus
 END:VEVENT
@@ -58,7 +58,7 @@ UID:asc-sommarlov-2026-week26@crafttang
 DTSTAMP:20260430T000000Z
 DTSTART;VALUE=DATE:20260622
 DTEND;VALUE=DATE:20260627
-SUMMARY:ASC Sommarlov Week 26 - Campus Vasa
+SUMMARY:Campus Vasa
 DESCRIPTION:All ASC students from Kungsholmen Campus join at Vasa for the full week.\nEknäs days: Tuesday June 23 and Thursday June 25 (packed lunch required both days).\nEarly closure Friday June 26 at 15:00.
 LOCATION:Vasa Campus
 END:VEVENT
@@ -104,7 +104,7 @@ UID:asc-sommarlov-2026-week31-mon@crafttang
 DTSTAMP:20260430T000000Z
 DTSTART;VALUE=DATE:20260727
 DTEND;VALUE=DATE:20260728
-SUMMARY:ASC Sommarlov Week 31 - Campus Söder (Packed Lunch Required)
+SUMMARY:Campus Söder (Packed Lunch Required)
 DESCRIPTION:Monday July 27 at Söder Campus all day. Packed lunch required.
 LOCATION:Söder Campus
 END:VEVENT
@@ -114,7 +114,7 @@ UID:asc-sommarlov-2026-week31-eknas@crafttang
 DTSTAMP:20260430T000000Z
 DTSTART;VALUE=DATE:20260728
 DTEND;VALUE=DATE:20260801
-SUMMARY:ASC Sommarlov Week 31 - Eknäs Days (Tue-Fri)\, Lunch Provided
+SUMMARY:Eknäs Days (Tue-Fri)\, Lunch Provided
 DESCRIPTION:Eknäs days Tuesday-Friday (July 28-31). Drop off and pick up at Söder Campus.\nLunch is provided at Eknäs — no packed lunch needed.
 LOCATION:Söder Campus (drop-off/pick-up)
 END:VEVENT
@@ -153,7 +153,7 @@ UID:asc-sommarlov-2026-week33-kungsholmen@crafttang
 DTSTAMP:20260430T000000Z
 DTSTART;VALUE=DATE:20260810
 DTEND;VALUE=DATE:20260812
-SUMMARY:ASC Sommarlov Week 33 - Campus Kungsholmen (Mon-Tue)
+SUMMARY:Campus Kungsholmen (Mon-Tue)
 DESCRIPTION:Monday August 10 and Tuesday August 11 at Kungsholmen Campus.\nNo Eknäs days this week. From Wednesday\, at Vasa Campus.
 LOCATION:Kungsholmen Campus
 END:VEVENT
@@ -163,7 +163,7 @@ UID:asc-sommarlov-2026-week33-vasa@crafttang
 DTSTAMP:20260430T000000Z
 DTSTART;VALUE=DATE:20260812
 DTEND;VALUE=DATE:20260815
-SUMMARY:ASC Sommarlov Week 33 - Campus Vasa (Wed-Fri)
+SUMMARY:Campus Vasa (Wed-Fri)
 DESCRIPTION:Wednesday August 12 onwards at Vasa Campus. No Eknäs days this week.
 LOCATION:Vasa Campus
 END:VEVENT
