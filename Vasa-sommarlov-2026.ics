@@ -124,7 +124,7 @@ UID:asc-sommarlov-2026-week32-vasa@crafttang
 DTSTAMP:20260430T000000Z
 DTSTART;VALUE=DATE:20260803
 DTEND;VALUE=DATE:20260807
-SUMMARY:ASC Sommarlov Week 32 - Campus Vasa (Mon-Thu)
+SUMMARY:Campus Vasa (Mon-Thu)
 DESCRIPTION:Monday-Thursday at Vasa Campus. Eknäs day on Tuesday August 4 (packed lunch required).\nFriday August 7 is at Kungsholmen Campus.
 LOCATION:Vasa Campus
 END:VEVENT
@@ -143,7 +143,7 @@ UID:asc-sommarlov-2026-week32-fri@crafttang
 DTSTAMP:20260430T000000Z
 DTSTART;VALUE=DATE:20260807
 DTEND;VALUE=DATE:20260808
-SUMMARY:ASC Sommarlov Week 32 - Campus Kungsholmen (Friday only)
+SUMMARY:Campus Kungsholmen (Friday only)
 DESCRIPTION:Friday August 7 at Kungsholmen Campus.
 LOCATION:Kungsholmen Campus
 END:VEVENT
