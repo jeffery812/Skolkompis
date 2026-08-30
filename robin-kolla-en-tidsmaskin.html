@@ -154,6 +154,20 @@
     z-index:0;
   }
 
+  .reading-tip{
+    position:relative; z-index:1;
+    text-align:center;
+    font-family:'Baloo 2', cursive;
+    font-weight:600;
+    font-size:.95rem;
+    color:var(--teal);
+    max-width:440px;
+    margin:0 auto 1.5rem;
+    opacity:0; transform:translateY(20px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reading-tip.in-view{ opacity:1; transform:translateY(0); }
+
   .chapter-divider{
     position:relative; z-index:1;
     display:flex; align-items:center; gap:1.4rem;
@@ -280,10 +294,20 @@
     font-size:1.08rem;
     line-height:1.75;
     margin:0 0 1rem;
+    padding:.2em .5em;
+    border-radius:8px;
     color:var(--ink);
+    cursor:pointer;
+    transition: background-color .2s ease, box-shadow .2s ease;
   }
   .page-card p.original:last-of-type{ margin-bottom:0; }
   .page-card p.original em{ color:var(--ink-soft); }
+  .page-card p.original:hover{ background: rgba(255,106,77,.08); }
+  .page-card p.original:focus-visible{ outline:2px solid var(--rocket); outline-offset:2px; }
+  .page-card p.original.speaking{
+    background: rgba(255,106,77,.16);
+    box-shadow: inset 3px 0 0 0 var(--rocket);
+  }
 
   .translate-toggle{
     margin-top:1.4rem;
@@ -378,6 +402,8 @@
 
 <main class="book">
 
+  <p class="reading-tip reveal">Tip: tap any line of Swedish text to hear just that line read aloud.</p>
+
   <div class="chapter-divider reveal">
     <div class="chapter-number">1</div>
     <div>
@@ -397,9 +423,9 @@
       <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
       <audio preload="none" src="audio/page-1.mp3"></audio>
     </div>
-    <p class="original">Molly och Elton bor i precis likadana radhus. Annars är det mesta olika.</p>
-    <p class="original">Hos Elton är det ordning. I hans familj vill alla tävla. Mamma och pappa spelar tennis och jobbar mycket. Storebror Sandor spelar fotboll, precis som Elton.</p>
-    <p class="original">Elton älskar att vinna. Därför är det synd att alla andra i hans familj också älskar att vinna. Men det är bra att Elton är kompis med Molly, för de har en tävling som är svår. I tävlingen kommer de på saker som den andra ska göra. Just nu står det 1&#8211;0 till Elton.</p>
+    <p class="original" data-audio="audio/page-1-1.mp3" tabindex="0" role="button" title="Click to hear this line">Molly och Elton bor i precis likadana radhus. Annars är det mesta olika.</p>
+    <p class="original" data-audio="audio/page-1-2.mp3" tabindex="0" role="button" title="Click to hear this line">Hos Elton är det ordning. I hans familj vill alla tävla. Mamma och pappa spelar tennis och jobbar mycket. Storebror Sandor spelar fotboll, precis som Elton.</p>
+    <p class="original" data-audio="audio/page-1-3.mp3" tabindex="0" role="button" title="Click to hear this line">Elton älskar att vinna. Därför är det synd att alla andra i hans familj också älskar att vinna. Men det är bra att Elton är kompis med Molly, för de har en tävling som är svår. I tävlingen kommer de på saker som den andra ska göra. Just nu står det 1&#8211;0 till Elton.</p>
     <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
     <div class="translation-panel"><div class="translation-inner">
       <p>Molly and Elton live in exactly identical row houses. Apart from that, they're mostly different.</p>
@@ -419,13 +445,13 @@
       <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
       <audio preload="none" src="audio/page-2.mp3"></audio>
     </div>
-    <p class="original">Hos Molly är det stökigt. Här vill ingen städa. Varken pappa, Molly eller Mollys storasyster Ines.</p>
-    <p class="original">Jo, förresten! Robin vill städa. Vilken tur att Mollys pappa är uppfinnare. Förut uppfann han Robin. Nu har han uppfunnit en&#8230; Just det, det är ju hemligt.</p>
-    <p class="original">Det skramlar och borras inne i verkstan. Robin släpar hemliga saker fram och tillbaka. Elton och Molly försöker titta in genom fönstret.</p>
-    <p class="original">Robin rullar ut från verkstan.</p>
-    <p class="original"><em>&#8211; Det är en liten rymdraket, men den kommer att flyga bra,</em> säger Robin. <em>Men det får jag inte säga.</em></p>
-    <p class="original"><em>&#8211; Hur ska pappa få plats i raketen?</em></p>
-    <p class="original"><em>&#8211; Det är inte han som ska ut i rymden. Det är jag. Men det där hörde ni inte heller från mig.</em></p>
+    <p class="original" data-audio="audio/page-2-1.mp3" tabindex="0" role="button" title="Click to hear this line">Hos Molly är det stökigt. Här vill ingen städa. Varken pappa, Molly eller Mollys storasyster Ines.</p>
+    <p class="original" data-audio="audio/page-2-2.mp3" tabindex="0" role="button" title="Click to hear this line">Jo, förresten! Robin vill städa. Vilken tur att Mollys pappa är uppfinnare. Förut uppfann han Robin. Nu har han uppfunnit en&#8230; Just det, det är ju hemligt.</p>
+    <p class="original" data-audio="audio/page-2-3.mp3" tabindex="0" role="button" title="Click to hear this line">Det skramlar och borras inne i verkstan. Robin släpar hemliga saker fram och tillbaka. Elton och Molly försöker titta in genom fönstret.</p>
+    <p class="original" data-audio="audio/page-2-4.mp3" tabindex="0" role="button" title="Click to hear this line">Robin rullar ut från verkstan.</p>
+    <p class="original" data-audio="audio/page-2-5.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Det är en liten rymdraket, men den kommer att flyga bra,</em> säger Robin. <em>Men det får jag inte säga.</em></p>
+    <p class="original" data-audio="audio/page-2-6.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Hur ska pappa få plats i raketen?</em></p>
+    <p class="original" data-audio="audio/page-2-7.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Det är inte han som ska ut i rymden. Det är jag. Men det där hörde ni inte heller från mig.</em></p>
     <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
     <div class="translation-panel"><div class="translation-inner">
       <p>At Molly's house, it's messy. Nobody here wants to clean — not Dad, not Molly, not Molly's big sister Ines either.</p>
@@ -449,13 +475,13 @@
       <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
       <audio preload="none" src="audio/page-3.mp3"></audio>
     </div>
-    <p class="original">På natten vaknar Elton av att det låter utanför fönstret. Han tittar ut och får se att det lyser i Mollys pappas verkstad. Han ser något konstigt. Taket öppnar sig!</p>
-    <p class="original">Elton får bråttom hem till Molly. Han kryper genom hålet i buskarna.</p>
-    <p class="original">Elton ringer på dörren. Molly öppnar och gäspar.</p>
-    <p class="original"><em>&#8211; Hej,</em> säger hon trött. <em>Går du i sömnen?</em></p>
-    <p class="original">Elton pekar på verkstan och pratar så snabbt han kan.</p>
-    <p class="original"><em>&#8211; Taket är öppet, tänk om Robin ska flyga i raketen!</em></p>
-    <p class="original">Molly blir genast pigg och sätter fart efter Elton.</p>
+    <p class="original" data-audio="audio/page-3-1.mp3" tabindex="0" role="button" title="Click to hear this line">På natten vaknar Elton av att det låter utanför fönstret. Han tittar ut och får se att det lyser i Mollys pappas verkstad. Han ser något konstigt. Taket öppnar sig!</p>
+    <p class="original" data-audio="audio/page-3-2.mp3" tabindex="0" role="button" title="Click to hear this line">Elton får bråttom hem till Molly. Han kryper genom hålet i buskarna.</p>
+    <p class="original" data-audio="audio/page-3-3.mp3" tabindex="0" role="button" title="Click to hear this line">Elton ringer på dörren. Molly öppnar och gäspar.</p>
+    <p class="original" data-audio="audio/page-3-4.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Hej,</em> säger hon trött. <em>Går du i sömnen?</em></p>
+    <p class="original" data-audio="audio/page-3-5.mp3" tabindex="0" role="button" title="Click to hear this line">Elton pekar på verkstan och pratar så snabbt han kan.</p>
+    <p class="original" data-audio="audio/page-3-6.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Taket är öppet, tänk om Robin ska flyga i raketen!</em></p>
+    <p class="original" data-audio="audio/page-3-7.mp3" tabindex="0" role="button" title="Click to hear this line">Molly blir genast pigg och sätter fart efter Elton.</p>
     <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
     <div class="translation-panel"><div class="translation-inner">
       <p>In the middle of the night, Elton wakes up to a noise outside the window. He looks out and sees that Molly's dad's workshop is lit up. He notices something strange — the roof is opening!</p>
@@ -479,12 +505,12 @@
       <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
       <audio preload="none" src="audio/page-4.mp3"></audio>
     </div>
-    <p class="original">Elton och Molly är så nyfikna att de går in i verkstan fast de inte får.</p>
-    <p class="original">Det är verkligen en riktig raket! Mollys pappa står på en stege för att hjälpa Robin. Han får syn på dem.</p>
-    <p class="original"><em>&#8211; Oj, är ni här?</em> säger han glatt. <em>Jag har uppfunnit en raket!</em></p>
-    <p class="original"><em>&#8211; Hej då, vi ses snart,</em> säger Robin och vinkar.</p>
-    <p class="original">Pappa stänger luckan till raketen och klättrar ner.</p>
-    <p class="original"><em>&#8211; Nu måste vi gå ut, för snart startar motorerna.</em></p>
+    <p class="original" data-audio="audio/page-4-1.mp3" tabindex="0" role="button" title="Click to hear this line">Elton och Molly är så nyfikna att de går in i verkstan fast de inte får.</p>
+    <p class="original" data-audio="audio/page-4-2.mp3" tabindex="0" role="button" title="Click to hear this line">Det är verkligen en riktig raket! Mollys pappa står på en stege för att hjälpa Robin. Han får syn på dem.</p>
+    <p class="original" data-audio="audio/page-4-3.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Oj, är ni här?</em> säger han glatt. <em>Jag har uppfunnit en raket!</em></p>
+    <p class="original" data-audio="audio/page-4-4.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Hej då, vi ses snart,</em> säger Robin och vinkar.</p>
+    <p class="original" data-audio="audio/page-4-5.mp3" tabindex="0" role="button" title="Click to hear this line">Pappa stänger luckan till raketen och klättrar ner.</p>
+    <p class="original" data-audio="audio/page-4-6.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Nu måste vi gå ut, för snart startar motorerna.</em></p>
     <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
     <div class="translation-panel"><div class="translation-inner">
       <p>Elton and Molly are so curious that they go into the workshop even though they're not allowed to.</p>
@@ -507,10 +533,10 @@
       <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
       <audio preload="none" src="audio/page-5.mp3"></audio>
     </div>
-    <p class="original">Elton, Molly och Mollys pappa går ut från verkstan. Det bullrar högt, det låter som många flygplan. Mollys storasyster Ines kommer ut och frågar vad som händer.</p>
-    <p class="original">De ser hur raketen långsamt lyfter och flyger upp mot himlen. På en sekund är den uppe i rymden och borta.</p>
-    <p class="original"><em>&#8211; Kolla! Den fungerar,</em> ropar pappa.</p>
-    <p class="original">De blir så glada att de börjar hoppa upp och ner. Ines står bara och gapar.</p>
+    <p class="original" data-audio="audio/page-5-1.mp3" tabindex="0" role="button" title="Click to hear this line">Elton, Molly och Mollys pappa går ut från verkstan. Det bullrar högt, det låter som många flygplan. Mollys storasyster Ines kommer ut och frågar vad som händer.</p>
+    <p class="original" data-audio="audio/page-5-2.mp3" tabindex="0" role="button" title="Click to hear this line">De ser hur raketen långsamt lyfter och flyger upp mot himlen. På en sekund är den uppe i rymden och borta.</p>
+    <p class="original" data-audio="audio/page-5-3.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Kolla! Den fungerar,</em> ropar pappa.</p>
+    <p class="original" data-audio="audio/page-5-4.mp3" tabindex="0" role="button" title="Click to hear this line">De blir så glada att de börjar hoppa upp och ner. Ines står bara och gapar.</p>
     <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
     <div class="translation-panel"><div class="translation-inner">
       <p>Elton, Molly, and Molly's dad go outside from the workshop. There's a loud rumbling, sounding like lots of airplanes. Molly's big sister Ines comes out and asks what's going on.</p>
@@ -539,10 +565,10 @@
       <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
       <audio preload="none" src="audio/page-6.mp3"></audio>
     </div>
-    <p class="original">Elton och Molly har börjat i tvåan. Det står 2A på dörren. De hänger upp sina jackor utanför klassrummet. Sen säger de god morgon till Vida.</p>
-    <p class="original">I ettan satt Elton bredvid Molly. Nu sitter han bredvid Judit. Elton tycker om att sitta bredvid henne. Hon älskar också att skriva och räkna. Judit säger roliga saker som får Elton att skratta.</p>
-    <p class="original"><em>&#8211; Vi behöver arbetsro,</em> säger Vida.</p>
-    <p class="original">Molly sitter bredvid Danilo och är sur.</p>
+    <p class="original" data-audio="audio/page-6-1.mp3" tabindex="0" role="button" title="Click to hear this line">Elton och Molly har börjat i tvåan. Det står 2A på dörren. De hänger upp sina jackor utanför klassrummet. Sen säger de god morgon till Vida.</p>
+    <p class="original" data-audio="audio/page-6-2.mp3" tabindex="0" role="button" title="Click to hear this line">I ettan satt Elton bredvid Molly. Nu sitter han bredvid Judit. Elton tycker om att sitta bredvid henne. Hon älskar också att skriva och räkna. Judit säger roliga saker som får Elton att skratta.</p>
+    <p class="original" data-audio="audio/page-6-3.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Vi behöver arbetsro,</em> säger Vida.</p>
+    <p class="original" data-audio="audio/page-6-4.mp3" tabindex="0" role="button" title="Click to hear this line">Molly sitter bredvid Danilo och är sur.</p>
     <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
     <div class="translation-panel"><div class="translation-inner">
       <p>Elton and Molly have started second grade. The door says 2A. They hang up their jackets outside the classroom. Then they say good morning to Vida.</p>
@@ -563,13 +589,13 @@
       <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
       <audio preload="none" src="audio/page-7.mp3"></audio>
     </div>
-    <p class="original">På rasten vill Judit spela bandy, men Molly vill gunga. Danilo börjar gunga. Hamid och Pella går förbi med varsin bandyklubba.</p>
-    <p class="original"><em>&#8211; Vi kan spela först och gunga sen,</em> säger Elton.</p>
-    <p class="original"><em>&#8211; Det vill inte jag,</em> säger Judit.</p>
-    <p class="original"><em>&#8211; Inte jag heller,</em> säger Molly.</p>
-    <p class="original">Elton tycker att alla ska vara kompisar. Molly och Judit sitter kvar och verkar sura.</p>
-    <p class="original"><em>&#8211; Jag vill i alla fall helst spela bandy,</em> säger Elton och går bort till Hamid och Pella.</p>
-    <p class="original">Judit följer med, Molly står kvar.</p>
+    <p class="original" data-audio="audio/page-7-1.mp3" tabindex="0" role="button" title="Click to hear this line">På rasten vill Judit spela bandy, men Molly vill gunga. Danilo börjar gunga. Hamid och Pella går förbi med varsin bandyklubba.</p>
+    <p class="original" data-audio="audio/page-7-2.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Vi kan spela först och gunga sen,</em> säger Elton.</p>
+    <p class="original" data-audio="audio/page-7-3.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Det vill inte jag,</em> säger Judit.</p>
+    <p class="original" data-audio="audio/page-7-4.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Inte jag heller,</em> säger Molly.</p>
+    <p class="original" data-audio="audio/page-7-5.mp3" tabindex="0" role="button" title="Click to hear this line">Elton tycker att alla ska vara kompisar. Molly och Judit sitter kvar och verkar sura.</p>
+    <p class="original" data-audio="audio/page-7-6.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Jag vill i alla fall helst spela bandy,</em> säger Elton och går bort till Hamid och Pella.</p>
+    <p class="original" data-audio="audio/page-7-7.mp3" tabindex="0" role="button" title="Click to hear this line">Judit följer med, Molly står kvar.</p>
     <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
     <div class="translation-panel"><div class="translation-inner">
       <p>At recess Judit wants to play bandy, but Molly wants to swing. Danilo starts swinging. Hamid and Pella walk by, each carrying a bandy stick.</p>
@@ -593,13 +619,13 @@
       <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
       <audio preload="none" src="audio/page-8.mp3"></audio>
     </div>
-    <p class="original">Efter rasten måste Elton och Judit dricka mycket vatten. De är svettiga i håret och smutsiga på knäna.</p>
-    <p class="original">Elton tycker att det blev en bra match. Judit och Elton vann över Hamid och Pella.</p>
-    <p class="original"><em>&#8211; Vi är bäst,</em> säger Elton.</p>
-    <p class="original"><em>&#8211; Ni får spela ett mattespel om ni vill,</em> säger Vida.</p>
-    <p class="original">Det vill Elton och Judit. Elton vänder sig till Molly och Danilo.</p>
-    <p class="original"><em>&#8211; Vill ni vara med?</em> frågar han.</p>
-    <p class="original"><em>&#8211; Gärna,</em> säger Danilo. Molly svarar inte. Hon fortsätter bara att räkna i boken.</p>
+    <p class="original" data-audio="audio/page-8-1.mp3" tabindex="0" role="button" title="Click to hear this line">Efter rasten måste Elton och Judit dricka mycket vatten. De är svettiga i håret och smutsiga på knäna.</p>
+    <p class="original" data-audio="audio/page-8-2.mp3" tabindex="0" role="button" title="Click to hear this line">Elton tycker att det blev en bra match. Judit och Elton vann över Hamid och Pella.</p>
+    <p class="original" data-audio="audio/page-8-3.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Vi är bäst,</em> säger Elton.</p>
+    <p class="original" data-audio="audio/page-8-4.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Ni får spela ett mattespel om ni vill,</em> säger Vida.</p>
+    <p class="original" data-audio="audio/page-8-5.mp3" tabindex="0" role="button" title="Click to hear this line">Det vill Elton och Judit. Elton vänder sig till Molly och Danilo.</p>
+    <p class="original" data-audio="audio/page-8-6.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Vill ni vara med?</em> frågar han.</p>
+    <p class="original" data-audio="audio/page-8-7.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Gärna,</em> säger Danilo. Molly svarar inte. Hon fortsätter bara att räkna i boken.</p>
     <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
     <div class="translation-panel"><div class="translation-inner">
       <p>After recess, Elton and Judit have to drink a lot of water. Their hair is sweaty and their knees are dirty.</p>
@@ -623,12 +649,12 @@
       <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
       <audio preload="none" src="audio/page-9.mp3"></audio>
     </div>
-    <p class="original">Elton och Molly brukar alltid gå hem från skolan tillsammans. Men idag går Molly bara iväg. Hon säger inte ens hej då.</p>
-    <p class="original">Elton får springa efter. Han vill att det ska vara som vanligt med Molly. Då kommer han ihåg deras tävling. Nu är det Eltons tur att bestämma vad Molly ska göra.</p>
-    <p class="original"><em>&#8211; Du minns väl tävlingen?</em> frågar han. <em>När Robin är tillbaka ska du åka med rymdraketen.</em></p>
-    <p class="original"><em>&#8211; Det är en dum tävling,</em> säger Molly.</p>
-    <p class="original"><em>&#8211; Den är spännande. Det var ju du som hittade på den.</em></p>
-    <p class="original">Han vill att Molly ska bli glad igen. Men Molly fortsätter framåt med snabba steg.</p>
+    <p class="original" data-audio="audio/page-9-1.mp3" tabindex="0" role="button" title="Click to hear this line">Elton och Molly brukar alltid gå hem från skolan tillsammans. Men idag går Molly bara iväg. Hon säger inte ens hej då.</p>
+    <p class="original" data-audio="audio/page-9-2.mp3" tabindex="0" role="button" title="Click to hear this line">Elton får springa efter. Han vill att det ska vara som vanligt med Molly. Då kommer han ihåg deras tävling. Nu är det Eltons tur att bestämma vad Molly ska göra.</p>
+    <p class="original" data-audio="audio/page-9-3.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Du minns väl tävlingen?</em> frågar han. <em>När Robin är tillbaka ska du åka med rymdraketen.</em></p>
+    <p class="original" data-audio="audio/page-9-4.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Det är en dum tävling,</em> säger Molly.</p>
+    <p class="original" data-audio="audio/page-9-5.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Den är spännande. Det var ju du som hittade på den.</em></p>
+    <p class="original" data-audio="audio/page-9-6.mp3" tabindex="0" role="button" title="Click to hear this line">Han vill att Molly ska bli glad igen. Men Molly fortsätter framåt med snabba steg.</p>
     <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
     <div class="translation-panel"><div class="translation-inner">
       <p>Elton and Molly usually walk home from school together. But today Molly just walks off. She doesn't even say bye.</p>
@@ -651,15 +677,15 @@
       <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
       <audio preload="none" src="audio/page-10.mp3"></audio>
     </div>
-    <p class="original">Det är tråkigt att gå med någon som är sur. Elton gör roliga miner. Han kittlar Molly och berättar roliga historier.</p>
-    <p class="original"><em>&#8211; Det kanske är roligare för dig att vara med Judit. Hon gillar också att tävla,</em> säger Molly.</p>
-    <p class="original"><em>&#8211; Jag vill att alla ska vara med. Jag är kompis med Danilo, Hamid, Pella, Judit och med dig,</em> säger Elton.</p>
-    <p class="original"><em>&#8211; Men det är vi som går till skolan tillsammans,</em> säger Molly.</p>
-    <p class="original"><em>&#8211; Och bor grannar,</em> säger Elton.</p>
-    <p class="original"><em>&#8211; Och har en spännande tävling,</em> säger Molly.</p>
-    <p class="original">Elton och Molly spanar upp i himlen. Där uppe är Robin.</p>
-    <p class="original"><em>&#8211; Kommer du att våga?</em> frågar Elton.</p>
-    <p class="original"><em>&#8211; Jag vågar allt,</em> svarar Molly.</p>
+    <p class="original" data-audio="audio/page-10-1.mp3" tabindex="0" role="button" title="Click to hear this line">Det är tråkigt att gå med någon som är sur. Elton gör roliga miner. Han kittlar Molly och berättar roliga historier.</p>
+    <p class="original" data-audio="audio/page-10-2.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Det kanske är roligare för dig att vara med Judit. Hon gillar också att tävla,</em> säger Molly.</p>
+    <p class="original" data-audio="audio/page-10-3.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Jag vill att alla ska vara med. Jag är kompis med Danilo, Hamid, Pella, Judit och med dig,</em> säger Elton.</p>
+    <p class="original" data-audio="audio/page-10-4.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Men det är vi som går till skolan tillsammans,</em> säger Molly.</p>
+    <p class="original" data-audio="audio/page-10-5.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Och bor grannar,</em> säger Elton.</p>
+    <p class="original" data-audio="audio/page-10-6.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Och har en spännande tävling,</em> säger Molly.</p>
+    <p class="original" data-audio="audio/page-10-7.mp3" tabindex="0" role="button" title="Click to hear this line">Elton och Molly spanar upp i himlen. Där uppe är Robin.</p>
+    <p class="original" data-audio="audio/page-10-8.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Kommer du att våga?</em> frågar Elton.</p>
+    <p class="original" data-audio="audio/page-10-9.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Jag vågar allt,</em> svarar Molly.</p>
     <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
     <div class="translation-panel"><div class="translation-inner">
       <p>It's boring walking with someone who's grumpy. Elton makes funny faces. He tickles Molly and tells silly stories.</p>
@@ -682,11 +708,20 @@
 </div>
 
 <script>
+  var lineAudio = new Audio();
+  var speakingP = null;
+  function stopLineAudio(){
+    lineAudio.pause();
+    if(speakingP){ speakingP.classList.remove('speaking'); }
+    speakingP = null;
+  }
+
   document.querySelectorAll('.narration').forEach(function(box){
     var btn = box.querySelector('.play-btn');
     var audio = box.querySelector('audio');
     btn.addEventListener('click', function(){
       if(audio.paused){
+        stopLineAudio();
         document.querySelectorAll('audio').forEach(function(a){
           if(a !== audio){ a.pause(); a.currentTime = 0; }
         });
@@ -701,6 +736,34 @@
     audio.addEventListener('play', function(){ box.classList.add('playing'); });
     audio.addEventListener('pause', function(){ box.classList.remove('playing'); });
     audio.addEventListener('ended', function(){ box.classList.remove('playing'); });
+  });
+
+  document.querySelectorAll('p.original[data-audio]').forEach(function(p){
+    function toggleLine(){
+      var wasSpeaking = (speakingP === p) && !lineAudio.paused;
+      document.querySelectorAll('.narration audio').forEach(function(a){
+        a.pause(); a.currentTime = 0;
+      });
+      document.querySelectorAll('.narration').forEach(function(b){ b.classList.remove('playing'); });
+      stopLineAudio();
+      if(wasSpeaking){ return; }
+      lineAudio.src = p.getAttribute('data-audio');
+      lineAudio.currentTime = 0;
+      lineAudio.play();
+      p.classList.add('speaking');
+      speakingP = p;
+    }
+    p.addEventListener('click', toggleLine);
+    p.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        toggleLine();
+      }
+    });
+  });
+  lineAudio.addEventListener('ended', function(){
+    if(speakingP){ speakingP.classList.remove('speaking'); }
+    speakingP = null;
   });
 
   document.querySelectorAll('.translate-toggle').forEach(function(btn){
