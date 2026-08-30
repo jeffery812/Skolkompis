@@ -1,0 +1,739 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Robin kollar en tidsmaskin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Literata:ital,opsz,wght@0,18..144,400;0,18..144,500;0,18..144,600;1,18..144,400;1,18..144,500&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky: #0b0f2b;
+    --sky-deep: #060815;
+    --paper: #f7ecd6;
+    --paper-edge: #e9dab8;
+    --ink: #221c2f;
+    --ink-soft: #4a4160;
+    --rocket: #ff6a4d;
+    --rocket-dark: #d94f36;
+    --gold: #f2b84b;
+    --teal: #1f6f6a;
+    --teal-tint: #e4f1ec;
+    color-scheme: light;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Literata', serif;
+    overflow-x:hidden;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    background:
+      radial-gradient(ellipse 60% 40% at 20% 15%, rgba(242,184,75,0.15), transparent 60%),
+      radial-gradient(circle at 82% 70%, rgba(255,106,77,0.12), transparent 55%),
+      radial-gradient(1.5px 1.5px at 10% 20%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 25% 65%, #fff, transparent),
+      radial-gradient(1px 1px at 40% 30%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 55% 80%, #fff, transparent),
+      radial-gradient(1px 1px at 68% 15%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 78% 45%, #fff, transparent),
+      radial-gradient(1px 1px at 88% 70%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 95% 25%, #fff, transparent),
+      radial-gradient(1px 1px at 5% 85%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 33% 92%, #fff, transparent),
+      linear-gradient(180deg, var(--sky) 0%, var(--sky-deep) 100%);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:6vh 6vw;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      radial-gradient(1px 1px at 15% 45%, rgba(255,255,255,.7), transparent),
+      radial-gradient(1px 1px at 60% 55%, rgba(255,255,255,.6), transparent),
+      radial-gradient(1px 1px at 85% 85%, rgba(255,255,255,.7), transparent),
+      radial-gradient(1px 1px at 45% 10%, rgba(255,255,255,.6), transparent);
+    animation: twinkle 4s ease-in-out infinite alternate;
+  }
+  @keyframes twinkle{ from{opacity:.3;} to{opacity:1;} }
+
+  .hero-kicker{
+    font-family:'ZCOOL KuaiLe', cursive;
+    color:var(--gold);
+    font-size:clamp(1rem, 2vw, 1.3rem);
+    letter-spacing:.12em;
+    margin:0 0 1rem;
+    opacity:0;
+    animation: rise .8s ease forwards .2s;
+    position:relative; z-index:2;
+  }
+  .hero h1{
+    font-family:'Baloo 2', cursive;
+    font-weight:800;
+    color:#fff7e8;
+    font-size:clamp(2.6rem, 8vw, 6rem);
+    line-height:1.02;
+    margin:0;
+    text-shadow: 0 4px 0 rgba(0,0,0,.25), 0 18px 40px rgba(0,0,0,.35);
+    opacity:0;
+    animation: rise .9s ease forwards .4s;
+    position:relative; z-index:2;
+  }
+  .hero h1 span{ color:var(--rocket); }
+  .hero p.tagline{
+    font-style:italic;
+    color:#cfd3f0;
+    max-width:38ch;
+    margin:1.4rem auto 0;
+    font-size:clamp(1rem,1.6vw,1.25rem);
+    opacity:0;
+    animation: rise .9s ease forwards .65s;
+    position:relative; z-index:2;
+  }
+
+  @keyframes rise{
+    from{ opacity:0; transform:translateY(24px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  .rocket-rig{
+    position:absolute;
+    left:50%; bottom:-10%;
+    width:120px; height:220px;
+    transform: translateX(-50%);
+    animation: launch 5.5s cubic-bezier(.6,0,.4,1) infinite;
+    z-index:1;
+  }
+  @keyframes launch{
+    0%   { transform: translate(-50%, 0) rotate(-4deg); opacity:0; }
+    8%   { opacity:1; }
+    70%  { transform: translate(calc(-50% + 60px), -92vh) rotate(6deg); opacity:1; }
+    85%  { opacity:0; }
+    100% { transform: translate(-50%, 0) rotate(-4deg); opacity:0; }
+  }
+  .rocket-rig svg{ width:100%; height:100%; display:block; filter:drop-shadow(0 10px 18px rgba(0,0,0,.4)); }
+  .flame{ transform-origin:60px 190px; animation: flicker .18s ease-in-out infinite alternate; }
+  @keyframes flicker{ from{ transform:scaleY(1) scaleX(1);} to{ transform:scaleY(1.25) scaleX(.85);} }
+
+  .scroll-cue{
+    position:absolute; bottom:2.4rem; left:50%; transform:translateX(-50%);
+    color:#cfd3f0; font-size:.85rem; letter-spacing:.2em; text-transform:uppercase;
+    opacity:.7; z-index:2;
+    animation: bob 2.2s ease-in-out infinite;
+  }
+  @keyframes bob{ 0%,100%{ transform:translate(-50%,0);} 50%{ transform:translate(-50%,8px);} }
+
+  /* ---------- BOOK BODY ---------- */
+  .book{
+    position:relative;
+    max-width:900px;
+    margin:0 auto;
+    padding: 5rem 1.4rem 8rem;
+  }
+  .book::before{
+    content:"";
+    position:absolute; top:0; bottom:0; left:50%;
+    width:2px;
+    background:repeating-linear-gradient(180deg, var(--paper-edge) 0 10px, transparent 10px 20px);
+    transform:translateX(-50%);
+    z-index:0;
+  }
+
+  .chapter-divider{
+    position:relative; z-index:1;
+    display:flex; align-items:center; gap:1.4rem;
+    max-width:640px; margin: 4rem auto 3rem;
+    opacity:0; transform:translateY(30px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .chapter-divider.in-view{ opacity:1; transform:translateY(0); }
+  .chapter-number{
+    flex:none;
+    width:64px; height:64px; border-radius:50%;
+    background: var(--rocket);
+    color:#fff5e6;
+    font-family:'Baloo 2', cursive; font-weight:800; font-size:1.6rem;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 8px 0 var(--rocket-dark), 0 14px 24px rgba(0,0,0,.25);
+  }
+  .chapter-divider h2{
+    font-family:'Baloo 2', cursive;
+    font-weight:700;
+    font-size:clamp(1.5rem,3vw,2.1rem);
+    margin:0;
+    color:var(--ink);
+  }
+  .chapter-divider .cn{
+    display:block; font-family:'ZCOOL KuaiLe', cursive; font-size:1rem;
+    color:var(--teal); margin-top:.2rem;
+  }
+
+  .page-card{
+    position:relative; z-index:1;
+    background:var(--paper);
+    border:1px solid var(--paper-edge);
+    border-radius: 6px;
+    padding: 2.2rem 2.4rem 1.6rem;
+    margin: 0 auto 3.2rem;
+    max-width: 620px;
+    box-shadow: 0 1px 0 rgba(0,0,0,.03), 0 18px 34px -18px rgba(34,28,47,.35);
+    transform: rotate(var(--tilt,0deg)) translateY(24px);
+    opacity:0;
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .page-card.in-view{ opacity:1; transform: rotate(var(--tilt,0deg)) translateY(0); }
+  .page-card:hover{ transform: rotate(0deg) translateY(-2px); box-shadow: 0 1px 0 rgba(0,0,0,.03), 0 26px 44px -18px rgba(34,28,47,.4); }
+  .page-card::after{
+    content:"";
+    position:absolute; top:0; right:0;
+    width:0; height:0;
+    border-style:solid;
+    border-width:0 26px 26px 0;
+    border-color: transparent var(--paper-edge) transparent transparent;
+  }
+
+  .page-tag{
+    font-family:'ZCOOL KuaiLe', cursive;
+    color:var(--rocket-dark);
+    font-size:.85rem;
+    letter-spacing:.08em;
+    margin-bottom:.9rem;
+    display:flex; align-items:center; gap:.5em;
+  }
+  .page-tag::before{ content:"✶"; color:var(--gold); }
+
+  .narration{
+    display:flex; align-items:center; gap:.9rem;
+    margin:0 0 1.3rem;
+    padding:.55rem .7rem .55rem .55rem;
+    background:#fffaf0;
+    border:1px solid var(--paper-edge);
+    border-radius:999px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.6), 0 4px 10px -6px rgba(34,28,47,.3);
+  }
+  .play-btn{
+    flex:none;
+    width:38px; height:38px; border-radius:50%;
+    background: var(--rocket);
+    box-shadow: 0 3px 0 var(--rocket-dark);
+    border:none; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .play-btn:active{ transform:translateY(2px); box-shadow:0 1px 0 var(--rocket-dark); }
+  .play-btn svg{ width:16px; height:16px; fill:#fff7e8; }
+  .play-btn .icon-pause{ display:none; }
+  .narration.playing .play-btn .icon-play{ display:none; }
+  .narration.playing .play-btn .icon-pause{ display:block; }
+
+  .wave{ display:flex; align-items:center; gap:3px; height:18px; flex:none; }
+  .wave span{
+    width:3px; height:6px; border-radius:2px;
+    background: var(--teal);
+    opacity:.55;
+    transform-origin:center;
+  }
+  .narration.playing .wave span{ animation: bounce 0.9s ease-in-out infinite; opacity:1; }
+  .wave span:nth-child(1){ animation-delay:0s; }
+  .wave span:nth-child(2){ animation-delay:.12s; }
+  .wave span:nth-child(3){ animation-delay:.24s; }
+  .wave span:nth-child(4){ animation-delay:.36s; }
+  .wave span:nth-child(5){ animation-delay:.48s; }
+  @keyframes bounce{
+    0%,100%{ height:6px; }
+    50%{ height:17px; }
+  }
+
+  .narration-label{
+    font-family:'Baloo 2', cursive;
+    font-weight:600;
+    font-size:.85rem;
+    color:var(--ink-soft);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .narration-label .cn-sub{
+    display:block;
+    font-family:'ZCOOL KuaiLe', cursive;
+    font-weight:400;
+    font-size:.75rem;
+    color:var(--teal);
+  }
+
+  .page-card p.original{
+    font-size:1.08rem;
+    line-height:1.75;
+    margin:0 0 1rem;
+    color:var(--ink);
+  }
+  .page-card p.original:last-of-type{ margin-bottom:0; }
+  .page-card p.original em{ color:var(--ink-soft); }
+
+  .translate-toggle{
+    margin-top:1.4rem;
+    font-family:'Baloo 2', cursive;
+    font-weight:600;
+    font-size:.92rem;
+    color:var(--teal);
+    background:var(--teal-tint);
+    border:1px solid rgba(31,111,106,.25);
+    border-radius:999px;
+    padding:.5em 1.1em;
+    cursor:pointer;
+    display:inline-flex; align-items:center; gap:.5em;
+    transition: background .2s ease, transform .15s ease;
+  }
+  .translate-toggle:hover{ background:#d3ebe4; transform:translateY(-1px); }
+  .translate-toggle .chevron{ transition: transform .25s ease; display:inline-block; }
+  .translate-toggle[aria-expanded="true"] .chevron{ transform:rotate(180deg); }
+
+  .translation-panel{
+    display:grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows .35s ease;
+  }
+  .translation-panel > div{ overflow:hidden; }
+  .translate-toggle[aria-expanded="true"] + .translation-panel{ grid-template-rows: 1fr; }
+  .translation-inner{
+    margin-top:1rem;
+    padding: 1rem 1.2rem;
+    background: var(--teal-tint);
+    border-left:3px solid var(--teal);
+    border-radius: 0 8px 8px 0;
+  }
+  .translation-inner p{
+    font-family:'Literata', serif;
+    font-style:italic;
+    font-size:1.02rem;
+    line-height:1.85;
+    color:#1b3d3a;
+    margin:0 0 .8em;
+  }
+  .translation-inner p:last-child{ margin-bottom:0; }
+
+  /* ---------- side dot nav ---------- */
+  .dotnav{
+    position:fixed; right:1.6rem; top:50%; transform:translateY(-50%);
+    display:flex; flex-direction:column; gap:.55rem; z-index:10;
+  }
+  .dotnav a{
+    width:9px; height:9px; border-radius:50%;
+    background: rgba(34,28,47,.18);
+    transition: background .2s ease, transform .2s ease;
+  }
+  .dotnav a.active{ background:var(--rocket); transform:scale(1.3); }
+  @media (max-width: 780px){ .dotnav{ display:none; } }
+
+  /* ---------- footer ---------- */
+  .book-footer{
+    text-align:center;
+    padding: 2rem 1rem 5rem;
+    color:var(--ink-soft);
+    font-family:'ZCOOL KuaiLe', cursive;
+    font-size:1rem;
+  }
+  .book-footer span{ display:block; color:var(--rocket-dark); font-size:1.4rem; margin-bottom:.4rem; }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <p class="hero-kicker">EN BOK OM ELTON, MOLLY OCH ROBIN · A STORY ABOUT ELTON, MOLLY AND THE ROBOT ROBIN</p>
+  <h1>Robin kollar<br>en <span>tidsmaskin</span></h1>
+  <p class="tagline">Grannar. Bästisar. En omöjlig tävling — och en robot som just har uppfunnit något han inte får prata om.</p>
+  <div class="rocket-rig" aria-hidden="true">
+    <svg viewBox="0 0 120 220">
+      <ellipse class="flame" cx="60" cy="188" rx="14" ry="26" fill="#ffb057"/>
+      <ellipse class="flame" cx="60" cy="188" rx="7" ry="16" fill="#fff2c8"/>
+      <path d="M60 4 C86 30 96 80 90 140 L30 140 C24 80 34 30 60 4 Z" fill="#f4e6cf" stroke="#221c2f" stroke-width="2"/>
+      <path d="M30 140 L10 172 L34 160 Z" fill="#ff6a4d" stroke="#221c2f" stroke-width="2"/>
+      <path d="M90 140 L110 172 L86 160 Z" fill="#ff6a4d" stroke="#221c2f" stroke-width="2"/>
+      <circle cx="60" cy="66" r="16" fill="#8fd0e8" stroke="#221c2f" stroke-width="2"/>
+      <rect x="30" y="140" width="60" height="10" fill="#d94f36" stroke="#221c2f" stroke-width="2"/>
+    </svg>
+  </div>
+  <div class="scroll-cue">Scrolla ↓ Läs boken</div>
+</section>
+
+<nav class="dotnav" aria-hidden="true">
+  <a href="#p1"></a><a href="#p2"></a><a href="#p3"></a><a href="#p4"></a><a href="#p5"></a>
+  <a href="#p6"></a><a href="#p7"></a><a href="#p8"></a><a href="#p9"></a><a href="#p10"></a>
+</nav>
+
+<main class="book">
+
+  <div class="chapter-divider reveal">
+    <div class="chapter-number">1</div>
+    <div>
+      <h2>En rymdraket!</h2>
+      <span class="cn">Chapter 1 · A Rocket!</span>
+    </div>
+  </div>
+
+  <article class="page-card reveal" id="p1" style="--tilt:-1.1deg;">
+    <div class="page-tag">Sida 6</div>
+    <div class="narration">
+      <button class="play-btn" aria-label="Spela upp sida 6 på svenska">
+        <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </button>
+      <div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+      <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
+      <audio preload="none" src="audio/page-1.mp3"></audio>
+    </div>
+    <p class="original">Molly och Elton bor i precis likadana radhus. Annars är det mesta olika.</p>
+    <p class="original">Hos Elton är det ordning. I hans familj vill alla tävla. Mamma och pappa spelar tennis och jobbar mycket. Storebror Sandor spelar fotboll, precis som Elton.</p>
+    <p class="original">Elton älskar att vinna. Därför är det synd att alla andra i hans familj också älskar att vinna. Men det är bra att Elton är kompis med Molly, för de har en tävling som är svår. I tävlingen kommer de på saker som den andra ska göra. Just nu står det 1&#8211;0 till Elton.</p>
+    <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
+    <div class="translation-panel"><div class="translation-inner">
+      <p>Molly and Elton live in exactly identical row houses. Apart from that, they're mostly different.</p>
+      <p>At Elton's house, everything is orderly. Everyone in his family loves to compete. Mom and Dad play tennis and work a lot. Big brother Sandor plays football, just like Elton.</p>
+      <p>Elton loves to win. Too bad, then, that everyone else in his family loves to win too. But it's lucky Elton is friends with Molly, because the two of them have a game that's hard — they take turns thinking up things for the other one to do. Right now the score is 1&#8211;0 to Elton.</p>
+    </div></div>
+  </article>
+
+  <article class="page-card reveal" id="p2" style="--tilt:1.3deg;">
+    <div class="page-tag">Sida 7</div>
+    <div class="narration">
+      <button class="play-btn" aria-label="Spela upp sida 7 på svenska">
+        <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </button>
+      <div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+      <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
+      <audio preload="none" src="audio/page-2.mp3"></audio>
+    </div>
+    <p class="original">Hos Molly är det stökigt. Här vill ingen städa. Varken pappa, Molly eller Mollys storasyster Ines.</p>
+    <p class="original">Jo, förresten! Robin vill städa. Vilken tur att Mollys pappa är uppfinnare. Förut uppfann han Robin. Nu har han uppfunnit en&#8230; Just det, det är ju hemligt.</p>
+    <p class="original">Det skramlar och borras inne i verkstan. Robin släpar hemliga saker fram och tillbaka. Elton och Molly försöker titta in genom fönstret.</p>
+    <p class="original">Robin rullar ut från verkstan.</p>
+    <p class="original"><em>&#8211; Det är en liten rymdraket, men den kommer att flyga bra,</em> säger Robin. <em>Men det får jag inte säga.</em></p>
+    <p class="original"><em>&#8211; Hur ska pappa få plats i raketen?</em></p>
+    <p class="original"><em>&#8211; Det är inte han som ska ut i rymden. Det är jag. Men det där hörde ni inte heller från mig.</em></p>
+    <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
+    <div class="translation-panel"><div class="translation-inner">
+      <p>At Molly's house, it's messy. Nobody here wants to clean — not Dad, not Molly, not Molly's big sister Ines either.</p>
+      <p>Oh, actually! Robin wants to clean. Lucky that Molly's dad is an inventor. He invented Robin once. Now he's invented a&#8230; right, that's a secret.</p>
+      <p>There's rattling and drilling going on inside the workshop. Robin drags secret things back and forth. Elton and Molly try to peek in through the window.</p>
+      <p>Robin rolls out of the workshop.</p>
+      <p>"It's a little space rocket, but it's going to fly just fine," says Robin. "But I'm not allowed to say that."</p>
+      <p>"How's Dad going to fit inside the rocket?"</p>
+      <p>"He's not the one going into space. I am. But you didn't hear that from me either."</p>
+    </div></div>
+  </article>
+
+  <article class="page-card reveal" id="p3" style="--tilt:-1.6deg;">
+    <div class="page-tag">Sida 8</div>
+    <div class="narration">
+      <button class="play-btn" aria-label="Spela upp sida 8 på svenska">
+        <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </button>
+      <div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+      <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
+      <audio preload="none" src="audio/page-3.mp3"></audio>
+    </div>
+    <p class="original">På natten vaknar Elton av att det låter utanför fönstret. Han tittar ut och får se att det lyser i Mollys pappas verkstad. Han ser något konstigt. Taket öppnar sig!</p>
+    <p class="original">Elton får bråttom hem till Molly. Han kryper genom hålet i buskarna.</p>
+    <p class="original">Elton ringer på dörren. Molly öppnar och gäspar.</p>
+    <p class="original"><em>&#8211; Hej,</em> säger hon trött. <em>Går du i sömnen?</em></p>
+    <p class="original">Elton pekar på verkstan och pratar så snabbt han kan.</p>
+    <p class="original"><em>&#8211; Taket är öppet, tänk om Robin ska flyga i raketen!</em></p>
+    <p class="original">Molly blir genast pigg och sätter fart efter Elton.</p>
+    <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
+    <div class="translation-panel"><div class="translation-inner">
+      <p>In the middle of the night, Elton wakes up to a noise outside the window. He looks out and sees that Molly's dad's workshop is lit up. He notices something strange — the roof is opening!</p>
+      <p>Elton hurries over to Molly's house. He crawls through the gap in the bushes.</p>
+      <p>Elton rings the doorbell. Molly opens the door, yawning.</p>
+      <p>"Hi," she says sleepily. "Are you sleepwalking?"</p>
+      <p>Elton points at the workshop and talks as fast as he can.</p>
+      <p>"The roof is open — what if Robin's about to fly off in the rocket!"</p>
+      <p>Molly instantly wakes up and races off after Elton.</p>
+    </div></div>
+  </article>
+
+  <article class="page-card reveal" id="p4" style="--tilt:1.1deg;">
+    <div class="page-tag">Sida 9</div>
+    <div class="narration">
+      <button class="play-btn" aria-label="Spela upp sida 9 på svenska">
+        <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </button>
+      <div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+      <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
+      <audio preload="none" src="audio/page-4.mp3"></audio>
+    </div>
+    <p class="original">Elton och Molly är så nyfikna att de går in i verkstan fast de inte får.</p>
+    <p class="original">Det är verkligen en riktig raket! Mollys pappa står på en stege för att hjälpa Robin. Han får syn på dem.</p>
+    <p class="original"><em>&#8211; Oj, är ni här?</em> säger han glatt. <em>Jag har uppfunnit en raket!</em></p>
+    <p class="original"><em>&#8211; Hej då, vi ses snart,</em> säger Robin och vinkar.</p>
+    <p class="original">Pappa stänger luckan till raketen och klättrar ner.</p>
+    <p class="original"><em>&#8211; Nu måste vi gå ut, för snart startar motorerna.</em></p>
+    <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
+    <div class="translation-panel"><div class="translation-inner">
+      <p>Elton and Molly are so curious that they go into the workshop even though they're not allowed to.</p>
+      <p>It really is a real rocket! Molly's dad is standing on a ladder helping Robin. He spots them.</p>
+      <p>"Oh, are you here?" he says cheerfully. "I've invented a rocket!"</p>
+      <p>"Bye then, see you soon," says Robin, waving.</p>
+      <p>Dad closes the hatch on the rocket and climbs down.</p>
+      <p>"We need to go outside now, the engines are about to start."</p>
+    </div></div>
+  </article>
+
+  <article class="page-card reveal" id="p5" style="--tilt:-1.2deg;">
+    <div class="page-tag">Sida 10</div>
+    <div class="narration">
+      <button class="play-btn" aria-label="Spela upp sida 10 på svenska">
+        <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </button>
+      <div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+      <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
+      <audio preload="none" src="audio/page-5.mp3"></audio>
+    </div>
+    <p class="original">Elton, Molly och Mollys pappa går ut från verkstan. Det bullrar högt, det låter som många flygplan. Mollys storasyster Ines kommer ut och frågar vad som händer.</p>
+    <p class="original">De ser hur raketen långsamt lyfter och flyger upp mot himlen. På en sekund är den uppe i rymden och borta.</p>
+    <p class="original"><em>&#8211; Kolla! Den fungerar,</em> ropar pappa.</p>
+    <p class="original">De blir så glada att de börjar hoppa upp och ner. Ines står bara och gapar.</p>
+    <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
+    <div class="translation-panel"><div class="translation-inner">
+      <p>Elton, Molly, and Molly's dad go outside from the workshop. There's a loud rumbling, sounding like lots of airplanes. Molly's big sister Ines comes out and asks what's going on.</p>
+      <p>They watch the rocket slowly lift off and fly up toward the sky. In a second it's up in space and gone.</p>
+      <p>"Look! It works!" Dad shouts.</p>
+      <p>They're so happy they start jumping up and down. Ines just stands there, gaping.</p>
+    </div></div>
+  </article>
+
+  <div class="chapter-divider reveal">
+    <div class="chapter-number">2</div>
+    <div>
+      <h2>Elton och Judit</h2>
+      <span class="cn">Chapter 2 · Elton and Judit</span>
+    </div>
+  </div>
+
+  <article class="page-card reveal" id="p6" style="--tilt:1.4deg;">
+    <div class="page-tag">Sida 11</div>
+    <div class="narration">
+      <button class="play-btn" aria-label="Spela upp sida 11 på svenska">
+        <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </button>
+      <div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+      <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
+      <audio preload="none" src="audio/page-6.mp3"></audio>
+    </div>
+    <p class="original">Elton och Molly har börjat i tvåan. Det står 2A på dörren. De hänger upp sina jackor utanför klassrummet. Sen säger de god morgon till Vida.</p>
+    <p class="original">I ettan satt Elton bredvid Molly. Nu sitter han bredvid Judit. Elton tycker om att sitta bredvid henne. Hon älskar också att skriva och räkna. Judit säger roliga saker som får Elton att skratta.</p>
+    <p class="original"><em>&#8211; Vi behöver arbetsro,</em> säger Vida.</p>
+    <p class="original">Molly sitter bredvid Danilo och är sur.</p>
+    <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
+    <div class="translation-panel"><div class="translation-inner">
+      <p>Elton and Molly have started second grade. The door says 2A. They hang up their jackets outside the classroom. Then they say good morning to Vida.</p>
+      <p>In first grade, Elton sat next to Molly. Now he sits next to Judit. Elton likes sitting next to her — she also loves writing and doing math. Judit says funny things that make Elton laugh.</p>
+      <p>"We need to work quietly," says Vida.</p>
+      <p>Molly sits next to Danilo, looking grumpy.</p>
+    </div></div>
+  </article>
+
+  <article class="page-card reveal" id="p7" style="--tilt:-1.3deg;">
+    <div class="page-tag">Sida 12</div>
+    <div class="narration">
+      <button class="play-btn" aria-label="Spela upp sida 12 på svenska">
+        <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </button>
+      <div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+      <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
+      <audio preload="none" src="audio/page-7.mp3"></audio>
+    </div>
+    <p class="original">På rasten vill Judit spela bandy, men Molly vill gunga. Danilo börjar gunga. Hamid och Pella går förbi med varsin bandyklubba.</p>
+    <p class="original"><em>&#8211; Vi kan spela först och gunga sen,</em> säger Elton.</p>
+    <p class="original"><em>&#8211; Det vill inte jag,</em> säger Judit.</p>
+    <p class="original"><em>&#8211; Inte jag heller,</em> säger Molly.</p>
+    <p class="original">Elton tycker att alla ska vara kompisar. Molly och Judit sitter kvar och verkar sura.</p>
+    <p class="original"><em>&#8211; Jag vill i alla fall helst spela bandy,</em> säger Elton och går bort till Hamid och Pella.</p>
+    <p class="original">Judit följer med, Molly står kvar.</p>
+    <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
+    <div class="translation-panel"><div class="translation-inner">
+      <p>At recess Judit wants to play bandy, but Molly wants to swing. Danilo starts swinging. Hamid and Pella walk by, each carrying a bandy stick.</p>
+      <p>"We could play first and swing after," says Elton.</p>
+      <p>"I don't want to," says Judit.</p>
+      <p>"Me neither," says Molly.</p>
+      <p>Elton thinks everyone should be friends. Molly and Judit stay put, looking grumpy.</p>
+      <p>"Well, I'd rather play bandy anyway," says Elton, walking off to Hamid and Pella.</p>
+      <p>Judit follows along; Molly stays behind.</p>
+    </div></div>
+  </article>
+
+  <article class="page-card reveal" id="p8" style="--tilt:1.2deg;">
+    <div class="page-tag">Sida 13</div>
+    <div class="narration">
+      <button class="play-btn" aria-label="Spela upp sida 13 på svenska">
+        <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </button>
+      <div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+      <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
+      <audio preload="none" src="audio/page-8.mp3"></audio>
+    </div>
+    <p class="original">Efter rasten måste Elton och Judit dricka mycket vatten. De är svettiga i håret och smutsiga på knäna.</p>
+    <p class="original">Elton tycker att det blev en bra match. Judit och Elton vann över Hamid och Pella.</p>
+    <p class="original"><em>&#8211; Vi är bäst,</em> säger Elton.</p>
+    <p class="original"><em>&#8211; Ni får spela ett mattespel om ni vill,</em> säger Vida.</p>
+    <p class="original">Det vill Elton och Judit. Elton vänder sig till Molly och Danilo.</p>
+    <p class="original"><em>&#8211; Vill ni vara med?</em> frågar han.</p>
+    <p class="original"><em>&#8211; Gärna,</em> säger Danilo. Molly svarar inte. Hon fortsätter bara att räkna i boken.</p>
+    <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
+    <div class="translation-panel"><div class="translation-inner">
+      <p>After recess, Elton and Judit have to drink a lot of water. Their hair is sweaty and their knees are dirty.</p>
+      <p>Elton thinks it was a good match. Judit and Elton beat Hamid and Pella.</p>
+      <p>"We're the best," says Elton.</p>
+      <p>"You can play a math game if you like," says Vida.</p>
+      <p>Elton and Judit want to. Elton turns to Molly and Danilo.</p>
+      <p>"Want to join in?" he asks.</p>
+      <p>"Sure," says Danilo. Molly doesn't answer. She just keeps doing sums in her book.</p>
+    </div></div>
+  </article>
+
+  <article class="page-card reveal" id="p9" style="--tilt:-1.4deg;">
+    <div class="page-tag">Sida 14</div>
+    <div class="narration">
+      <button class="play-btn" aria-label="Spela upp sida 14 på svenska">
+        <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </button>
+      <div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+      <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
+      <audio preload="none" src="audio/page-9.mp3"></audio>
+    </div>
+    <p class="original">Elton och Molly brukar alltid gå hem från skolan tillsammans. Men idag går Molly bara iväg. Hon säger inte ens hej då.</p>
+    <p class="original">Elton får springa efter. Han vill att det ska vara som vanligt med Molly. Då kommer han ihåg deras tävling. Nu är det Eltons tur att bestämma vad Molly ska göra.</p>
+    <p class="original"><em>&#8211; Du minns väl tävlingen?</em> frågar han. <em>När Robin är tillbaka ska du åka med rymdraketen.</em></p>
+    <p class="original"><em>&#8211; Det är en dum tävling,</em> säger Molly.</p>
+    <p class="original"><em>&#8211; Den är spännande. Det var ju du som hittade på den.</em></p>
+    <p class="original">Han vill att Molly ska bli glad igen. Men Molly fortsätter framåt med snabba steg.</p>
+    <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
+    <div class="translation-panel"><div class="translation-inner">
+      <p>Elton and Molly usually walk home from school together. But today Molly just walks off. She doesn't even say bye.</p>
+      <p>Elton has to run after her. He wants things to be normal with Molly again. Then he remembers their game. Now it's Elton's turn to decide what Molly has to do.</p>
+      <p>"You remember the game, right?" he asks. "When Robin gets back, you have to ride in the space rocket."</p>
+      <p>"That's a dumb game," says Molly.</p>
+      <p>"It's exciting. You're the one who came up with it."</p>
+      <p>He wants Molly to be happy again. But Molly just keeps walking ahead with quick steps.</p>
+    </div></div>
+  </article>
+
+  <article class="page-card reveal" id="p10" style="--tilt:1.1deg;">
+    <div class="page-tag">Sida 15</div>
+    <div class="narration">
+      <button class="play-btn" aria-label="Spela upp sida 15 på svenska">
+        <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </button>
+      <div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+      <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
+      <audio preload="none" src="audio/page-10.mp3"></audio>
+    </div>
+    <p class="original">Det är tråkigt att gå med någon som är sur. Elton gör roliga miner. Han kittlar Molly och berättar roliga historier.</p>
+    <p class="original"><em>&#8211; Det kanske är roligare för dig att vara med Judit. Hon gillar också att tävla,</em> säger Molly.</p>
+    <p class="original"><em>&#8211; Jag vill att alla ska vara med. Jag är kompis med Danilo, Hamid, Pella, Judit och med dig,</em> säger Elton.</p>
+    <p class="original"><em>&#8211; Men det är vi som går till skolan tillsammans,</em> säger Molly.</p>
+    <p class="original"><em>&#8211; Och bor grannar,</em> säger Elton.</p>
+    <p class="original"><em>&#8211; Och har en spännande tävling,</em> säger Molly.</p>
+    <p class="original">Elton och Molly spanar upp i himlen. Där uppe är Robin.</p>
+    <p class="original"><em>&#8211; Kommer du att våga?</em> frågar Elton.</p>
+    <p class="original"><em>&#8211; Jag vågar allt,</em> svarar Molly.</p>
+    <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
+    <div class="translation-panel"><div class="translation-inner">
+      <p>It's boring walking with someone who's grumpy. Elton makes funny faces. He tickles Molly and tells silly stories.</p>
+      <p>"Maybe it's more fun for you to be with Judit. She likes competing too," says Molly.</p>
+      <p>"I want everyone to be included. I'm friends with Danilo, Hamid, Pella, Judit, and you," says Elton.</p>
+      <p>"But it's the two of us who walk to school together," says Molly.</p>
+      <p>"And are neighbors," says Elton.</p>
+      <p>"And have an exciting game," says Molly.</p>
+      <p>Elton and Molly scan the sky. Up there is Robin.</p>
+      <p>"Will you dare?" asks Elton.</p>
+      <p>"I dare anything," Molly answers.</p>
+    </div></div>
+  </article>
+
+</main>
+
+<div class="book-footer">
+  <span>✦ ✧ ✦</span>
+  Sida 6&#8211;15 · Kapitel 1&#8211;2 · fortsättning följer&#8230;
+</div>
+
+<script>
+  document.querySelectorAll('.narration').forEach(function(box){
+    var btn = box.querySelector('.play-btn');
+    var audio = box.querySelector('audio');
+    btn.addEventListener('click', function(){
+      if(audio.paused){
+        document.querySelectorAll('audio').forEach(function(a){
+          if(a !== audio){ a.pause(); a.currentTime = 0; }
+        });
+        document.querySelectorAll('.narration').forEach(function(b){
+          if(b !== box){ b.classList.remove('playing'); }
+        });
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    });
+    audio.addEventListener('play', function(){ box.classList.add('playing'); });
+    audio.addEventListener('pause', function(){ box.classList.remove('playing'); });
+    audio.addEventListener('ended', function(){ box.classList.remove('playing'); });
+  });
+
+  document.querySelectorAll('.translate-toggle').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+    });
+  });
+
+  var reveals = document.querySelectorAll('.reveal');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  reveals.forEach(function(el){ io.observe(el); });
+
+  var dots = document.querySelectorAll('.dotnav a');
+  var sections = Array.from(document.querySelectorAll('.page-card'));
+  var navIo = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      var idx = sections.indexOf(entry.target);
+      if(entry.isIntersecting && idx > -1){
+        dots.forEach(function(d){ d.classList.remove('active'); });
+        dots[idx].classList.add('active');
+      }
+    });
+  }, { threshold: 0.5 });
+  sections.forEach(function(el){ navIo.observe(el); });
+</script>
+
+</body>
+</html>
