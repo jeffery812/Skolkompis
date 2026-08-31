@@ -5,6 +5,8 @@ Skolkompis is a browser-based companion for parents who don't speak Swedish, hel
 **Live page:** https://jeffery812.github.io/Skolkompis/robin-kolla-en-tidsmaskin.html
 (deployed via GitHub Pages from the `main` branch; `index.html` at the repo root redirects here)
 
+**Fair-use note:** this is a non-commercial personal project, built by a parent to help their own child at home — not a redistribution service. It reproduces text from a copyrighted children's book (*Robin kollar en tidsmaskin*) for private, non-profit, educational use. If you are a rights holder with a concern, please open an issue on this repository.
+
 ## Purpose
 
 My child is in primary school in Sweden and is reading a Swedish children's book series (this volume is *Robin kollar en tidsmaskin*). As a parent, I don't speak Swedish, so I can't read along, and I have no way to tell how far along my child is or whether they're reading it correctly.
