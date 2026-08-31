@@ -2,6 +2,9 @@
 
 Skolkompis is a browser-based companion for parents who don't speak Swedish, helping them stay involved in their kids' Swedish school life — starting with read-along storybook pages that pair the original Swedish text, native-voice narration, and an English translation.
 
+**Live page:** https://jeffery812.github.io/Skolkompis/robin-kolla-en-tidsmaskin.html
+(deployed via GitHub Pages from the `main` branch; `index.html` at the repo root redirects here)
+
 ## Purpose
 
 My child is in primary school in Sweden and is reading a Swedish children's book series (this volume is *Robin kollar en tidsmaskin*). As a parent, I don't speak Swedish, so I can't read along, and I have no way to tell how far along my child is or whether they're reading it correctly.
