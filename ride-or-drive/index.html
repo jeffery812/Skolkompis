@@ -47,19 +47,23 @@
   .eyebrow{ font-family:var(--font-display); color:var(--ink-soft); font-size:.85rem; letter-spacing:.05em; margin:0 0 6px; }
 
   /* ---- hero ---- */
-  .hero{ position:relative; overflow:hidden; padding-block:44px 76px; background:linear-gradient(180deg, var(--sky) 0%, var(--sky-deep) 100%); border-radius:0 0 32px 32px; }
+  .hero{ position:relative; overflow:hidden; padding-block:44px 160px; background:linear-gradient(180deg, var(--sky) 0%, var(--sky-deep) 100%); border-radius:0 0 32px 32px; }
   .hero-sun{ position:absolute; top:-50px; right:-20px; width:170px; height:170px; border-radius:50%; background:radial-gradient(circle at 35% 35%, var(--sun), transparent 70%); }
   .hero-road{ position:absolute; left:0; right:0; bottom:0; height:96px; background:var(--grass); }
   .hero-road::before{ content:""; position:absolute; top:50%; left:0; right:0; height:6px; margin-top:-3px; background-image:repeating-linear-gradient(90deg, var(--paper) 0 34px, transparent 34px 62px); opacity:.7; }
+  @media (prefers-reduced-motion: no-preference){
+    .hero-road::before{ animation:roadLine 1s linear infinite; }
+  }
+  @keyframes roadLine{ from{ background-position:0 0; } to{ background-position:62px 0; } }
   .hero-content{ position:relative; z-index:2; max-width:620px; margin-inline:auto; text-align:center; padding-inline:20px; }
   .hero h1{ font-size:clamp(1.9rem, 5vw + 0.8rem, 2.9rem); }
   .hero .lede{ margin-top:14px; font-size:1.05rem; color:var(--ink-soft); }
-  .hero-characters{ position:relative; z-index:2; display:flex; justify-content:center; gap:48px; font-size:3rem; margin-top:18px; }
+  .hero-characters{ position:absolute; left:0; right:0; bottom:48px; z-index:2; display:flex; justify-content:center; gap:48px; font-size:3rem; }
   @media (prefers-reduced-motion: no-preference){
-    .char{ display:inline-block; animation:idleBounce 2.6s ease-in-out infinite; }
-    .char.c2{ animation-delay:.5s; }
+    .char{ display:inline-block; --sway:5px; animation:idleDrive 1.6s ease-in-out infinite; }
+    .char.c2{ animation-delay:.4s; }
   }
-  @keyframes idleBounce{ 0%,100%{ transform:translateY(0) rotate(0); } 50%{ transform:translateY(-8px) rotate(-4deg); } }
+  @keyframes idleDrive{ 0%,100%{ transform:translateX(calc(var(--sway) * -1)); } 50%{ transform:translateX(var(--sway)); } }
 
   main{ max-width:880px; margin-inline:auto; padding-inline:20px; }
   .section{ padding-block:44px; }
@@ -176,6 +180,15 @@
 (function(){
   "use strict";
   var REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if(!REDUCED){
+    var swayChars = document.querySelectorAll('.hero-characters .char');
+    var randomizeSway = function(el){ el.style.setProperty('--sway', (Math.random() * 6 + 3).toFixed(1) + 'px'); };
+    swayChars.forEach(function(el){
+      randomizeSway(el);
+      el.addEventListener('animationiteration', function(){ randomizeSway(el); });
+    });
+  }
 
   var PROBLEMS = [
     {total:12, legs:34,  en:"There are 12 motorcycles and cars in a parking lot. They have 34 wheels in total."},
