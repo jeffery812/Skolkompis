@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ride or Drive?</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap">
+<style>
+  :root{ color-scheme: light dark; }
+  [hidden]{ display:none !important; }
+  img{ max-width:100%; }
+  :root{
+    --sky:#DFF3FF;
+    --sky-deep:#B9E4FF;
+    --paper:#FFFFFF;
+    --ink:#24331C;
+    --ink-soft:#5B6B4E;
+    --chicken:#FF7A3D;
+    --chicken-deep:#E15C22;
+    --rabbit:#3E7CC9;
+    --sun:#FFC94D;
+    --grass:#E3E8EE;
+    --grass-deep:#AEB9C4;
+    --card-border:#D7DEE6;
+    --dot-off:#D7DEE6;
+    --font-display:'Fredoka','Baloo 2',system-ui,sans-serif;
+    --font-body:'Nunito','Segoe UI',sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --sky:#141B23; --sky-deep:#1C2530; --paper:#1E2731; --ink:#F0F4E6; --ink-soft:#B7C2A9;
+      --chicken:#FF9A63; --chicken-deep:#FFB27E; --rabbit:#7FB0F0; --sun:#FFD873;
+      --grass:#232B33; --grass-deep:#3A4650; --card-border:#2E3740; --dot-off:#333E48;
+    }
+  }
+  :root[data-theme="dark"]{
+    --sky:#141B23; --sky-deep:#1C2530; --paper:#1E2731; --ink:#F0F4E6; --ink-soft:#B7C2A9;
+    --chicken:#FF9A63; --chicken-deep:#FFB27E; --rabbit:#D79E78; --sun:#FFD873;
+    --grass:#26331F; --grass-deep:#6FA84A; --card-border:#2E3A2C; --dot-off:#33402E;
+  }
+
+  *{box-sizing:border-box;}
+  body{ background:var(--sky); color:var(--ink); font-family:var(--font-body); font-size:16px; line-height:1.6; }
+  h1,h2,h3{ font-family:var(--font-display); font-weight:400; text-wrap:balance; margin:0; }
+  p{ margin:0; }
+  .tab{ font-variant-numeric:tabular-nums; }
+  .eyebrow{ font-family:var(--font-display); color:var(--ink-soft); font-size:.85rem; letter-spacing:.05em; margin:0 0 6px; }
+
+  /* ---- hero ---- */
+  .hero{ position:relative; overflow:hidden; padding-block:44px 76px; background:linear-gradient(180deg, var(--sky) 0%, var(--sky-deep) 100%); border-radius:0 0 32px 32px; }
+  .hero-sun{ position:absolute; top:-50px; right:-20px; width:170px; height:170px; border-radius:50%; background:radial-gradient(circle at 35% 35%, var(--sun), transparent 70%); }
+  .hero-road{ position:absolute; left:0; right:0; bottom:0; height:96px; background:var(--grass); }
+  .hero-road::before{ content:""; position:absolute; top:50%; left:0; right:0; height:6px; margin-top:-3px; background-image:repeating-linear-gradient(90deg, var(--paper) 0 34px, transparent 34px 62px); opacity:.7; }
+  .hero-content{ position:relative; z-index:2; max-width:620px; margin-inline:auto; text-align:center; padding-inline:20px; }
+  .hero h1{ font-size:clamp(1.9rem, 5vw + 0.8rem, 2.9rem); }
+  .hero .lede{ margin-top:14px; font-size:1.05rem; color:var(--ink-soft); }
+  .hero-characters{ position:relative; z-index:2; display:flex; justify-content:center; gap:48px; font-size:3rem; margin-top:18px; }
+  @media (prefers-reduced-motion: no-preference){
+    .char{ display:inline-block; animation:idleBounce 2.6s ease-in-out infinite; }
+    .char.c2{ animation-delay:.5s; }
+  }
+  @keyframes idleBounce{ 0%,100%{ transform:translateY(0) rotate(0); } 50%{ transform:translateY(-8px) rotate(-4deg); } }
+
+  main{ max-width:880px; margin-inline:auto; padding-inline:20px; }
+  .section{ padding-block:44px; }
+  .section-lede{ color:var(--ink-soft); margin-top:8px; max-width:60ch; }
+  .section h2{ font-size:1.6rem; }
+
+  /* ---- stage ---- */
+  .stage{ margin-top:22px; background:var(--paper); border:1px solid var(--card-border); border-radius:24px; padding:22px; display:flex; flex-direction:column; gap:16px; }
+  .stage-problem{ font-family:var(--font-display); font-size:1.15rem; text-align:center; }
+  .stage-dots{ display:flex; justify-content:center; gap:10px; }
+  .dot{ width:12px; height:12px; border-radius:50%; background:var(--dot-off); cursor:pointer; }
+  .dot.active{ background:var(--chicken); }
+  .stage-caption{ text-align:center; font-size:1.08rem; min-height:2.6em; display:flex; align-items:center; justify-content:center; padding-inline:8px; }
+  .stage-visual{ position:relative; display:flex; flex-direction:column; gap:14px; }
+  .animal-grid{ display:flex; flex-wrap:wrap; gap:6px; justify-content:center; font-size:1.6rem; padding:14px; background:var(--grass); border-radius:16px; }
+  .animal{ display:inline-block; line-height:1; }
+  .animal.pop{ animation:pop .5s ease; }
+  @keyframes pop{ 0%{ transform:scale(1) rotate(0); } 45%{ transform:scale(1.45) rotate(-10deg); } 100%{ transform:scale(1) rotate(0); } }
+  .float-plus{ position:absolute; font-family:var(--font-display); font-weight:700; color:var(--rabbit); pointer-events:none; animation:floatUp .9s ease forwards; }
+  @keyframes floatUp{ 0%{ opacity:0; transform:translate(-50%,0); } 25%{ opacity:1; } 100%{ opacity:0; transform:translate(-50%,-30px); } }
+  .stage-math{ display:flex; flex-direction:column; gap:8px; }
+  .math-line{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; background:var(--sky); border-radius:12px; padding:9px 16px; }
+  .math-line span:first-child{ color:var(--ink-soft); font-size:.92rem; }
+  .math-line b{ font-family:var(--font-display); font-size:1.25rem; font-weight:400; }
+  .math-line small{ color:var(--ink-soft); font-size:.78rem; }
+  .stage-answer{ position:relative; display:flex; flex-wrap:wrap; gap:12px; justify-content:center; align-items:center; padding:18px 10px; }
+  .answer-card{ display:flex; align-items:center; gap:9px; background:var(--sun); color:var(--ink); border-radius:16px; padding:10px 20px; font-family:var(--font-display); font-size:1.25rem; }
+  .answer-card.rabbit{ background:var(--rabbit); color:#fff; }
+  .verify{ width:100%; text-align:center; font-size:.9rem; color:var(--ink-soft); }
+  .spark{ position:absolute; color:var(--sun); pointer-events:none; animation:sparkle 1s ease forwards; }
+  @keyframes sparkle{ 0%{ opacity:0; transform:scale(.4); } 35%{ opacity:1; transform:scale(1.15); } 100%{ opacity:0; transform:scale(.6); } }
+  .stage-controls{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+  .btn{ font-family:var(--font-display); font-size:.95rem; padding:9px 20px; border-radius:999px; border:2px solid transparent; cursor:pointer; background:transparent; }
+  .btn-primary{ background:var(--chicken); color:#fff; }
+  .btn-primary:hover{ background:var(--chicken-deep); }
+  .btn-ghost{ border-color:var(--card-border); color:var(--ink); }
+  .btn-ghost:hover{ border-color:var(--chicken); }
+  .btn:disabled{ opacity:.4; cursor:not-allowed; }
+  .btn:focus-visible, .dot:focus-visible{ outline:3px solid var(--sun); outline-offset:2px; }
+
+  /* ---- practice cards ---- */
+  .cards-grid{ margin-top:22px; display:grid; grid-template-columns:repeat(auto-fill, minmax(230px,1fr)); gap:16px; }
+  .card{ background:var(--paper); border:1px solid var(--card-border); border-radius:18px; padding:18px; display:flex; flex-direction:column; gap:10px; }
+  .card .stat{ font-family:var(--font-display); font-size:1.35rem; }
+  .card .stat span{ font-family:var(--font-body); font-size:.85rem; color:var(--ink-soft); }
+  .card .en{ font-size:.82rem; color:var(--ink-soft); line-height:1.45; }
+  .card .btn{ margin-top:auto; align-self:flex-start; }
+
+  /* ---- tip box ---- */
+  .tip-section{ background:var(--grass); border-radius:24px; padding:32px; margin-block:8px 44px; }
+  .tip-title{ font-size:1.3rem; }
+  .tip-list{ margin:16px 0 0; padding-left:1.3em; display:flex; flex-direction:column; gap:10px; }
+  .tip-list li{ padding-left:4px; }
+
+  /* ---- modal ---- */
+  .modal-overlay{ position:fixed; inset:0; background:rgba(18,24,14,.55); backdrop-filter:blur(2px); display:flex; align-items:center; justify-content:center; padding:16px; z-index:50; }
+  .modal-overlay[hidden]{ display:none; }
+  .modal-panel{ position:relative; background:var(--paper); border-radius:24px; max-width:640px; width:100%; max-height:92vh; overflow-y:auto; padding:26px 22px; }
+  .modal-close{ position:absolute; top:14px; right:14px; width:34px; height:34px; border-radius:50%; border:1px solid var(--card-border); background:var(--paper); color:var(--ink); cursor:pointer; font-size:1rem; }
+  .modal-en{ margin-top:6px; font-size:.88rem; color:var(--ink-soft); }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-sun" aria-hidden="true"></div>
+  <div class="hero-road" aria-hidden="true"></div>
+  <div class="hero-content">
+    <p class="eyebrow">Math Detective</p>
+    <h1>The Motorcycle &amp; Car Mystery</h1>
+    <p class="lede">A garage full of motorcycles 🏍️ and cars 🚗 — we only know how many vehicles and how many wheels in total. Can you figure out which is which? Let's crack the case with the Wheel-Counting Trick!</p>
+  </div>
+  <div class="hero-characters">
+    <span class="char c1">🏍️</span>
+    <span class="char c2">🚗</span>
+  </div>
+</header>
+
+<main>
+  <section class="section demo-section">
+    <h2>The Wheel-Counting Trick</h2>
+    <p class="section-lede">Let's learn the trick using Problem 1: pretend every vehicle is a motorcycle, then see how many wheels are missing — that's how we spot the hidden cars!</p>
+    <div class="stage" id="mainStage"></div>
+  </section>
+
+  <section class="section practice-section">
+    <h2>Now You Try: 10 Practice Problems</h2>
+    <p class="section-lede">Tap "Play Animation" on any card to watch how the hidden cars get caught in that problem.</p>
+    <div class="cards-grid" id="cardsGrid"></div>
+  </section>
+
+  <section class="section tip-section">
+    <h2 class="tip-title">Quick Tip · The Wheel-Counting Steps</h2>
+    <ol class="tip-list">
+      <li>Pretend every vehicle is a motorcycle: guessed wheels = total vehicles × 2</li>
+      <li>Subtract guessed wheels from the real wheel count to find the extra wheels</li>
+      <li>Extra wheels ÷ 2 = number of cars (each car has 2 more wheels than a motorcycle)</li>
+      <li>Total vehicles − cars = number of motorcycles</li>
+    </ol>
+  </section>
+</main>
+
+<div class="modal-overlay" id="modalOverlay" hidden>
+  <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button type="button" class="modal-close" id="modalClose" aria-label="Close">✕</button>
+    <p class="eyebrow" id="modalEyebrow"></p>
+    <h3 id="modalTitle"></h3>
+    <p class="modal-en" id="modalEn"></p>
+    <div class="stage" id="modalStage"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var PROBLEMS = [
+    {total:12, legs:34,  en:"There are 12 motorcycles and cars in a parking lot. They have 34 wheels in total."},
+    {total:15, legs:42,  en:"There are 15 motorcycles and cars in a garage. They have 42 wheels in total."},
+    {total:20, legs:56,  en:"A mechanic has 20 motorcycles and cars. Altogether, they have 56 wheels."},
+    {total:24, legs:68,  en:"There are 24 motorcycles and cars in a parking lot. They have 68 wheels in total."},
+    {total:30, legs:84,  en:"A mechanic counts 30 vehicles, all motorcycles and cars. They have 84 wheels altogether."},
+    {total:32, legs:92,  en:"There are 32 motorcycles and cars in a dealership lot. Altogether, they have 92 wheels."},
+    {total:36, legs:104, en:"A dealership has 36 motorcycles and cars. The vehicles have 104 wheels in total."},
+    {total:40, legs:116, en:"There are 40 motorcycles and cars in a parking garage. Together, they have 116 wheels."},
+    {total:45, legs:130, en:"A mechanic has 45 motorcycles and cars. He counts 130 wheels altogether."},
+    {total:50, legs:148, en:"There are 50 motorcycles and cars in a large parking lot. They have 148 wheels in total."}
+  ];
+
+  function solve(total, legs){
+    var rabbits = (legs - 2*total) / 2;
+    return { rabbits: rabbits, chickens: total - rabbits };
+  }
+
+  function shuffledIndices(n){
+    var arr = [];
+    for(var i=0;i<n;i++) arr.push(i);
+    for(var i2=arr.length-1;i2>0;i2--){
+      var j = Math.floor(Math.random()*(i2+1));
+      var t = arr[i2]; arr[i2]=arr[j]; arr[j]=t;
+    }
+    return arr;
+  }
+
+  function wait(ms){ return new Promise(function(r){ setTimeout(r, REDUCED ? 0 : ms); }); }
+
+  var CAPTIONS = {
+    1: function(s){ return "Let's pretend all " + s.total + " vehicles are motorcycles 🏍️ — each motorcycle has 2 wheels."; },
+    2: function(s){ return "Now count the real wheels: there are " + s.legs + " in total — more than we guessed!"; },
+    3: function(s){ return "Every car is secretly hiding 2 extra wheels — let's catch them!"; },
+    4: function(){ return "Ta-da! Let's check that the wheels really add up."; }
+  };
+
+  function createStage(root, total, legs){
+    var solved = solve(total, legs);
+    var rabbits = solved.rabbits, chickens = solved.chickens;
+    var assumedLegs = total * 2;
+    var diff = legs - assumedLegs;
+    var state = { order: shuffledIndices(total), step: 0 };
+
+    root.innerHTML =
+      '<div class="stage-problem">🏍️🚗 <span class="tab">' + total + '</span> vehicles · <span class="tab">' + legs + '</span> wheels</div>' +
+      '<div class="stage-dots">' +
+        '<span class="dot" data-n="1"></span><span class="dot" data-n="2"></span><span class="dot" data-n="3"></span><span class="dot" data-n="4"></span>' +
+      '</div>' +
+      '<p class="stage-caption"></p>' +
+      '<div class="stage-visual">' +
+        '<div class="animal-grid"></div>' +
+        '<div class="stage-math">' +
+          '<div class="math-line l1"><span>Guessed wheels</span><b><span class="tab" data-role="assumed">0</span></b><small>= ' + total + ' × 2</small></div>' +
+          '<div class="math-line l2" hidden><span>Real wheels</span><b><span class="tab">' + legs + '</span></b></div>' +
+          '<div class="math-line l3" hidden><span>Extra wheels</span><b><span class="tab" data-role="diff">0</span></b><small>= ' + legs + ' − ' + assumedLegs + '</small></div>' +
+          '<div class="math-line l4" hidden><span>Hidden cars</span><b><span class="tab" data-role="rabbitcount">0</span></b><small>= ' + diff + ' ÷ 2</small></div>' +
+        '</div>' +
+        '<div class="stage-answer" hidden>' +
+          '<div class="answer-card chicken"><span>🏍️</span><span>Motorcycles</span><b class="tab">' + chickens + '</b></div>' +
+          '<div class="answer-card rabbit"><span>🚗</span><span>Cars</span><b class="tab">' + rabbits + '</b></div>' +
+          '<p class="verify">Check: ' + chickens + ' × 2 + ' + rabbits + ' × 4 = <span class="tab">' + (chickens*2+rabbits*4) + '</span> ✓</p>' +
+        '</div>' +
+      '</div>' +
+      '<div class="stage-controls">' +
+        '<button type="button" class="btn btn-ghost act-prev">← Back</button>' +
+        '<button type="button" class="btn btn-primary act-next">Next →</button>' +
+        '<button type="button" class="btn btn-ghost act-answer">Skip to Answer</button>' +
+        '<button type="button" class="btn btn-ghost act-replay">🔁 Replay</button>' +
+      '</div>';
+
+    var grid = root.querySelector('.animal-grid');
+    var iconEls = [];
+    for(var i=0;i<total;i++){
+      var span = document.createElement('span');
+      span.className = 'animal';
+      span.textContent = '🏍️';
+      grid.appendChild(span);
+      iconEls.push(span);
+    }
+
+    var els = {
+      caption: root.querySelector('.stage-caption'),
+      dots: Array.prototype.slice.call(root.querySelectorAll('.dot')),
+      l1: root.querySelector('.l1'), l2: root.querySelector('.l2'),
+      l3: root.querySelector('.l3'), l4: root.querySelector('.l4'),
+      assumed: root.querySelector('[data-role="assumed"]'),
+      diff: root.querySelector('[data-role="diff"]'),
+      rabbitcount: root.querySelector('[data-role="rabbitcount"]'),
+      answer: root.querySelector('.stage-answer'),
+      prev: root.querySelector('.act-prev'),
+      next: root.querySelector('.act-next'),
+      answerBtn: root.querySelector('.act-answer'),
+      replay: root.querySelector('.act-replay'),
+      visual: root.querySelector('.stage-visual')
+    };
+
+    els.dots.forEach(function(d){
+      d.setAttribute('role','button');
+      d.tabIndex = 0;
+      d.setAttribute('aria-label', 'Step ' + d.dataset.n);
+      d.addEventListener('click', function(){ goTo(Number(d.dataset.n), false); });
+      d.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); goTo(Number(d.dataset.n), false); }
+      });
+    });
+
+    function setIconsInstant(n){
+      for(var i2=0;i2<total;i2++){
+        var isRabbit = n >= 3 && state.order.indexOf(i2) < rabbits;
+        iconEls[i2].textContent = isRabbit ? '🚗' : '🏍️';
+        iconEls[i2].classList.remove('pop');
+      }
+    }
+
+    function spawnPlus(iconEl){
+      if(REDUCED) return;
+      var rect = iconEl.getBoundingClientRect();
+      var parentRect = els.visual.getBoundingClientRect();
+      var plus = document.createElement('span');
+      plus.className = 'float-plus';
+      plus.textContent = '+2';
+      plus.style.left = (rect.left - parentRect.left + rect.width/2) + 'px';
+      plus.style.top = (rect.top - parentRect.top) + 'px';
+      els.visual.appendChild(plus);
+      setTimeout(function(){ plus.remove(); }, 900);
+    }
+
+    function revealRabbits(){
+      var i3 = 0;
+      function step(){
+        if(i3 >= rabbits) return Promise.resolve();
+        var idx = state.order[i3];
+        var el = iconEls[idx];
+        el.textContent = '🚗';
+        el.classList.add('pop');
+        spawnPlus(el);
+        els.rabbitcount.textContent = i3 + 1;
+        i3++;
+        return wait(140).then(step);
+      }
+      return step();
+    }
+
+    function countUp(el, to, duration){
+      duration = duration === undefined ? 650 : duration;
+      if(REDUCED || duration <= 0){ el.textContent = to; return Promise.resolve(); }
+      return new Promise(function(resolve){
+        var start = performance.now();
+        function tick(now){
+          var p = Math.min((now-start)/duration, 1);
+          el.textContent = Math.round(to*p);
+          if(p < 1) requestAnimationFrame(tick); else { el.textContent = to; resolve(); }
+        }
+        requestAnimationFrame(tick);
+      });
+    }
+
+    function updateDots(n){
+      els.dots.forEach(function(d){ d.classList.toggle('active', Number(d.dataset.n) <= n); });
+    }
+
+    function sparkleAnswer(){
+      if(REDUCED) return;
+      for(var k=0;k<6;k++){
+        (function(){
+          var s = document.createElement('span');
+          s.className = 'spark';
+          s.textContent = '✦';
+          s.style.left = (Math.random()*90+5) + '%';
+          s.style.top = (Math.random()*80+5) + '%';
+          els.answer.appendChild(s);
+          setTimeout(function(){ s.remove(); }, 1200);
+        })();
+      }
+    }
+
+    function goTo(n, animate){
+      var prev = state.step;
+      state.step = n;
+      var doAnimate = animate && !REDUCED && n === prev + 1;
+
+      updateDots(n);
+      els.caption.textContent = CAPTIONS[n](state);
+      els.prev.disabled = n <= 1;
+      els.next.hidden = n >= 4;
+      els.answerBtn.hidden = n >= 4;
+      els.l2.hidden = n < 2;
+      els.l3.hidden = n < 2;
+      els.l4.hidden = n < 3;
+      els.answer.hidden = n < 4;
+
+      var assumedPromise;
+      if(doAnimate && n === 1){ assumedPromise = countUp(els.assumed, assumedLegs); }
+      else { els.assumed.textContent = assumedLegs; assumedPromise = Promise.resolve(); }
+
+      var diffPromise = Promise.resolve();
+      if(n >= 2){
+        if(doAnimate && n === 2){ diffPromise = countUp(els.diff, diff); }
+        else { els.diff.textContent = diff; }
+      }
+
+      if(doAnimate && n === 3){
+        setIconsInstant(2);
+        els.rabbitcount.textContent = '0';
+        revealRabbits();
+      } else {
+        setIconsInstant(n);
+        if(n >= 3) els.rabbitcount.textContent = rabbits;
+      }
+
+      if(n === 4 && doAnimate) sparkleAnswer();
+    }
+
+    els.next.addEventListener('click', function(){ if(state.step < 4) goTo(state.step + 1, true); });
+    els.prev.addEventListener('click', function(){ if(state.step > 1) goTo(state.step - 1, false); });
+    els.answerBtn.addEventListener('click', function(){ goTo(4, false); });
+    els.replay.addEventListener('click', function(){
+      state.order = shuffledIndices(total);
+      state.step = 0;
+      goTo(1, true);
+    });
+
+    goTo(1, true);
+    return { goTo: goTo };
+  }
+
+  // main demo
+  createStage(document.getElementById('mainStage'), PROBLEMS[0].total, PROBLEMS[0].legs);
+
+  // practice cards
+  var grid = document.getElementById('cardsGrid');
+  PROBLEMS.forEach(function(p, i){
+    var card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML =
+      '<p class="eyebrow">Problem ' + (i+1) + '</p>' +
+      '<p class="stat">' + p.total + ' <span>vehicles</span> · ' + p.legs + ' <span>wheels</span></p>' +
+      '<p class="en">' + p.en + '</p>' +
+      '<button type="button" class="btn btn-primary">▶ Play Animation</button>';
+    card.querySelector('button').addEventListener('click', function(){ openModal(i); });
+    grid.appendChild(card);
+  });
+
+  var overlay = document.getElementById('modalOverlay');
+  var modalStage = document.getElementById('modalStage');
+  function openModal(i){
+    var p = PROBLEMS[i];
+    document.getElementById('modalEyebrow').textContent = 'Problem ' + (i+1);
+    document.getElementById('modalTitle').textContent = p.total + ' vehicles, ' + p.legs + ' wheels';
+    document.getElementById('modalEn').textContent = p.en;
+    createStage(modalStage, p.total, p.legs);
+    overlay.hidden = false;
+  }
+  function closeModal(){ overlay.hidden = true; modalStage.innerHTML = ''; }
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  overlay.addEventListener('click', function(e){ if(e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !overlay.hidden) closeModal(); });
+})();
+</script>
+</body>
+</html>
