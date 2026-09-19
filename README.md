@@ -2,7 +2,7 @@
 
 Skolkompis ("school buddy" in Swedish) is a small collection of browser-based tools I build to help tutor my kids through primary school — working through math problems together, and using AI-generated narration to help with reading practice. Everything runs as static HTML pages: no build step, no backend, no installation. Open a page in a browser and go.
 
-**Root page:** https://jeffery812.github.io/kids-lab/ links out to each project below.
+**Live page:** https://github.com/jeffery812/Skolkompis
 
 ## Projects
 
