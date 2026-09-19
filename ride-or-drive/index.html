@@ -50,7 +50,7 @@
   .hero{ position:relative; overflow:hidden; padding-block:44px 160px; background:linear-gradient(180deg, var(--sky) 0%, var(--sky-deep) 100%); border-radius:0 0 32px 32px; }
   .hero-sun{ position:absolute; top:-50px; right:-20px; width:170px; height:170px; border-radius:50%; background:radial-gradient(circle at 35% 35%, var(--sun), transparent 70%); }
   .hero-road{ position:absolute; left:0; right:0; bottom:0; height:96px; background:var(--grass); }
-  .hero-road::before{ content:""; position:absolute; top:50%; left:0; right:0; height:6px; margin-top:-3px; background-image:repeating-linear-gradient(90deg, var(--paper) 0 34px, transparent 34px 62px); opacity:.7; -webkit-mask-image:linear-gradient(90deg, transparent, #000 28px, #000 calc(100% - 28px), transparent); mask-image:linear-gradient(90deg, transparent, #000 28px, #000 calc(100% - 28px), transparent); }
+  .hero-road::before{ content:""; position:absolute; top:50%; left:-62px; right:-62px; height:6px; margin-top:-3px; background-image:repeating-linear-gradient(90deg, var(--paper) 0 34px, transparent 34px 62px); opacity:.7; }
   @media (prefers-reduced-motion: no-preference){
     .hero-road::before{ animation:roadLine 1s linear infinite; }
   }
