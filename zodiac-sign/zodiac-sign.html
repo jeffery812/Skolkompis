@@ -1,0 +1,1029 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Stjärntecken – Ta-reda-på-läxa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --page:#F1EEFA; --ink:#1F2557; --soft:#545C8F; --card:#FFFFFF; --line:#D8DBF3;
+  --sky:#1A2150; --sky-deep:#0F1538; --gold:#FFCF4D; --coral:#FF7F86; --mint:#57D1B8;
+  --on-sky:#F4F2FF;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --page:#121735; --ink:#F3F1FF; --soft:#AEB3DA; --card:#1C2350; --line:#2E3670;
+  }
+}
+:root[data-theme="dark"]{
+  --page:#121735; --ink:#F3F1FF; --soft:#AEB3DA; --card:#1C2350; --line:#2E3670;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{
+  height:100%;margin:0;background:var(--page);color:var(--ink);
+  font-family:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:1.125rem;line-height:1.6;
+  display:flex;flex-direction:column;
+}
+h1,h2,.fred{font-family:"Fredoka","Nunito",system-ui,sans-serif;font-weight:600;line-height:1.15;margin:0}
+h1{font-size:clamp(2.2rem,6vw,3.6rem)}
+h2{font-size:clamp(1.7rem,4.5vw,2.5rem);margin-bottom:.6rem}
+p{margin:0 0 .9rem;max-width:34em}
+button,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--coral);outline-offset:3px;border-radius:8px}
+
+header{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.9rem 1.25rem}
+.brand{font-family:"Fredoka",system-ui,sans-serif;font-weight:600;font-size:1.05rem;color:var(--soft)}
+.dots{display:flex;gap:.45rem}
+.dots button{width:12px;height:12px;border-radius:50%;border:2px solid var(--soft);background:transparent;padding:0;cursor:pointer}
+.dots button[aria-current="step"]{background:var(--gold);border-color:var(--gold);transform:scale(1.25)}
+
+main{flex:1;overflow:auto;padding:0 1.25rem}
+.slide{display:none;min-height:100%;align-items:center;justify-content:center;gap:2.5rem;padding:1rem 0 2rem;max-width:1080px;margin:0 auto}
+.slide.active{display:flex}
+.text{flex:1 1 360px;min-width:0}
+.stage{flex:0 1 460px;width:100%;max-width:460px}
+@media (max-width:760px){.slide{flex-direction:column;gap:1.25rem}.stage{max-width:400px}}
+
+.sky{
+  position:relative;aspect-ratio:1;width:100%;border-radius:32px;overflow:hidden;
+  background:
+    radial-gradient(circle at 30% 20%, #2B3580 0, transparent 60%),
+    linear-gradient(160deg,var(--sky),var(--sky-deep));
+  color:var(--on-sky);
+  box-shadow:0 18px 40px -18px #0F153899;
+}
+.sky::before,.sky::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:
+    radial-gradient(1.5px 1.5px at 12% 18%,#fff 50%,transparent 51%),
+    radial-gradient(1px 1px at 78% 12%,#fff 50%,transparent 51%),
+    radial-gradient(1.5px 1.5px at 64% 78%,#fff 50%,transparent 51%),
+    radial-gradient(1px 1px at 22% 66%,#fff 50%,transparent 51%),
+    radial-gradient(1px 1px at 90% 52%,#fff 50%,transparent 51%),
+    radial-gradient(1.5px 1.5px at 44% 38%,#fff 50%,transparent 51%),
+    radial-gradient(1px 1px at 8% 88%,#fff 50%,transparent 51%),
+    radial-gradient(1px 1px at 55% 6%,#fff 50%,transparent 51%);
+}
+.sky::after{transform:translate(9%,23%);opacity:.6;animation:twinkle 3.2s ease-in-out infinite alternate}
+@keyframes twinkle{from{opacity:.15}to{opacity:.8}}
+
+.btn{
+  display:inline-flex;align-items:center;gap:.5rem;border:none;cursor:pointer;
+  background:var(--gold);color:#1F2557;font-family:"Fredoka",system-ui,sans-serif;font-weight:600;
+  font-size:1.1rem;padding:.7rem 1.4rem;border-radius:999px;box-shadow:0 4px 0 #D9A620;
+}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 #D9A620}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2px var(--line)}
+.btn[disabled]{opacity:.35;cursor:default}
+
+footer{display:flex;justify-content:space-between;align-items:center;padding:.8rem 1.25rem 1rem;border-top:2px solid var(--line)}
+
+/* hero */
+.hero-ring text{font-size:30px}
+.spin{transform-origin:200px 200px;animation:spin 60s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero-title{fill:var(--on-sky);font-family:"Fredoka",system-ui,sans-serif;font-weight:700}
+
+/* connect the dots */
+.star{fill:#fff}
+.star.big{fill:var(--gold)}
+.link{fill:none;stroke:var(--gold);stroke-width:3;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1}
+.play .link{animation:draw .7s ease-out forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.ghost-lion{opacity:0;font-size:190px}
+.play .ghost-lion{animation:fadein 1.2s ease-out 4.6s forwards}
+.leo-label{opacity:0;fill:var(--gold);font-family:"Fredoka",system-ui,sans-serif;font-size:30px;font-weight:600}
+.play .leo-label{animation:fadein .8s ease-out 5.2s forwards}
+@keyframes fadein{to{opacity:1}}
+.ghost-lion.show{opacity:.22}
+
+/* orbit */
+.ring-sign{font-size:24px;transition:font-size .25s}
+.ring-sign.on{font-size:38px}
+.controls{display:flex;flex-wrap:wrap;align-items:center;gap:.8rem;margin-top:1rem}
+.controls input[type=range]{flex:1 1 200px;accent-color:var(--coral)}
+.now{
+  margin-top:1rem;padding:1rem 1.2rem;border-radius:20px;background:var(--card);
+  border:2px solid var(--line);
+}
+.now strong{font-family:"Fredoka",system-ui,sans-serif;font-weight:600;font-size:1.3rem}
+
+/* wheel */
+.wheel{position:relative;aspect-ratio:1;width:100%}
+.wheel .spot{
+  position:absolute;width:17%;aspect-ratio:1;transform:translate(-50%,-50%);
+  border-radius:50%;border:none;cursor:pointer;background:#2A3478;
+  font-size:clamp(1.4rem,5vw,2rem);display:grid;place-items:center;transition:transform .2s,background .2s;
+}
+.wheel .spot:hover{transform:translate(-50%,-50%) scale(1.1)}
+.wheel .spot[aria-pressed="true"]{background:var(--gold);transform:translate(-50%,-50%) scale(1.18)}
+.hub{position:absolute;inset:30%;border-radius:50%;display:grid;place-items:center;text-align:center;pointer-events:none}
+.hub .e{font-size:clamp(2.6rem,10vw,4rem);line-height:1}
+.hub .n{font-family:"Fredoka",system-ui,sans-serif;font-weight:600;font-size:1.2rem}
+.info{padding:1.2rem 1.4rem;border-radius:24px;background:var(--card);border:2px solid var(--line)}
+.info .sym{font-size:1.6rem;color:var(--coral);font-family:"Fredoka",system-ui,sans-serif}
+.dates{color:var(--soft);font-weight:700;margin-bottom:.4rem}
+
+/* finder */
+.pick{display:flex;flex-wrap:wrap;gap:.8rem;align-items:end;margin:1rem 0}
+.pick label{display:flex;flex-direction:column;font-weight:700;font-size:.95rem;color:var(--soft)}
+.pick select{margin-top:.3rem;padding:.55rem .8rem;border-radius:14px;border:2px solid var(--line);background:var(--card);font-size:1.05rem}
+.reveal{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:1.5rem}
+.reveal .big{font-size:clamp(4.5rem,20vw,8rem);line-height:1}
+.reveal .nm{font-family:"Fredoka",system-ui,sans-serif;font-weight:700;font-size:clamp(2rem,7vw,2.8rem);color:var(--gold)}
+.reveal .sub{font-size:1rem;opacity:.9}
+.pop{animation:pop .7s cubic-bezier(.2,1.6,.4,1)}
+@keyframes pop{from{transform:scale(.2) rotate(-40deg);opacity:0}to{transform:none;opacity:1}}
+.burst circle{animation:burst 1s ease-out forwards}
+@keyframes burst{from{r:4;opacity:1}to{r:190;opacity:0}}
+
+/* facts */
+.facts{display:grid;gap:1rem;margin-top:1rem}
+.fact{padding:1rem 1.2rem;border-radius:20px;background:var(--card);border-left:6px solid var(--mint)}
+.fact:nth-child(2){border-left-color:var(--coral)}
+.fact:nth-child(3){border-left-color:var(--gold)}
+.fact b{font-family:"Fredoka",system-ui,sans-serif;font-weight:600;font-size:1.15rem;display:block}
+.fact p{margin:0}
+
+/* ---------- läxa / homework ---------- */
+.slide.wide{flex-direction:column;align-items:stretch;justify-content:flex-start;max-width:1120px;gap:0}
+.slide.wide .col{flex:1 1 auto;width:100%;min-width:0}
+.slide.wide p{max-width:62ch}
+.langbar{display:flex;gap:.4rem;align-items:center;flex-wrap:wrap;margin-bottom:.9rem}
+.lb{border:2px solid var(--line);background:var(--card);border-radius:999px;padding:.3rem .9rem;font-weight:700;font-size:.95rem;cursor:pointer}
+.lb[aria-pressed="true"]{background:var(--ink);color:var(--page);border-color:var(--ink)}
+.qlist{display:grid;gap:.55rem;padding:0;margin:1rem 0 1.3rem;list-style:none}
+.qlist li{display:flex;gap:.8rem;align-items:flex-start;background:var(--card);border:2px solid var(--line);border-radius:18px;padding:.65rem .95rem}
+.num{flex:none;width:2rem;height:2rem;border-radius:50%;background:var(--gold);color:#1F2557;display:grid;place-items:center;font-family:"Fredoka",system-ui,sans-serif;font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:.45rem;margin:.3rem 0 1.1rem}
+.chip{display:flex;align-items:center;gap:.4rem;border:2px solid var(--line);background:var(--card);border-radius:999px;padding:.3rem .8rem;font-size:.98rem;font-weight:700;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#1F2557}
+.chip .em{font-size:1.15rem}
+.sheet{display:grid;grid-template-columns:minmax(250px,360px) 1fr;gap:1.4rem;align-items:start}
+@media (max-width:860px){.sheet{grid-template-columns:1fr}}
+.mapcap{font-size:.9rem;color:var(--soft);margin:.6rem 0 .6rem;max-width:none}
+.maplabel{fill:var(--gold);font-family:"Fredoka",system-ui,sans-serif;font-size:15px}
+.mapname{fill:var(--on-sky);font-family:"Fredoka",system-ui,sans-serif;font-size:20px;opacity:.92}
+.qcard{background:var(--card);border:2px solid var(--line);border-radius:22px;padding:1rem 1.2rem;margin-bottom:1rem}
+.qcard h3{display:flex;gap:.7rem;align-items:flex-start;font-family:"Fredoka",system-ui,sans-serif;font-weight:600;font-size:1.12rem;line-height:1.3;margin:0 0 .65rem}
+.qcard p{margin:0 0 .6rem;max-width:none}
+.qcard p:last-child{margin-bottom:0}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:.3rem .8rem;margin:0 0 .7rem}
+.kv dt{color:var(--soft);font-weight:700}
+.kv dd{margin:0}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 .7rem}
+.tag{background:var(--page);border:2px solid var(--line);border-radius:999px;padding:.18rem .7rem;font-weight:700;font-size:.95rem}
+.swatch{display:inline-block;width:1.4rem;height:1.4rem;border-radius:50%;border:2px solid var(--line);vertical-align:-.3rem;margin-right:.4rem}
+.note{font-size:.92rem;color:var(--soft);border-left:4px solid var(--mint);padding-left:.75rem;margin:.7rem 0 0}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media (max-width:760px){.twocol{grid-template-columns:1fr}}
+.bullets{margin:0;padding-left:1.1rem}
+.bullets li{margin-bottom:.45rem}
+.write{width:100%;min-height:9rem;border:2px dashed var(--line);border-radius:18px;background:var(--card);padding:.9rem 1rem;font:inherit;color:inherit;resize:vertical}
+.starter{font-size:.95rem;color:var(--soft)}
+.srcs{display:grid;gap:.5rem;padding:0;margin:.4rem 0 0;list-style:none}
+.srcs li{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:.55rem .9rem;font-size:.97rem;word-break:break-word}
+.check{display:grid;gap:.5rem;padding:0;margin:.5rem 0 0;list-style:none}
+.check li{display:flex;gap:.6rem;align-items:flex-start}
+.check input{width:1.2rem;height:1.2rem;accent-color:var(--mint);margin-top:.2rem}
+.print-only{display:none}
+
+@media print{
+  @page{margin:14mm}
+  header,footer,.no-print{display:none!important}
+  body{background:#fff;color:#000;display:block;height:auto;font-size:10.5pt}
+  main{overflow:visible;padding:0}
+  .slide{display:none!important}
+  .slide.printable{display:block!important;min-height:0;max-width:none;padding:0;margin:0 0 6mm}
+  .sheet,.twocol{display:block}
+  .mapbox{width:70mm;float:right;margin:0 0 4mm 6mm}
+  .swatch{display:none}
+  #myAnswerPrint{min-height:38mm;border:1px solid #888;border-radius:3mm;padding:3mm;white-space:pre-wrap}
+  .sky{background:#fff!important;color:#000!important;box-shadow:none;border:1px solid #777;border-radius:10px}
+  .sky::before,.sky::after{display:none}
+  .star,.star.big{fill:#000!important}
+  .link{stroke:#444!important;stroke-dasharray:none!important;stroke-dashoffset:0!important;animation:none!important}
+  .maplabel,.mapname{fill:#000!important}
+  .qcard,.srcs li{background:#fff!important;border:1px solid #888;break-inside:avoid;page-break-inside:avoid}
+  .tag,.num,.swatch{background:#fff!important;color:#000!important;border:1px solid #888}
+  h2{font-size:15pt}
+  .write{display:none}
+  .print-only{display:block}
+}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition:none!important}
+  .spin{animation:none}
+}
+</style>
+</head>
+<body>
+<header>
+  <span class="brand">✨ Star Stories</span>
+  <nav class="dots" id="dots" aria-label="Chapters"></nav>
+</header>
+
+<main>
+  <!-- 1 -->
+  <section class="slide" data-title="Welcome">
+    <div class="stage">
+      <div class="sky">
+        <svg viewBox="0 0 400 400" width="100%" height="100%" aria-hidden="true">
+          <g class="spin hero-ring" id="heroRing"></g>
+          <text class="hero-title" x="200" y="190" text-anchor="middle" font-size="44">12</text>
+          <text class="hero-title" x="200" y="228" text-anchor="middle" font-size="22">star pictures</text>
+        </svg>
+      </div>
+    </div>
+    <div class="text">
+      <h1>What is a zodiac sign?</h1>
+      <p>Have you ever heard someone say “I’m a Leo!” or “She’s a Pisces”? Those are zodiac signs.</p>
+      <p>There are 12 of them, and each one is a picture made of stars. Let’s find out where they come from, and which one is yours.</p>
+      <button class="btn" data-next>Start the story</button>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="slide" data-title="Dot to dot">
+    <div class="stage">
+      <div class="sky" id="leoSky">
+        <svg viewBox="0 0 400 400" width="100%" height="100%" role="img" aria-label="Stars being joined into the shape of Leo the lion">
+          <text class="ghost-lion" x="215" y="280" text-anchor="middle">🦁</text>
+          <path class="link" pathLength="1" d="M95 125 L128 105" style="animation-delay:.2s"/>
+          <path class="link" pathLength="1" d="M128 105 L168 130" style="animation-delay:.8s"/>
+          <path class="link" pathLength="1" d="M168 130 L175 180" style="animation-delay:1.4s"/>
+          <path class="link" pathLength="1" d="M175 180 L135 215" style="animation-delay:2s"/>
+          <path class="link" pathLength="1" d="M135 215 L120 270" style="animation-delay:2.6s"/>
+          <path class="link" pathLength="1" d="M175 180 L300 175" style="animation-delay:3s"/>
+          <path class="link" pathLength="1" d="M300 175 L350 235" style="animation-delay:3.4s"/>
+          <path class="link" pathLength="1" d="M350 235 L290 245" style="animation-delay:3.7s"/>
+          <path class="link" pathLength="1" d="M290 245 L120 270" style="animation-delay:4s"/>
+          <path class="link" pathLength="1" d="M290 245 L300 175" style="animation-delay:4.3s"/>
+          <circle class="star" cx="95" cy="125" r="4"/>
+          <circle class="star" cx="128" cy="105" r="4"/>
+          <circle class="star" cx="168" cy="130" r="5"/>
+          <circle class="star big" cx="175" cy="180" r="6"/>
+          <circle class="star" cx="135" cy="215" r="4"/>
+          <circle class="star big" cx="120" cy="270" r="8"/>
+          <circle class="star" cx="300" cy="175" r="5"/>
+          <circle class="star big" cx="350" cy="235" r="7"/>
+          <circle class="star" cx="290" cy="245" r="5"/>
+          <text class="leo-label" x="200" y="350" text-anchor="middle">Leo the Lion</text>
+        </svg>
+      </div>
+    </div>
+    <div class="text">
+      <h2>Stars are a giant dot-to-dot</h2>
+      <p>Thousands of years ago there were no screens and no street lights. At night the sky was full of stars, and people loved telling stories about them.</p>
+      <p>They joined bright stars with imaginary lines, like a dot-to-dot puzzle, and saw animals and heroes. A star picture is called a <b>constellation</b>.</p>
+      <button class="btn ghost" id="replayLeo">Draw it again</button>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="slide" data-title="The Sun's path">
+    <div class="stage">
+      <div class="sky">
+        <svg viewBox="0 0 400 400" width="100%" height="100%" role="img" aria-label="Earth moving around the Sun, with the 12 zodiac constellations in a ring around them">
+          <circle cx="200" cy="200" r="92" fill="none" stroke="#ffffff40" stroke-width="2" stroke-dasharray="4 6"/>
+          <line id="sightLine" x1="0" y1="0" x2="0" y2="0" stroke="var(--gold)" stroke-width="2.5" stroke-dasharray="6 6" opacity=".9"/>
+          <g id="orbitRing"></g>
+          <circle cx="200" cy="200" r="30" fill="var(--gold)"/>
+          <text x="200" y="210" text-anchor="middle" font-size="28">☀️</text>
+          <g id="earth"><circle r="15" fill="#4F9BF0"/><text y="7" text-anchor="middle" font-size="20">🌍</text></g>
+        </svg>
+      </div>
+    </div>
+    <div class="text">
+      <h2>The Sun’s path through the stars</h2>
+      <p>Our Earth travels all the way around the Sun once every year. As we move, the Sun seems to sit in front of different star pictures behind it.</p>
+      <p>People noticed 12 star pictures along the Sun’s path. That ring of 12 is called the <b>zodiac</b>. Each picture gets about one month.</p>
+      <div class="controls">
+        <button class="btn" id="playBtn">Pause</button>
+        <input type="range" id="daySlider" min="0" max="364" value="0" aria-label="Move through the year">
+      </div>
+      <div class="now" aria-live="polite">
+        <span id="nowDate">Jan 1</span>: the Sun is in front of <strong id="nowSign">Capricorn</strong>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="slide" data-title="Meet all 12">
+    <div class="stage">
+      <div class="sky">
+        <div class="wheel" id="wheel">
+          <div class="hub"><div><div class="e" id="hubE">🐏</div><div class="n" id="hubN">Aries</div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="text">
+      <h2>Meet all 12 signs</h2>
+      <p>Tap a picture in the ring to meet it.</p>
+      <div class="info" aria-live="polite">
+        <div class="sym" id="infoSym"></div>
+        <div class="dates" id="infoDates"></div>
+        <p id="infoFact" style="margin:0"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="slide" data-title="Find your sign">
+    <div class="stage">
+      <div class="sky" id="revealSky">
+        <div class="reveal" id="reveal">
+          <div><div class="big">🎂</div><div class="sub" style="margin-top:.8rem">Pick your birthday to find your sign</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="text">
+      <h2>Which sign is yours?</h2>
+      <p>Your zodiac sign is the star picture the Sun was sitting in front of on the day you were born.</p>
+      <div class="pick">
+        <label>Month<select id="mSel"></select></label>
+        <label>Day<select id="dSel"></select></label>
+        <button class="btn" id="findBtn">Show my sign</button>
+      </div>
+      <p id="findText" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section class="slide" data-title="Magic or not?">
+    <div class="stage">
+      <div class="sky">
+        <svg viewBox="0 0 400 400" width="100%" height="100%" aria-hidden="true">
+          <text x="200" y="215" text-anchor="middle" font-size="120">🔭</text>
+          <text x="200" y="320" text-anchor="middle" class="hero-title" font-size="26">Keep looking up!</text>
+        </svg>
+      </div>
+    </div>
+    <div class="text">
+      <h2>Do the stars decide who you are?</h2>
+      <p>Some people read <b>horoscopes</b> that say your sign tells what you’re like or what will happen to you. That is called <b>astrology</b>. It’s a very old tradition and can be fun, but scientists have tested it many times and found no proof that stars choose your personality. You get to decide who you are!</p>
+      <p>Studying the real stars and planets is called <b>astronomy</b>. Here are some true star facts:</p>
+      <div class="facts">
+        <div class="fact"><b>The sky has slowly shifted</b><p>Earth wobbles like a slow spinning top. So today, on your birthday, the Sun is often in front of the sign next door to yours.</p></div>
+        <div class="fact"><b>There’s a secret 13th picture</b><p>The Sun also passes Ophiuchus, the snake holder, in late November and December. It just never got a sign.</p></div>
+        <div class="fact"><b>Other zodiacs exist too</b><p>The Chinese zodiac has 12 animals, but each one is for a whole year, not a month. Do you know your animal?</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section class="slide wide" data-title="Läxan / Homework">
+    <div class="col">
+      <div class="langbar no-print">
+        <span class="starter" data-sv="Språk:" data-en="Language:"></span>
+        <button class="lb" id="lbSv" aria-pressed="true">Svenska</button>
+        <button class="lb" id="lbEn" aria-pressed="false">English</button>
+      </div>
+      <h2 data-sv="Ta-reda-på-läxa: stjärntecken" data-en="Find-out homework: zodiac signs"></h2>
+      <p data-sv="Läxan: du ska ta reda på fakta om ett valfritt stjärntecken. Välj ditt tecken på nästa sida, så får du hjälp med varje fråga – och glöm inte bild och källor." data-en="The homework: find out facts about any zodiac sign you like. Pick your sign on the next page and you get help with every question – and don't forget the picture and the sources."></p>
+      <ol class="qlist" id="qlist"></ol>
+      <div class="qcard">
+        <h3 data-sv="Bra att veta först: tecken eller stjärnbild?" data-en="Good to know first: sign or constellation?"></h3>
+        <p data-sv="Ett stjärntecken är en tolftedel av solens väg runt himlen – varje tecken är lika stort, ungefär en månad långt. En stjärnbild är själva mönstret av stjärnor som någon har hittat på för länge sedan, och de är olika stora. De har samma namn, men de är inte exakt samma sak. I läxan kan du gärna skriva om båda." data-en="A zodiac sign is one twelfth of the Sun's path around the sky – every sign is the same size, about one month long. A constellation is the actual pattern of stars that people imagined long ago, and they come in very different sizes. They share a name, but they are not quite the same thing. In your homework you can write about both."></p>
+      </div>
+      <button class="btn no-print" data-next data-sv="Välj mitt tecken" data-en="Pick my sign"></button>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section class="slide wide printable" data-title="Faktablad">
+    <div class="col">
+      <div class="print-only" id="printHead"></div>
+      <h2 data-sv="Faktablad" data-en="Fact sheet"></h2>
+      <p class="no-print" data-sv="Tryck på ett tecken för att se svaren på fråga 1–5." data-en="Tap a sign to see the answers to questions 1–5."></p>
+      <div class="chips no-print" id="hwChips" role="group" aria-label="Stjärntecken"></div>
+      <div class="sheet">
+        <div class="mapbox">
+          <div class="sky" id="mapSky">
+            <svg id="mapSvg" viewBox="0 0 400 400" width="100%" height="100%" role="img"></svg>
+          </div>
+          <p class="mapcap" id="mapCap"></p>
+          <button class="btn ghost no-print" id="redrawMap" data-sv="Rita igen" data-en="Draw it again"></button>
+        </div>
+        <div id="answers"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section class="slide wide printable" data-title="Fråga 6">
+    <div class="col">
+      <h2 data-sv="Fråga 6: vad tror du själv?" data-en="Question 6: what do you think?"></h2>
+      <p id="q6q" style="font-weight:700"></p>
+      <div class="twocol">
+        <div class="qcard">
+          <h3 data-sv="Vad astrologin säger" data-en="What astrology says"></h3>
+          <ul class="bullets">
+            <li data-sv="Astrologi är en mycket gammal tradition. Den säger att solens, månens och planeternas lägen när du föddes påverkar hur du är och vad som händer i ditt liv." data-en="Astrology is a very old tradition. It says that where the Sun, Moon and planets were when you were born shapes who you are and what happens in your life."></li>
+            <li data-sv="Horoskopen i tidningar bygger på ditt soltecken – alltså vilket stjärntecken solen stod i på din födelsedag." data-en="The horoscopes in magazines are based on your Sun sign – the sign the Sun was in on your birthday."></li>
+            <li data-sv="Många tycker att det är roligt att läsa om sitt tecken och känner igen sig i beskrivningen." data-en="Many people enjoy reading about their sign and feel the description fits them."></li>
+          </ul>
+        </div>
+        <div class="qcard">
+          <h3 data-sv="Vad vetenskapen säger" data-en="What science says"></h3>
+          <ul class="bullets">
+            <li data-sv="Forskare har testat astrologi många gånger, till exempel genom att låta astrologer para ihop horoskop med rätt person. Resultatet har blivit ungefär som att gissa." data-en="Scientists have tested astrology many times, for example by asking astrologers to match horoscopes to the right person. The results came out about the same as guessing."></li>
+            <li data-sv="Barnum-effekten: en beskrivning som «du är oftast glad, men ibland osäker» passar nästan alla. Prova att läsa ett annat teckens horoskop – det stämmer nog också." data-en="The Barnum effect: a description like “you are usually cheerful, but sometimes unsure” fits almost everyone. Try reading another sign's horoscope – it probably fits too."></li>
+            <li data-sv="Himlen har flyttat sig. Jordaxeln vinglar långsamt som en snurra (precession), så på din födelsedag står solen oftast i grannstjärnbilden – inte i den som ditt tecken heter." data-en="The sky has shifted. Earth's axis slowly wobbles like a spinning top (precession), so on your birthday the Sun is usually in the neighbouring constellation – not the one your sign is named after."></li>
+            <li data-sv="Solen passerar faktiskt en trettonde stjärnbild, Ormbäraren, men den fick aldrig något tecken." data-en="The Sun actually passes a thirteenth constellation, Ophiuchus the serpent holder, but it never got a sign."></li>
+            <li data-sv="Stjärnorna i en stjärnbild är olika långt bort. Mönstret finns bara sett från jorden – från en annan planet i galaxen skulle lejonet inte likna ett lejon." data-en="The stars in a constellation are at very different distances. The pattern only exists seen from Earth – from another planet in the galaxy the lion would not look like a lion."></li>
+            <li data-sv="En person som står bredvid dig drar i dig med starkare gravitation än vad planeten Mars gör, för den är så mycket närmare." data-en="A person standing next to you pulls on you with more gravity than the planet Mars does, simply because they are so much closer."></li>
+          </ul>
+        </div>
+      </div>
+      <div class="qcard">
+        <h3 data-sv="Tänk på det här innan du svarar" data-en="Think about this before you answer"></h3>
+        <p data-sv="Stämmer beskrivningen av ditt tecken på dig? Finns det något i den som inte alls stämmer? Känner du någon som har samma tecken men är helt annorlunda? Och kan något vara roligt att tro på även om det inte är bevisat? Det finns inget rätt svar här – läraren vill veta vad du tycker och varför." data-en="Does the description of your sign fit you? Is there something in it that does not fit at all? Do you know someone with the same sign who is completely different? And can something be fun to believe in even if it is not proven? There is no right answer here – your teacher wants to know what you think, and why."></p>
+        <p class="starter" data-sv="Börja till exempel så här: «Jag tror att … eftersom …», «Å ena sidan … å andra sidan …», «Ett exempel är när …», «Min slutsats är …»" data-en="Try starting like this: “I think that … because …”, “On the one hand … on the other hand …”, “An example is when …”, “My conclusion is …”"></p>
+      </div>
+      <h3 data-sv="Mitt svar" data-en="My answer" style="font-family:'Fredoka',system-ui,sans-serif;font-weight:600;margin:0 0 .5rem"></h3>
+      <textarea class="write" id="myAnswer"></textarea>
+      <p class="starter no-print" data-sv="Texten sparas i webbläsaren på den här datorn." data-en="Your text is saved in the browser on this computer."></p>
+      <div class="print-only" id="myAnswerPrint"></div>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section class="slide wide printable" data-title="Källor">
+    <div class="col">
+      <h2 data-sv="Bild och källor" data-en="Picture and sources"></h2>
+      <div class="qcard">
+        <h3 data-sv="Bilden" data-en="The picture"></h3>
+        <p id="imgTip"></p>
+      </div>
+      <div class="qcard">
+        <h3 data-sv="Så skriver du en källa" data-en="How to write a source"></h3>
+        <p data-sv="Webbplats. (År). Titel. Hämtad ÅÅÅÅ-MM-DD från adress." data-en="Website. (Year). Title. Retrieved YYYY-MM-DD from address."></p>
+        <p class="starter" data-sv="Skriv alltid vilken dag du läste sidan – webbsidor kan ändras." data-en="Always write the date you read the page – web pages can change."></p>
+      </div>
+      <h3 data-sv="Källor för ditt tecken" data-en="Sources for your sign" style="font-family:'Fredoka',system-ui,sans-serif;font-weight:600;margin:1.2rem 0 .3rem"></h3>
+      <ul class="srcs" id="srcList"></ul>
+      <div class="qcard" style="margin-top:1.2rem">
+        <h3 data-sv="Checklista innan du lämnar in" data-en="Checklist before you hand it in"></h3>
+        <ul class="check" id="checkList"></ul>
+      </div>
+      <p class="no-print"><button class="btn" id="printBtn" data-sv="Skriv ut faktabladet" data-en="Print the fact sheet"></button></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <button class="btn ghost" id="backBtn" data-sv="Tillbaka" data-en="Back">Back</button>
+  <button class="btn" id="nextBtn">Next</button>
+</footer>
+
+<script>
+const SIGNS = [
+  {n:"Aries",e:"🐏",s:"♈",d:"March 21 – April 19",m:3,day:21,f:"A ram with golden wool, from an old Greek story."},
+  {n:"Taurus",e:"🐂",s:"♉",d:"April 20 – May 20",m:4,day:20,f:"A bull. Look for a bright orange star called Aldebaran, the bull’s eye!"},
+  {n:"Gemini",e:"👯",s:"♊",d:"May 21 – June 20",m:5,day:21,f:"Twin brothers. Two bright stars side by side are their heads."},
+  {n:"Cancer",e:"🦀",s:"♋",d:"June 21 – July 22",m:6,day:21,f:"A crab. Its stars are dim, so it’s the hardest one to spot."},
+  {n:"Leo",e:"🦁",s:"♌",d:"July 23 – August 22",m:7,day:23,f:"A lion. Its head looks like a backwards question mark."},
+  {n:"Virgo",e:"🌾",s:"♍",d:"August 23 – September 22",m:8,day:23,f:"A young woman holding wheat. Her brightest star is Spica."},
+  {n:"Libra",e:"⚖️",s:"♎",d:"September 23 – October 22",m:9,day:23,f:"A pair of weighing scales, the only sign that isn’t a living thing."},
+  {n:"Scorpio",e:"🦂",s:"♏",d:"October 23 – November 21",m:10,day:23,f:"A scorpion with a red star, Antares, glowing where its heart is."},
+  {n:"Sagittarius",e:"🏹",s:"♐",d:"November 22 – December 21",m:11,day:22,f:"An archer who is half horse. Some people think it looks like a teapot!"},
+  {n:"Capricorn",e:"🐐",s:"♑",d:"December 22 – January 19",m:12,day:22,f:"A goat with a fish’s tail. Silly, but that’s the story!"},
+  {n:"Aquarius",e:"🏺",s:"♒",d:"January 20 – February 18",m:1,day:20,f:"A person pouring water from a big jar."},
+  {n:"Pisces",e:"🐟",s:"♓",d:"February 19 – March 20",m:2,day:19,f:"Two fish tied together with a ribbon so they don’t get lost."}
+];
+const MONTHS=["January","February","March","April","May","June","July","August","September","October","November","December"];
+const MDAYS=[31,29,31,30,31,30,31,31,30,31,30,31];
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const NS="http://www.w3.org/2000/svg";
+
+function signFor(m,d){
+  const v=m*100+d; let best=null, bv=-1;
+  SIGNS.forEach((s,i)=>{const sv=s.m*100+s.day; if(sv<=v && sv>bv){bv=sv;best=i;}});
+  return best===null?9:best;
+}
+
+/* slides */
+const slides=[...document.querySelectorAll(".slide")];
+const dots=document.getElementById("dots");
+let cur=0;
+slides.forEach((s,i)=>{
+  const b=document.createElement("button");
+  b.setAttribute("aria-label",`Chapter ${i+1}: ${s.dataset.title}`);
+  b.onclick=()=>go(i); dots.appendChild(b);
+});
+function go(i){
+  cur=Math.max(0,Math.min(slides.length-1,i));
+  slides.forEach((s,j)=>s.classList.toggle("active",j===cur));
+  [...dots.children].forEach((b,j)=>{ if(j===cur) b.setAttribute("aria-current","step"); else b.removeAttribute("aria-current"); });
+  document.getElementById("backBtn").disabled = cur===0;
+  document.getElementById("nextBtn").textContent = cur===slides.length-1 ? NAV.again[lang] : NAV.next[lang];
+  document.querySelector("main").scrollTop=0;
+  if(cur===1) playLeo();
+}
+document.getElementById("backBtn").onclick=()=>go(cur-1);
+document.getElementById("nextBtn").onclick=()=>go(cur===slides.length-1?0:cur+1);
+document.querySelectorAll("[data-next]").forEach(b=>b.onclick=()=>go(cur+1));
+addEventListener("keydown",e=>{
+  if(e.target.tagName==="SELECT"||e.target.tagName==="INPUT")return;
+  if(e.key==="ArrowRight")go(cur+1);
+  if(e.key==="ArrowLeft")go(cur-1);
+});
+
+/* hero ring */
+const hero=document.getElementById("heroRing");
+SIGNS.forEach((s,i)=>{
+  const a=(90-i*30)*Math.PI/180, t=document.createElementNS(NS,"text");
+  t.setAttribute("x",200+140*Math.cos(a)); t.setAttribute("y",200-140*Math.sin(a)+10);
+  t.setAttribute("text-anchor","middle"); t.textContent=s.e; hero.appendChild(t);
+});
+
+/* leo */
+const leoSky=document.getElementById("leoSky");
+function playLeo(){
+  leoSky.classList.remove("play"); void leoSky.offsetWidth; leoSky.classList.add("play");
+}
+document.getElementById("replayLeo").onclick=playLeo;
+
+/* orbit */
+const ring=document.getElementById("orbitRing"), ringEls=[];
+SIGNS.forEach((s,i)=>{
+  const a=(i*30+15)*Math.PI/180, t=document.createElementNS(NS,"text");
+  t.setAttribute("x",200+165*Math.cos(a)); t.setAttribute("y",200-165*Math.sin(a)+8);
+  t.setAttribute("text-anchor","middle"); t.setAttribute("class","ring-sign"); t.textContent=s.e;
+  ring.appendChild(t); ringEls.push(t);
+});
+const earth=document.getElementById("earth"), sight=document.getElementById("sightLine");
+const slider=document.getElementById("daySlider"), playBtn=document.getElementById("playBtn");
+const MLEN=[31,28,31,30,31,30,31,31,30,31,30,31];
+function dayToDate(t){let m=0; t=Math.floor(t); while(t>=MLEN[m]){t-=MLEN[m];m++;} return [m+1,t+1];}
+let day=0, playing=!reduce, last=null;
+playBtn.textContent = playing?"Pause":"Play";
+function drawOrbit(){
+  const sunAng=((day-79)/365)*2*Math.PI, ea=sunAng+Math.PI;
+  const ex=200+92*Math.cos(ea), ey=200-92*Math.sin(ea);
+  earth.setAttribute("transform",`translate(${ex} ${ey})`);
+  sight.setAttribute("x1",ex); sight.setAttribute("y1",ey);
+  sight.setAttribute("x2",200+150*Math.cos(sunAng)); sight.setAttribute("y2",200-150*Math.sin(sunAng));
+  const [m,d]=dayToDate(day), idx=signFor(m,d);
+  ringEls.forEach((el,i)=>el.classList.toggle("on",i===idx));
+  document.getElementById("nowDate").textContent=`${MONTHS[m-1].slice(0,3)} ${d}`;
+  document.getElementById("nowSign").textContent=`${SIGNS[idx].n} ${SIGNS[idx].e}`;
+  slider.value=Math.floor(day);
+}
+function tick(ts){
+  if(playing && last!==null && cur===2){ day=(day+(ts-last)/1000*15)%365; drawOrbit(); }
+  last=ts; requestAnimationFrame(tick);
+}
+playBtn.onclick=()=>{playing=!playing; playBtn.textContent=playing?"Pause":"Play";};
+slider.oninput=()=>{day=+slider.value; playing=false; playBtn.textContent="Play"; drawOrbit();};
+drawOrbit(); requestAnimationFrame(tick);
+
+/* wheel */
+const wheel=document.getElementById("wheel"), spots=[];
+function pickSign(i){
+  const s=SIGNS[i];
+  spots.forEach((b,j)=>b.setAttribute("aria-pressed",j===i));
+  document.getElementById("hubE").textContent=s.e;
+  document.getElementById("hubN").textContent=s.n;
+  document.getElementById("infoSym").textContent=`${s.s}\uFE0E  ${s.n}`;
+  document.getElementById("infoDates").textContent=s.d;
+  document.getElementById("infoFact").textContent=s.f;
+  const hub=document.getElementById("hubE"); hub.classList.remove("pop"); void hub.offsetWidth; hub.classList.add("pop");
+}
+SIGNS.forEach((s,i)=>{
+  const a=(90-i*30)*Math.PI/180, b=document.createElement("button");
+  b.className="spot"; b.textContent=s.e; b.setAttribute("aria-label",s.n);
+  b.style.left=(50+39*Math.cos(a))+"%"; b.style.top=(50-39*Math.sin(a))+"%";
+  b.onclick=()=>pickSign(i); wheel.appendChild(b); spots.push(b);
+});
+pickSign(0);
+
+/* finder */
+const mSel=document.getElementById("mSel"), dSel=document.getElementById("dSel");
+MONTHS.forEach((m,i)=>mSel.add(new Option(m,i+1)));
+function fillDays(){
+  const keep=+dSel.value||1; dSel.innerHTML="";
+  for(let d=1;d<=MDAYS[mSel.value-1];d++) dSel.add(new Option(d,d));
+  dSel.value=Math.min(keep,MDAYS[mSel.value-1]);
+}
+mSel.onchange=fillDays; fillDays();
+document.getElementById("findBtn").onclick=()=>{
+  const m=+mSel.value, d=+dSel.value, s=SIGNS[signFor(m,d)];
+  const r=document.getElementById("reveal");
+  r.innerHTML=`<svg class="burst" viewBox="0 0 400 400" style="position:absolute;inset:0;width:100%;height:100%" aria-hidden="true"><circle cx="200" cy="200" r="4" fill="none" stroke="#FFCF4D" stroke-width="6"/></svg>
+    <div class="pop"><div class="big">${s.e}</div><div class="nm">${s.n}</div><div class="sub">${s.d}</div></div>`;
+  document.getElementById("findText").textContent=`Born on ${MONTHS[m-1]} ${d}? Your sign is ${s.n}. ${s.f}`;
+};
+
+/* ==================== Ta-reda-på-läxa ==================== */
+const NAV={next:{sv:"Nästa",en:"Next"},again:{sv:"Börja om",en:"Start again"}};
+
+const Q=[
+ {sv:"Vad heter stjärntecknet på latin?",en:"What is the sign called in Latin?"},
+ {sv:"Tillhör det någon större stjärnbild?",en:"Does it belong to a larger constellation?"},
+ {sv:"Vad är historien bakom stjärntecknet (den mytologiska berättelsen)?",en:"What is the story behind the sign (the myth)?"},
+ {sv:"Vilka karaktärsdrag sägs man ha om man är född i detta tecken?",en:"What character traits are people born in this sign said to have?"},
+ {sv:"Finns det någon färg eller sten som ska vara speciell för tecknet?",en:"Is there a colour or stone that is special to the sign?"},
+ {sv:"Tror du att stjärntecken kan säga något om dig eller förutspå din framtid?",en:"Do you think star signs can say something about you or predict your future?"}
+];
+
+const HW=[
+{lat:"Aries",gen:"Arietis",rank:39,hex:"#E4453A",
+ sv:{n:"Väduren",d:"21 mars – 19 april",mean:"latin för vädur, alltså en bagge (ett hanfår)",
+  star:"Hamal",starInfo:"en orange jättestjärna. Namnet kommer från arabiskans ras al-hamal, ”lammets huvud”",
+  con:"Stjärntecknet har en egen stjärnbild med samma namn: Aries, Väduren. Den är ganska liten – nummer 39 av alla 88 stjärnbilder – och ser ut som en kort, böjd rad av tre stjärnor. Den ingår inte i någon större stjärnbild, men den ligger granne med Triangeln, Perseus, Oxen och Fiskarna. För ungefär 2 000 år sedan låg vårdagjämningspunkten i Väduren, alltså den plats där solen står när våren börjar. Punkten kallas fortfarande Vädurspunkten, trots att solen numera står i Fiskarna den dagen.",
+  myth:"I den grekiska myten fanns en flygande bagge med ull av guld. Den skickades av gudarna för att rädda syskonen Frixos och Helle, som skulle offras. Baggen flög iväg med dem på ryggen, men Helle tappade taget och föll i havet – sundet Hellesponten är uppkallat efter henne. Frixos kom fram till landet Kolchis, och baggens gyllene skinn hängdes upp i en lund där en drake vaktade det. Långt senare seglade Jason och argonauterna dit för att hämta skinnet. Zeus satte upp baggen bland stjärnorna.",
+  tr:["modig","energisk","tävlingsinriktad","rak på sak","otålig","gillar att vara först"],el:"Eld",pl:"Mars",
+  col:"röd",stone:"diamant (ibland även blodsten eller jaspis)"},
+ en:{n:"Aries",d:"21 March – 19 April",mean:"Latin for ram",
+  star:"Hamal",starInfo:"an orange giant star. The name comes from Arabic ras al-hamal, “the head of the lamb”",
+  con:"The sign has its own constellation with the same name: Aries, the Ram. It is fairly small – number 39 of all 88 constellations – and looks like a short, bent line of three stars. It is not part of any bigger constellation, but it sits next to Triangulum, Perseus, Taurus and Pisces. About 2,000 years ago the spring equinox point was in Aries, the place where the Sun sits when spring begins. That point is still called the First Point of Aries, even though the Sun is now in Pisces on that day.",
+  myth:"In the Greek myth there was a flying ram with fleece of gold. The gods sent it to rescue the children Phrixus and Helle, who were about to be sacrificed. The ram flew off with them on its back, but Helle lost her grip and fell into the sea – the strait called the Hellespont is named after her. Phrixus reached the land of Colchis, and the ram's golden fleece was hung in a grove guarded by a dragon. Much later Jason and the Argonauts sailed there to fetch it. Zeus placed the ram among the stars.",
+  tr:["brave","energetic","competitive","straight-talking","impatient","likes being first"],el:"Fire",pl:"Mars",
+  col:"red",stone:"diamond (sometimes bloodstone or jasper)"},
+ map:{s:[[300,240,4],[235,165,7],[165,190,5],[148,198,3.5]],l:[[0,1],[1,2],[2,3]],t:[[235,145,"Hamal"]]}},
+
+{lat:"Taurus",gen:"Tauri",rank:17,hex:"#3FA46A",
+ sv:{n:"Oxen",d:"20 april – 20 maj",mean:"latin för tjur",
+  star:"Aldebaran",starInfo:"en orange jättestjärna som lyser som tjurens öga. Namnet betyder ”följaren” på arabiska, för den följer efter Plejaderna över himlen",
+  con:"Stjärnbilden heter Taurus, Oxen, och är stor och lätt att hitta på vinterhimlen – nummer 17 av 88. I den finns två berömda stjärnhopar: Hyaderna, som bildar det V som är tjurens ansikte, och Plejaderna (Sjustjärnorna), en tät klunga unga blå stjärnor. Aldebaran är dessutom ett hörn i Vintersexhörningen, ett stort mönster av sex starkt lysande stjärnor från flera olika stjärnbilder. I stjärnbilden syns bara tjurens framdel – resten är under vattnet i berättelsen.",
+  myth:"Zeus blev förälskad i prinsessan Europa. För att komma nära henne förvandlade han sig till en vacker, snövit tjur som betade bland hennes fars kor. Europa vågade klappa tjuren och satte sig till slut upp på hans rygg. Då sprang han rakt ut i havet och simmade hela vägen till ön Kreta, där han visade vem han var. Europa blev drottning där, och världsdelen Europa är uppkallad efter henne. Zeus satte upp tjurens bild bland stjärnorna.",
+  tr:["tålmodig","pålitlig","envis","praktisk","trogen","gillar god mat och mysiga saker"],el:"Jord",pl:"Venus",
+  col:"grön",stone:"smaragd"},
+ en:{n:"Taurus",d:"20 April – 20 May",mean:"Latin for bull",
+  star:"Aldebaran",starInfo:"an orange giant that shines like the bull's eye. The name means “the follower” in Arabic, because it follows the Pleiades across the sky",
+  con:"The constellation is Taurus, the Bull – big and easy to find in the winter sky, number 17 of 88. It holds two famous star clusters: the Hyades, which form the V of the bull's face, and the Pleiades (the Seven Sisters), a tight knot of young blue stars. Aldebaran is also a corner of the Winter Hexagon, a large pattern of six brilliant stars from several different constellations. Only the front half of the bull is drawn – the rest is under water in the story.",
+  myth:"Zeus fell in love with princess Europa. To get close to her he turned himself into a beautiful snow-white bull grazing among her father's cattle. Europa dared to pet the bull and finally climbed onto his back. He ran straight into the sea and swam all the way to the island of Crete, where he showed who he really was. Europa became queen there, and the continent of Europe is named after her. Zeus placed the bull's picture among the stars.",
+  tr:["patient","reliable","stubborn","practical","loyal","loves good food and cosy things"],el:"Earth",pl:"Venus",
+  col:"green",stone:"emerald"},
+ map:{s:[[170,260,4],[215,238,4],[268,218,8],[165,205,4],[190,178,4],[300,120,6],[175,95,6],[100,150,2],[112,142,2],[95,138,2],[108,158,2],[90,152,2],[118,150,2]],
+  l:[[0,1],[1,2],[0,3],[3,4],[2,5],[4,6]],
+  t:[[278,248,"Aldebaran"],[104,182,{sv:"Plejaderna",en:"Pleiades"}]]}},
+
+{lat:"Gemini",gen:"Geminorum",rank:30,hex:"#F2C230",
+ sv:{n:"Tvillingarna",d:"21 maj – 20 juni",mean:"latin för tvillingarna",
+  star:"Pollux",starInfo:"en orange jättestjärna. Tvillingstjärnan Castor ser ut som en stjärna men är egentligen sex stjärnor som kretsar runt varandra",
+  con:"Stjärnbilden Gemini, Tvillingarna, är nummer 30 av 88. De två starkast lysande stjärnorna, Castor och Pollux, är tvillingarnas huvuden och syns tydligt bredvid varandra. Pollux ingår i det stora mönstret Vintersexhörningen tillsammans med stjärnor från andra stjärnbilder. Vid tvillingarnas fötter ligger stjärnhopen M35, och varje december kommer stjärnfallssvärmen Geminiderna, som ser ut att stråla ut just härifrån.",
+  myth:"Kastor och Pollux var tvillingbröder, men bara Pollux var son till Zeus och därför odödlig. Bröderna gjorde allt tillsammans: de var med på jakten efter det gyllene skinnet och sades rädda sjömän i storm. När Kastor dödades i en strid ville Pollux inte leva vidare utan honom och bad Zeus att få dela med sig av sin odödlighet. Zeus lät dem dela på den – halva tiden i underjorden, halva tiden bland gudarna – och satte upp dem båda på himlen så att de aldrig skulle behöva skiljas åt.",
+  tr:["nyfiken","pratglad","snabbtänkt","social","anpassningsbar","lätt att byta idé"],el:"Luft",pl:"Merkurius",
+  col:"gul",stone:"agat (ibland även pärla)"},
+ en:{n:"Gemini",d:"21 May – 20 June",mean:"Latin for the twins",
+  star:"Pollux",starInfo:"an orange giant star. Its twin Castor looks like one star but is really six stars orbiting each other",
+  con:"The constellation Gemini, the Twins, is number 30 of 88. Its two brightest stars, Castor and Pollux, are the twins' heads and sit clearly side by side. Pollux is part of the big Winter Hexagon pattern together with stars from other constellations. At the twins' feet lies the star cluster M35, and every December the Geminid meteor shower seems to stream out from right here.",
+  myth:"Castor and Pollux were twin brothers, but only Pollux was a son of Zeus and therefore immortal. The brothers did everything together: they joined the hunt for the golden fleece and were said to rescue sailors in storms. When Castor was killed in a fight, Pollux did not want to live on without him and asked Zeus to share his immortality. Zeus let them share it – half the time in the underworld, half among the gods – and placed them both in the sky so they would never be parted.",
+  tr:["curious","talkative","quick-thinking","sociable","adaptable","changes ideas easily"],el:"Air",pl:"Mercury",
+  col:"yellow",stone:"agate (sometimes pearl)"},
+ map:{s:[[150,100,8],[248,112,8],[145,162,4],[255,172,4],[138,228,4],[262,238,4],[112,296,5],[168,292,4],[238,300,6],[292,288,4]],
+  l:[[0,2],[2,4],[4,6],[4,7],[1,3],[3,5],[5,8],[5,9],[2,3]],
+  t:[[150,80,"Castor"],[248,92,"Pollux"]]}},
+
+{lat:"Cancer",gen:"Cancri",rank:31,hex:"#C7CEDB",
+ sv:{n:"Kräftan",d:"21 juni – 22 juli",mean:"latin för krabba eller kräfta",
+  star:"Al Tarf",starInfo:"betyder ”ändan” på arabiska och sitter i en av krabbans ben. Ingen av stjärnorna lyser särskilt starkt",
+  con:"Stjärnbilden Cancer, Kräftan, är den svagaste av alla stjärntecknens stjärnbilder – nummer 31 av 88 – och syns bara riktigt bra på en mörk himmel utan gatlyktor. Stjärnorna bildar ett upp-och-nedvänt Y. Mitt i stjärnbilden ligger Bikupan (M44), en öppen stjärnhop med ungefär tusen stjärnor som med blotta ögat ser ut som en liten dimma. Galileo var den förste som riktade ett teleskop mot dimman och såg att den bestod av stjärnor.",
+  myth:"När hjälten Herakles kämpade mot det många­hövdade monstret Hydran skickade gudinnan Hera en jättelik krabba för att störa honom. Krabban nöp Herakles i foten mitt i striden, men han trampade sönder den. Hera var ändå tacksam för hjälpen och satte upp krabban bland stjärnorna – men eftersom den förlorade fick den bara svaga stjärnor.",
+  tr:["omtänksam","familjekär","känslig","beskyddande","lojal","kan bli lätt sårad"],el:"Vatten",pl:"Månen",
+  col:"silver och vitt",stone:"månsten (ibland även pärla)"},
+ en:{n:"Cancer",d:"21 June – 22 July",mean:"Latin for crab",
+  star:"Al Tarf",starInfo:"means “the end” in Arabic and sits in one of the crab's legs. None of the stars here are very bright",
+  con:"The constellation Cancer, the Crab, is the faintest of all the zodiac constellations – number 31 of 88 – and only shows up well in a dark sky without street lights. Its stars form an upside-down Y. In the middle lies the Beehive (M44), an open cluster of about a thousand stars that looks like a small patch of mist to the naked eye. Galileo was the first to point a telescope at that mist and see that it was made of stars.",
+  myth:"While the hero Heracles was fighting the many-headed monster Hydra, the goddess Hera sent a giant crab to disturb him. The crab pinched Heracles' foot in the middle of the battle, but he crushed it underfoot. Hera was grateful for the help anyway and placed the crab among the stars – but since it lost, it only got faint ones.",
+  tr:["caring","family-minded","sensitive","protective","loyal","easily hurt"],el:"Water",pl:"the Moon",
+  col:"silver and white",stone:"moonstone (sometimes pearl)"},
+ map:{s:[[140,290,5],[200,208,4],[196,166,4],[232,112,4],[258,268,4],[172,190,1.6],[182,185,1.6],[177,197,1.6],[188,194,1.6],[169,199,1.6],[186,203,1.6]],
+  l:[[0,1],[1,2],[2,3],[1,4]],
+  t:[[150,196,{sv:"Bikupan",en:"Beehive"},"end"],[140,312,"Al Tarf"]]}},
+
+{lat:"Leo",gen:"Leonis",rank:12,hex:"#E8A33D",
+ sv:{n:"Lejonet",d:"23 juli – 22 augusti",mean:"latin för lejon",
+  star:"Regulus",starInfo:"betyder ”den lille kungen” på latin. Den sitter längst ner i lejonets man och är en av himlens starkast lysande stjärnor",
+  con:"Här finns flera svar. Stjärntecknet Lejonet hör ihop med stjärnbilden Leo, Lejonet, som är nummer 12 av 88 och lätt att hitta på vårhimlen. Inuti Leo finns ett mindre mönster som kallas Skäran: sex stjärnor som bildar lejonets huvud och man och ser ut som ett bakvänt frågetecken. Längst ner i Skäran sitter Regulus, och lejonets svans heter Denebola. Regulus ingår dessutom i ett ännu större mönster, Vårtriangeln, tillsammans med Arcturus och Spica från två andra stjärnbilder. I november kommer stjärnfallssvärmen Leoniderna från det här hållet.",
+  myth:"Det nemeiska lejonet var ett monster med en päls som inga vapen kunde gå igenom. Herakles första uppgift av tolv var att döda det. När varken pilar eller klubba hjälpte gick han in i lejonets grotta och ströp det med sina bara händer. Sedan flådde han lejonet med dess egna klor, eftersom bara de var vassa nog, och bar skinnet som rustning med lejonhuvudet som hjälm. Zeus satte upp lejonet på himlen till minne av kampen.",
+  tr:["självsäker","generös","varmhjärtad","stolt","gillar att synas","vill vara ledare"],el:"Eld",pl:"Solen",
+  col:"guld och orange",stone:"peridot (olivin), ibland även rubin"},
+ en:{n:"Leo",d:"23 July – 22 August",mean:"Latin for lion",
+  star:"Regulus",starInfo:"means “the little king” in Latin. It sits at the bottom of the lion's mane and is one of the brightest stars in the sky",
+  con:"There is more than one answer here. The sign Leo belongs with the constellation Leo, the Lion, number 12 of 88 and easy to find in the spring sky. Inside Leo there is a smaller pattern called the Sickle: six stars forming the lion's head and mane, shaped like a backwards question mark. Regulus sits at the bottom of the Sickle, and the lion's tail is called Denebola. Regulus is also part of an even bigger pattern, the Spring Triangle, together with Arcturus and Spica from two other constellations. In November the Leonid meteor shower comes from this direction.",
+  myth:"The Nemean lion was a monster whose hide no weapon could pierce. Heracles' first task out of twelve was to kill it. When neither arrows nor club worked, he walked into the lion's cave and strangled it with his bare hands. He then skinned it using the lion's own claws, since only they were sharp enough, and wore the hide as armour with the lion's head as a helmet. Zeus placed the lion in the sky to remember the fight.",
+  tr:["confident","generous","warm-hearted","proud","likes being seen","wants to lead"],el:"Fire",pl:"the Sun",
+  col:"gold and orange",stone:"peridot, sometimes ruby"},
+ map:{s:[[150,250,8],[146,214,4],[158,180,6],[146,148,4],[126,122,4],[100,138,4],[268,226,4],[345,214,7],[266,164,5]],
+  l:[[5,4],[4,3],[3,2],[2,1],[1,0],[0,6],[6,7],[7,8],[8,2],[6,8]],
+  t:[[150,278,"Regulus"],[345,194,"Denebola"],[112,104,{sv:"Skäran",en:"the Sickle"}]]}},
+
+{lat:"Virgo",gen:"Virginis",rank:2,hex:"#3F5E7A",
+ sv:{n:"Jungfrun",d:"23 augusti – 22 september",mean:"latin för jungfru, en ung kvinna",
+  star:"Spica",starInfo:"betyder ”axet” på latin, alltså sädesaxet som jungfrun håller i handen. Det är en blåvit stjärna",
+  con:"Stjärnbilden Virgo, Jungfrun, är störst av alla stjärntecknens stjärnbilder och näst störst av alla 88 – bara Vattenormen är större. Spica är ett hörn i det stora mönstret Vårtriangeln tillsammans med Regulus i Lejonet och Arcturus i Björnvaktaren. I riktning mot Jungfrun ligger också Virgohopen, en samling med över tusen galaxer. I en av dem, M87, togs världens första bild av ett svart hål år 2019.",
+  myth:"Jungfrun brukar sägas vara skördegudinnan Demeter, eller hennes dotter Persefone, som var tvungen att tillbringa en del av året i underjorden – och då blev det vinter på jorden. Andra berättelser säger att hon är Astraia, rättvisans gudinna, som var den sista av gudarna att lämna jorden när människorna blev elaka mot varandra. Hon flög upp till himlen och blev en stjärnbild. Precis bredvid henne ligger Vågen, rättvisans vågskålar.",
+  tr:["noggrann","hjälpsam","ordningsam","praktisk","ser detaljer","kan vara självkritisk"],el:"Jord",pl:"Merkurius",
+  col:"mörkblå och jordbrun",stone:"safir (ibland även jade)"},
+ en:{n:"Virgo",d:"23 August – 22 September",mean:"Latin for maiden, a young woman",
+  star:"Spica",starInfo:"means “the ear of grain” in Latin – the wheat the maiden holds in her hand. It is a blue-white star",
+  con:"The constellation Virgo, the Maiden, is the largest of all the zodiac constellations and the second largest of all 88 – only Hydra is bigger. Spica is a corner of the big Spring Triangle together with Regulus in Leo and Arcturus in Boötes. In the direction of Virgo lies the Virgo Cluster, a group of more than a thousand galaxies. In one of them, M87, the world's first picture of a black hole was taken in 2019.",
+  myth:"The Maiden is usually said to be Demeter, goddess of the harvest, or her daughter Persephone, who had to spend part of every year in the underworld – and that is when winter came to Earth. Other stories say she is Astraea, goddess of justice, the last of the gods to leave Earth when people turned cruel to each other. She flew up to the sky and became a constellation. Right next to her lies Libra, the scales of justice.",
+  tr:["careful","helpful","organised","practical","notices details","can be hard on herself"],el:"Earth",pl:"Mercury",
+  col:"dark blue and earth brown",stone:"sapphire (sometimes jade)"},
+ map:{s:[[245,318,8],[182,228,5],[152,178,4],[168,122,5],[86,206,4],[276,242,4],[336,286,4]],
+  l:[[3,2],[2,1],[1,4],[1,0],[1,5],[5,6],[5,0]],
+  t:[[245,346,"Spica"]]}},
+
+{lat:"Libra",gen:"Librae",rank:29,hex:"#E9A2C1",
+ sv:{n:"Vågen",d:"23 september – 22 oktober",mean:"latin för våg eller vågskål",
+  star:"Zubeneschamali",starInfo:"betyder ”den norra klon” på arabiska – ett minne av att stjärnan en gång tillhörde Skorpionen",
+  con:"Ja, och det är extra spännande för just det här tecknet. Stjärnbilden Libra, Vågen, är nummer 29 av 88 och är det enda stjärntecknet som inte är ett levande väsen. Förr var de här stjärnorna ingen egen stjärnbild alls, utan skorpionens klor – grekerna kallade dem Chelae, ”klorna”. Stjärnornas namn minns det fortfarande: Zubenelgenubi betyder ”den södra klon” och Zubeneschamali ”den norra klon”. Det var romarna som gjorde om klorna till en våg.",
+  myth:"Vågen är rättvisans vågskålar, som hålls av gudinnan Astraia – alltså Jungfrun, stjärnbilden bredvid. Med vågen vägde hon människornas goda och onda handlingar mot varandra. I det gamla Babylonien var vågen symbol för solguden Shamash, som var domare och vakade över rättvisan. Att just den här delen av himlen blev en våg passade bra: förr inföll höstdagjämningen här, den dag då dag och natt är precis lika långa – i balans.",
+  tr:["rättvis","diplomatisk","sällskaplig","charmig","gillar harmoni och vackra saker","svårt att bestämma sig"],el:"Luft",pl:"Venus",
+  col:"ljusrosa och ljusblå",stone:"opal (ibland även lapis lazuli)"},
+ en:{n:"Libra",d:"23 September – 22 October",mean:"Latin for scales or balance",
+  star:"Zubeneschamali",starInfo:"means “the northern claw” in Arabic – a memory of the time this star belonged to Scorpius",
+  con:"Yes, and for this sign the answer is extra interesting. The constellation Libra, the Scales, is number 29 of 88 and is the only zodiac sign that is not a living creature. Long ago these stars were not a constellation of their own at all, but the claws of the scorpion – the Greeks called them Chelae, “the claws”. The star names still remember it: Zubenelgenubi means “the southern claw” and Zubeneschamali “the northern claw”. It was the Romans who turned the claws into a pair of scales.",
+  myth:"Libra is the scales of justice, held by the goddess Astraea – that is, Virgo, the constellation next door. On them she weighed people's good and bad deeds against each other. In ancient Babylon the scales were the symbol of the sun god Shamash, who was a judge and watched over justice. It suited this part of the sky well: the autumn equinox used to fall here, the day when day and night are exactly the same length – in balance.",
+  tr:["fair","diplomatic","sociable","charming","loves harmony and beautiful things","finds it hard to decide"],el:"Air",pl:"Venus",
+  col:"light pink and light blue",stone:"opal (sometimes lapis lazuli)"},
+ map:{s:[[158,238,6],[190,150,7],[292,196,5],[116,298,4],[300,278,4]],
+  l:[[3,0],[0,1],[1,2],[2,0],[2,4]],
+  t:[[190,130,"Zubeneschamali"],[172,262,"Zubenelgenubi","start"]]}},
+
+{lat:"Scorpio",gen:"Scorpii",rank:33,hex:"#8E2B33",
+ sv:{n:"Skorpionen",d:"23 oktober – 21 november",mean:"latin för skorpion. Tecknet heter Scorpio, men själva stjärnbilden heter Scorpius – astrologer och astronomer stavar det lite olika",
+  star:"Antares",starInfo:"en röd superjätte och skorpionens hjärta. Namnet betyder ”Ares motståndare”, alltså Mars motståndare, eftersom den lyser lika röd som planeten Mars",
+  con:"Stjärnbilden Scorpius, Skorpionen, är nummer 33 av 88 men en av de vackraste – stjärnorna bildar verkligen en skorpion med lång, krökt svans. Från Sverige syns den lågt i söder på sommaren. Antares är så stor att den skulle sluka Mars bana om den låg där solen ligger. Skorpionen ligger mitt i Vintergatan, åt det håll där vår galax mitt finns, och är därför full av stjärnhopar. Och kom ihåg: skorpionens klor är i dag en egen stjärnbild – Vågen.",
+  myth:"Jägaren Orion skröt om att han kunde döda alla djur på jorden. Då skickade jordgudinnan Gaia en skorpion, som stack honom i hälen så att han dog. I en annan version är det gudinnan Artemis som skickar skorpionen. Båda sattes upp på himlen, men på var sin sida: därför går Orion ner i väster precis när Skorpionen stiger upp i öster. De möts aldrig.",
+  tr:["intensiv","målmedveten","lojal","hemlighetsfull","stark vilja","ger sig inte"],el:"Vatten",pl:"Pluto (förr Mars)",
+  col:"mörkröd och svart",stone:"topas (ibland även granat)"},
+ en:{n:"Scorpio",d:"23 October – 21 November",mean:"Latin for scorpion. The sign is spelled Scorpio, but the constellation is Scorpius – astrologers and astronomers spell it differently",
+  star:"Antares",starInfo:"a red supergiant and the scorpion's heart. The name means “rival of Ares”, that is rival of Mars, because it glows as red as the planet Mars",
+  con:"The constellation Scorpius, the Scorpion, is number 33 of 88 but one of the most beautiful – the stars really do form a scorpion with a long curved tail. From Sweden it sits low in the south in summer. Antares is so large that if it stood where the Sun is, it would swallow the orbit of Mars. Scorpius lies in the Milky Way, in the direction of the centre of our galaxy, so it is full of star clusters. And remember: the scorpion's claws are now a constellation of their own – Libra.",
+  myth:"The hunter Orion boasted that he could kill every animal on Earth. So the Earth goddess Gaia sent a scorpion, which stung his heel and killed him. In another version it is the goddess Artemis who sends the scorpion. Both were placed in the sky, but on opposite sides: that is why Orion sets in the west just as Scorpius rises in the east. They never meet.",
+  tr:["intense","determined","loyal","secretive","strong-willed","never gives in"],el:"Water",pl:"Pluto (once Mars)",
+  col:"dark red and black",stone:"topaz (sometimes garnet)"},
+ map:{s:[[108,112,5],[122,148,4],[106,182,4],[145,176,3.5],[168,196,9],[188,232,4],[212,266,4],[228,296,4],[248,320,4],[284,334,4],[318,328,4],[342,302,4],[346,272,4],[326,248,7],[344,236,4]],
+  l:[[0,1],[1,2],[1,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,9],[9,10],[10,11],[11,12],[12,13],[13,14]],
+  t:[[196,178,"Antares"],[322,226,"Shaula"]]}},
+
+{lat:"Sagittarius",gen:"Sagittarii",rank:15,hex:"#8A5BC4",
+ sv:{n:"Skytten",d:"22 november – 21 december",mean:"latin för bågskytt",
+  star:"Kaus Australis",starInfo:"betyder ”den södra delen av bågen” – kaus är arabiska för båge och australis latin för södra",
+  con:"Stjärnbilden Sagittarius, Skytten, är nummer 15 av 88. De ljusaste stjärnorna bildar ett eget litet mönster som kallas Tekannan, och Vintergatans ljusband stiger upp ur pipen som ånga. Det är ingen slump: åt det här hållet ligger vår galax mitt, med det supermassiva svarta hålet Sagittarius A*. Här finns också Lagunnebulosan och massor av stjärnhopar. Från Sverige syns Skytten lågt i söder på sommaren.",
+  myth:"Skytten är en kentaur – hälften människa, hälften häst – som spänner sin båge och siktar rakt mot Skorpionens röda hjärta Antares, som för att skydda oss från skorpionen som dödade Orion. Vissa berättelser säger att det är Krotos, en satyr som uppfann bågskyttet och var så omtyckt av muserna att de bad Zeus sätta upp honom bland stjärnorna. Andra kopplar honom till den vise kentauren Cheiron, som lärde många hjältar att jaga och läka.",
+  tr:["äventyrlig","optimistisk","ärlig och rättfram","frihetstörstande","nyfiken","gillar att resa"],el:"Eld",pl:"Jupiter",
+  col:"lila",stone:"turkos (ibland även topas)"},
+ en:{n:"Sagittarius",d:"22 November – 21 December",mean:"Latin for archer",
+  star:"Kaus Australis",starInfo:"means “the southern part of the bow” – kaus is Arabic for bow and australis is Latin for southern",
+  con:"The constellation Sagittarius, the Archer, is number 15 of 88. Its brightest stars form a smaller pattern of their own called the Teapot, and the band of the Milky Way rises out of the spout like steam. That is no coincidence: the centre of our galaxy lies in this direction, with the supermassive black hole Sagittarius A*. The Lagoon Nebula and many star clusters are here too. From Sweden the Archer stays low in the south in summer.",
+  myth:"Sagittarius is a centaur – half human, half horse – drawing his bow and aiming straight at Antares, the red heart of Scorpius, as if protecting us from the scorpion that killed Orion. Some stories say he is Crotus, a satyr who invented archery and was so loved by the Muses that they asked Zeus to place him among the stars. Others link him to the wise centaur Chiron, who taught many heroes to hunt and to heal.",
+  tr:["adventurous","optimistic","honest and direct","freedom-loving","curious","loves to travel"],el:"Fire",pl:"Jupiter",
+  col:"purple",stone:"turquoise (sometimes topaz)"},
+ map:{s:[[105,255,5],[170,230,5],[205,165,5],[240,220,4],[265,185,6],[300,235,4],[270,258,5],[160,288,7]],
+  l:[[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,3],[6,7],[7,0]],
+  t:[[205,144,{sv:"Tekannan",en:"the Teapot"}],[150,314,"Kaus Australis"]]}},
+
+{lat:"Capricorn",gen:"Capricorni",rank:40,hex:"#6B5B4A",
+ sv:{n:"Stenbocken",d:"22 december – 19 januari",mean:"av latinets capra (get) och cornu (horn), alltså ”den med getens horn”. Tecknet skrivs Capricorn och stjärnbilden Capricornus",
+  star:"Deneb Algedi",starInfo:"betyder ”getens svans” på arabiska och sitter längst ut i fiskstjärten",
+  con:"Stjärnbilden Capricornus, Stenbocken, är nummer 40 av 88, alltså en av de mindre, och stjärnorna är ganska svaga – mönstret ser ut som en bred triangel. Stenbocken tillhör ett stort område av himlen som kallas Havet eller Vattenregionen, där alla stjärnbilder har med vatten att göra: Vattumannen, Fiskarna, Valfisken, Delfinen och floden Eridanus. Det passar bra för ett djur som är halv get, halv fisk.",
+  myth:"Guden Pan, som var halvt get, satt och festade vid Nilen när monstret Tyfon plötsligt anföll. Alla gudar förvandlade sig för att fly, och Pan hoppade i floden – men förvandlingen gick lite fel: delen som var under vattnet blev en fiskstjärt, medan överkroppen fortfarande var en get. Zeus tyckte att den konstiga havsgeten var så rolig att han satte upp den bland stjärnorna. Stjärnbilden kopplas också till geten Amaltheia, som gav lilla Zeus mjölk när han gömdes undan sin far. Från hennes horn kom ymnighetshornet, som alltid var fullt av mat.",
+  tr:["ansvarsfull","målmedveten","tålmodig","arbetar hårt","allvarlig","ger inte upp"],el:"Jord",pl:"Saturnus",
+  col:"mörkbrun och gråsvart",stone:"granat (ibland även onyx)"},
+ en:{n:"Capricorn",d:"22 December – 19 January",mean:"from Latin capra (goat) and cornu (horn) – “the one with goat's horns”. The sign is spelled Capricorn, the constellation Capricornus",
+  star:"Deneb Algedi",starInfo:"means “the tail of the goat” in Arabic and sits at the tip of the fish tail",
+  con:"The constellation Capricornus, the Sea-Goat, is number 40 of 88, so one of the smaller ones, and its stars are fairly faint – the pattern looks like a wide triangle. Capricornus belongs to a large region of sky called the Sea or the Water, where every constellation has something to do with water: Aquarius, Pisces, Cetus the whale, Delphinus the dolphin and the river Eridanus. That suits an animal that is half goat, half fish.",
+  myth:"The god Pan, who was half goat, was feasting by the Nile when the monster Typhon suddenly attacked. All the gods changed shape to escape, and Pan jumped into the river – but the change went a little wrong: the part under water became a fish tail, while the upper body stayed a goat. Zeus found the strange sea-goat so funny that he placed it among the stars. The constellation is also linked to Amalthea, the goat who fed the baby Zeus with her milk while he was hidden from his father. From her horn came the horn of plenty, always full of food.",
+  tr:["responsible","determined","patient","hard-working","serious","never gives up"],el:"Earth",pl:"Saturn",
+  col:"dark brown and grey-black",stone:"garnet (sometimes onyx)"},
+ map:{s:[[118,152,6],[140,176,5],[210,316,4],[290,222,5],[316,232,7],[252,182,4]],
+  l:[[0,1],[1,2],[2,4],[4,3],[3,5],[5,1]],
+  t:[[118,132,"Algedi"],[340,300,"Deneb Algedi","end"]]}},
+
+{lat:"Aquarius",gen:"Aquarii",rank:10,hex:"#3FB8C9",
+ sv:{n:"Vattumannen",d:"20 januari – 18 februari",mean:"latin för vattenbärare",
+  star:"Sadalsuud",starInfo:"betyder ungefär ”lyckligaste lyckan” på arabiska. Namnet kommer från att stjärnan förr steg upp samtidigt som regnperioden började",
+  con:"Stjärnbilden Aquarius, Vattumannen, är nummer 10 av alla 88 och alltså en av de största, men stjärnorna är svaga så den är ändå svår att se. Fyra stjärnor bildar Vattenkrukan, ett litet Y-format mönster, och därifrån rinner en rad stjärnor nedåt som en vattenstråle mot den starkt lysande stjärnan Fomalhaut i Södra fisken. Vattumannen hör till himlens stora vattenområde, Havet, tillsammans med Fiskarna, Stenbocken och Valfisken. Här finns också Helixnebulosan, resterna av en döende stjärna, som brukar kallas ”Guds öga”.",
+  myth:"Ganymedes var en ung trojansk prins som sades vara den vackraste människan på jorden. Zeus förvandlade sig till en örn – stjärnbilden Örnen ligger precis bredvid – flög ner och bar upp honom till Olympen. Där fick Ganymedes bli gudarnas munskänk och hälla upp nektar åt dem ur sin kruka. Det är den krukan han fortfarande häller ur på stjärnhimlen. Som tack gav Zeus hans far ett par gudomliga hästar.",
+  tr:["självständig","uppfinningsrik","har egen stil","tänker på framtiden","bryr sig om rättvisa","lite udda på ett bra sätt"],el:"Luft (fast namnet handlar om vatten)",pl:"Uranus (förr Saturnus)",
+  col:"turkos och elblå",stone:"ametist (ibland även akvamarin)"},
+ en:{n:"Aquarius",d:"20 January – 18 February",mean:"Latin for water carrier",
+  star:"Sadalsuud",starInfo:"means roughly “luckiest of the lucky” in Arabic. The name comes from the star rising at the time the rainy season began",
+  con:"The constellation Aquarius, the Water Carrier, is number 10 of all 88 and therefore one of the largest, but its stars are faint so it is still hard to see. Four stars form the Water Jar, a small Y-shaped pattern, and from it a line of stars flows downwards like a stream of water towards the bright star Fomalhaut in the Southern Fish. Aquarius belongs to the sky's big water region, the Sea, together with Pisces, Capricornus and Cetus. Here you also find the Helix Nebula, the remains of a dying star, often called the Eye of God.",
+  myth:"Ganymede was a young prince of Troy, said to be the most beautiful person on Earth. Zeus turned himself into an eagle – the constellation Aquila lies right next door – flew down and carried him up to Olympus. There Ganymede became cup-bearer to the gods, pouring nectar for them from his jar. That is the jar he is still pouring from in the night sky. As thanks, Zeus gave his father a pair of divine horses.",
+  tr:["independent","inventive","has their own style","thinks about the future","cares about fairness","a little odd in a good way"],el:"Air (even though the name is about water)",pl:"Uranus (once Saturn)",
+  col:"turquoise and electric blue",stone:"amethyst (sometimes aquamarine)"},
+ map:{s:[[102,182,7],[172,156,6],[216,150,4],[236,168,4],[260,150,4],[230,132,4],[246,198,3],[262,228,3],[238,254,3],[258,282,3],[240,310,3],[266,332,3],[288,352,6]],
+  l:[[0,1],[1,2],[2,3],[3,4],[3,5],[3,6],[6,7],[7,8],[8,9],[9,10],[10,11],[11,12]],
+  t:[[236,116,{sv:"Vattenkrukan",en:"the Water Jar"}],[288,374,"Fomalhaut"]]}},
+
+{lat:"Pisces",gen:"Piscium",rank:14,hex:"#5FBFA8",
+ sv:{n:"Fiskarna",d:"19 februari – 20 mars",mean:"latin för fiskarna (plural av piscis, fisk)",
+  star:"Alrescha",starInfo:"betyder ”snöret” på arabiska. Det är stjärnan där de två fiskarnas band är hopknutet",
+  con:"Stjärnbilden Pisces, Fiskarna, är nummer 14 av 88 till ytan men har inga starkt lysande stjärnor. Den föreställer två fiskar som är hopbundna med ett långt snöre, och knuten är stjärnan Alrescha. Den ena fiskens huvud bildar en liten ring av stjärnor som kallas Cirkeln. Fiskarna hör till himlens vattenområde, Havet. En viktig sak: eftersom jordaxeln långsamt vinglar (precession) har vårdagjämningspunkten flyttat från Väduren hit till Fiskarna. Numera står alltså solen i Fiskarna när våren börjar.",
+  myth:"Kärleksgudinnan Afrodite och hennes son Eros var vid floden Eufrat när det fruktansvärda monstret Tyfon dök upp. För att kunna fly kastade de sig i vattnet och förvandlades till två fiskar – i en annan version bärs de undan av två hjälpsamma fiskar. För att inte tappa bort varandra i vattnet band de ihop sina stjärtar med ett snöre. Så hänger de ihop än i dag på stjärnhimlen.",
+  tr:["fantasifull","drömmande","snäll","känner av hur andra mår","konstnärlig","kan vara blyg"],el:"Vatten",pl:"Neptunus (förr Jupiter)",
+  col:"havsgrön och lila",stone:"akvamarin (ibland även ametist)"},
+ en:{n:"Pisces",d:"19 February – 20 March",mean:"Latin for the fishes (plural of piscis, fish)",
+  star:"Alrescha",starInfo:"means “the cord” in Arabic. It is the star where the two fishes' ribbon is knotted together",
+  con:"The constellation Pisces, the Fishes, is number 14 of 88 by area but has no bright stars. It shows two fish tied together with a long cord, and the knot is the star Alrescha. The head of one fish forms a small ring of stars called the Circlet. Pisces belongs to the sky's water region, the Sea. One important thing: because Earth's axis slowly wobbles (precession), the spring equinox point has moved from Aries to here in Pisces. So today the Sun is in Pisces when spring begins.",
+  myth:"Aphrodite, goddess of love, and her son Eros were by the river Euphrates when the terrible monster Typhon appeared. To escape they threw themselves into the water and turned into two fish – in another version two helpful fish carry them away. So they would not lose each other in the water, they tied their tails together with a cord. That is how they still hang together in the night sky.",
+  tr:["imaginative","dreamy","kind","senses how others feel","artistic","can be shy"],el:"Water",pl:"Neptune (once Jupiter)",
+  col:"sea green and purple",stone:"aquamarine (sometimes amethyst)"},
+ map:{s:[[88,132,3.5],[112,116,3.5],[136,134,3.5],[128,162,3.5],[98,160,3.5],[176,188,3.5],[228,226,3.5],[284,262,6],[300,206,3.5],[314,152,3.5],[300,106,4],[326,120,3.5]],
+  l:[[0,1],[1,2],[2,3],[3,4],[4,0],[2,5],[5,6],[6,7],[7,8],[8,9],[9,10],[10,11],[11,9]],
+  t:[[112,96,{sv:"Cirkeln",en:"the Circlet"}],[284,288,"Alrescha"]]}}
+];
+
+const UI={
+  chapter:{sv:"Kapitel",en:"Chapter"},
+  latinNote:{sv:"Alla 88 stjärnbilder har officiella namn på latin. Det bestämde astronomernas världsorganisation IAU år 1922.",
+             en:"All 88 constellations have official Latin names, agreed by the International Astronomical Union (IAU) in 1922."},
+  symbol:{sv:"Symbol",en:"Symbol"},
+  swedish:{sv:"På svenska",en:"In Swedish"},
+  english:{sv:"På engelska",en:"In English"},
+  means:{sv:"Betyder",en:"Means"},
+  dates:{sv:"Datum",en:"Dates"},
+  constell:{sv:"Stjärnbild",en:"Constellation"},
+  size:{sv:"Storlek",en:"Size"},
+  sizeVal:{sv:n=>"nr "+n+" av 88 stjärnbilder",en:n=>"number "+n+" of 88 constellations"},
+  brightest:{sv:"Ljusstarkaste stjärnan",en:"Brightest star"},
+  element:{sv:"Element",en:"Element"},
+  planet:{sv:"Härskande planet",en:"Ruling planet"},
+  colour:{sv:"Färg",en:"Colour"},
+  stone:{sv:"Sten",en:"Stone"},
+  ownWords:{sv:"Skriv om berättelsen med egna ord – det blir både roligare att läsa och lättare att komma ihåg när du redovisar.",
+            en:"Retell the story in your own words – it is more fun to read and easier to remember when you present it."},
+  traitNote:{sv:"Kom ihåg: det här är vad astrologin säger. Det är en gammal tradition, inte vetenskap – och det är precis det fråga 6 handlar om.",
+             en:"Remember: this is what astrology says. It is an old tradition, not science – and that is exactly what question 6 is about."},
+  stoneNote:{sv:"Olika böcker och sidor säger olika saker om färger och stenar, eftersom det bygger på tradition. Skriv gärna var du hittade just din uppgift.",
+             en:"Different books and websites say different things about colours and stones, because it is all tradition. Write down where you found yours."},
+  mapCap:{sv:(n,l)=>"Bild: stjärnbilden "+n+" ("+l+"), ritad här på sidan. Ritar du själv behöver du ingen bildkälla – skriv bara att bilden är din egen.",
+          en:(n,l)=>"Picture: the constellation "+n+" ("+l+"), drawn here on the page. If you draw it yourself you need no picture source – just write that the picture is your own."},
+  imgTip:{sv:"Du behöver en bild till läxan. Enklast: rita av stjärnbilden här bredvid på ett papper, eller skriv ut den här sidan. En bild du har ritat själv är din egen – då räcker det att skriva ”egen bild”. Om du i stället tar en bild från internet måste du skriva var den kommer ifrån, precis som med en text.",
+          en:"You need a picture for the homework. The easiest way: copy the constellation next to this text onto paper, or print this page. A picture you drew yourself is your own – then it is enough to write “my own drawing”. If you take a picture from the internet instead, you must write where it came from, just like with a text."},
+  srcHead:{sv:"Läst",en:"Read on"},
+  ownPic:{sv:"Bild: egen ritning av stjärnbilden (från den här sidan).",en:"Picture: my own drawing of the constellation (from this page)."},
+  checks:[
+   {sv:"Jag har svarat på alla sex frågorna",en:"I have answered all six questions"},
+   {sv:"Jag har skrivit med egna ord",en:"I have written it in my own words"},
+   {sv:"Jag har en bild",en:"I have a picture"},
+   {sv:"Jag har skrivit mina källor",en:"I have written down my sources"}
+  ],
+  printHead:{sv:"Ta-reda-på-läxa: stjärntecken",en:"Find-out homework: zodiac signs"},
+  printLine:{sv:"Namn: ______________   Klass: ______   Datum: ____________",
+             en:"Name: ______________   Class: ______   Date: ____________"},
+  answerPh:{sv:"Skriv ditt svar här …",en:"Write your answer here …"}
+};
+
+let lang="sv", hwIdx=4, hwTouched=false;
+try{ lang = localStorage.getItem("zodiac-lang")==="en" ? "en" : "sv"; }catch(e){}
+const L=o=>typeof o==="function"?o:o[lang];
+
+function applyStatic(){
+  document.querySelectorAll("[data-sv]").forEach(el=>{ el.textContent=el.dataset[lang]; });
+  document.querySelectorAll(".slide.wide").forEach(s=>{ s.lang=lang; });
+  document.getElementById("lbSv").setAttribute("aria-pressed",lang==="sv");
+  document.getElementById("lbEn").setAttribute("aria-pressed",lang==="en");
+  document.getElementById("nextBtn").textContent = cur===slides.length-1?NAV.again[lang]:NAV.next[lang];
+  document.getElementById("myAnswer").placeholder=L(UI.answerPh);
+}
+
+function renderQList(){
+  document.getElementById("qlist").innerHTML=Q.map((q,i)=>
+    '<li><span class="num">'+(i+1)+'</span><span>'+q[lang]+'</span></li>').join("");
+  document.getElementById("q6q").textContent="6. "+Q[5][lang];
+}
+
+function renderChips(){
+  document.getElementById("hwChips").innerHTML=HW.map((d,i)=>
+    '<button class="chip" data-i="'+i+'" aria-pressed="'+(i===hwIdx)+'"><span class="em">'+SIGNS[i].e+
+    '</span>'+d[lang].n+'</button>').join("");
+  document.querySelectorAll("#hwChips .chip").forEach(b=>{
+    b.onclick=()=>{ hwTouched=true; hwPick(+b.dataset.i); };
+  });
+}
+
+function drawMap(){
+  const d=HW[hwIdx], m=d.map, svg=document.getElementById("mapSvg");
+  svg.setAttribute("aria-label",(lang==="sv"?"Stjärnbilden ":"The constellation ")+d[lang].n);
+  let g='<text class="mapname" x="200" y="34" text-anchor="middle">'+d[lang].n+" · "+d.lat+"</text>";
+  m.l.forEach((p,i)=>{
+    const a=m.s[p[0]], b=m.s[p[1]];
+    g+='<path class="link" pathLength="1" d="M'+a[0]+" "+a[1]+" L"+b[0]+" "+b[1]+
+       '" style="animation-delay:'+(i*0.1).toFixed(2)+'s"/>';
+  });
+  m.s.forEach(s=>{ g+='<circle class="star'+(s[2]>=6?" big":"")+'" cx="'+s[0]+'" cy="'+s[1]+'" r="'+s[2]+'"/>'; });
+  (m.t||[]).forEach(t=>{
+    const txt=typeof t[2]==="string"?t[2]:t[2][lang];
+    g+='<text class="maplabel" x="'+t[0]+'" y="'+t[1]+'" text-anchor="'+(t[3]||"middle")+'">'+txt+"</text>";
+  });
+  svg.innerHTML=g;
+  const sky=document.getElementById("mapSky");
+  sky.classList.remove("play"); void sky.offsetWidth; sky.classList.add("play");
+  document.getElementById("mapCap").textContent=UI.mapCap[lang](d[lang].n,d.lat);
+}
+
+function card(num,body){
+  return '<div class="qcard"><h3><span class="num">'+num+'</span><span>'+Q[num-1][lang]+
+         "</span></h3>"+body+"</div>";
+}
+function row(k,v){ return "<dt>"+k+"</dt><dd>"+v+"</dd>"; }
+
+function renderAnswers(){
+  const d=HW[hwIdx], s=d[lang], sign=SIGNS[hwIdx];
+  let h="";
+  h+=card(1,'<dl class="kv">'+
+    row("Latin","<b>"+d.lat+"</b> (genitiv: <i>"+d.gen+"</i>)")+
+    row(L(UI.means),s.mean)+
+    row(L(UI.symbol),sign.s+" "+sign.e)+
+    row(L(UI.swedish),HW[hwIdx].sv.n)+
+    row(L(UI.english),HW[hwIdx].en.n)+
+    row(L(UI.dates),s.d)+
+    '</dl><p class="note">'+L(UI.latinNote)+"</p>");
+
+  h+=card(2,"<p>"+s.con+'</p><dl class="kv">'+
+    row(L(UI.constell),d.lat+" – "+s.n)+
+    row(L(UI.size),UI.sizeVal[lang](d.rank))+
+    row(L(UI.brightest),"<b>"+s.star+"</b> – "+s.starInfo)+
+    "</dl>");
+
+  h+=card(3,"<p>"+s.myth+'</p><p class="note">'+L(UI.ownWords)+"</p>");
+
+  h+=card(4,'<div class="tags">'+s.tr.map(t=>'<span class="tag">'+t+"</span>").join("")+"</div>"+
+    '<dl class="kv">'+row(L(UI.element),s.el)+row(L(UI.planet),s.pl)+'</dl><p class="note">'+
+    L(UI.traitNote)+"</p>");
+
+  h+=card(5,'<dl class="kv">'+
+    row(L(UI.colour),'<span class="swatch" style="background:'+d.hex+'"></span>'+s.col)+
+    row(L(UI.stone),s.stone)+
+    row(L(UI.element),s.el)+
+    '</dl><p class="note">'+L(UI.stoneNote)+"</p>");
+
+  document.getElementById("answers").innerHTML=h;
+}
+
+function renderSources(){
+  const d=HW[hwIdx], today=new Date().toISOString().slice(0,10), r=L(UI.srcHead);
+  const items=[
+    "Wikipedia (sv): ”"+d.sv.n+" (stjärnbild)”. sv.wikipedia.org. "+r+" "+today+".",
+    "Wikipedia (sv): ”"+d.sv.n+" (stjärntecken)”. sv.wikipedia.org. "+r+" "+today+".",
+    "Wikipedia (en): ”"+d.en.n+" (constellation)”. en.wikipedia.org. "+r+" "+today+".",
+    "NASA Space Place: ”What Is a Constellation?”. spaceplace.nasa.gov. "+r+" "+today+".",
+    L(UI.ownPic)
+  ];
+  document.getElementById("srcList").innerHTML=items.map(t=>"<li>"+t+"</li>").join("");
+  document.getElementById("imgTip").textContent=L(UI.imgTip);
+  document.getElementById("checkList").innerHTML=UI.checks.map((c,i)=>
+    '<li><input type="checkbox" id="ck'+i+'"><label for="ck'+i+'">'+c[lang]+"</label></li>").join("");
+  document.getElementById("printHead").innerHTML=
+    '<div style="display:flex;justify-content:space-between;gap:1rem;border-bottom:1px solid #888;padding-bottom:3mm;margin-bottom:4mm">'+
+    "<strong>"+L(UI.printHead)+"</strong><span>"+L(UI.printLine)+"</span></div>";
+}
+
+function hwPick(i){
+  hwIdx=i;
+  document.querySelectorAll("#hwChips .chip").forEach(b=>
+    b.setAttribute("aria-pressed", +b.dataset.i===i));
+  drawMap(); renderAnswers(); renderSources();
+}
+
+function renderHW(){
+  applyStatic(); renderQList(); renderChips(); drawMap(); renderAnswers(); renderSources();
+}
+
+function setLang(l){
+  lang=l;
+  try{ localStorage.setItem("zodiac-lang",l); }catch(e){}
+  renderHW();
+}
+document.getElementById("lbSv").onclick=()=>setLang("sv");
+document.getElementById("lbEn").onclick=()=>setLang("en");
+document.getElementById("redrawMap").onclick=drawMap;
+
+/* remember the child's own answer to question 6 */
+const ta=document.getElementById("myAnswer");
+try{ ta.value=localStorage.getItem("zodiac-answer")||""; }catch(e){}
+ta.addEventListener("input",()=>{ try{ localStorage.setItem("zodiac-answer",ta.value); }catch(e){} });
+
+document.getElementById("printBtn").onclick=()=>{
+  const v=ta.value.trim();
+  document.getElementById("myAnswerPrint").textContent=v||"";
+  window.print();
+};
+
+/* the birthday finder also picks the sign for the homework */
+document.getElementById("findBtn").addEventListener("click",()=>{
+  if(!hwTouched) hwPick(signFor(+mSel.value,+dSel.value));
+});
+
+renderHW();
+go(0);
+</script>
+</body>
+</html>
