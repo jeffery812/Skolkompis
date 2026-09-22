@@ -39,7 +39,10 @@ p{margin:0 0 .9rem;max-width:34em}
 button,select{font:inherit;color:inherit}
 :focus-visible{outline:3px solid var(--coral);outline-offset:3px;border-radius:8px}
 
-header{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.9rem 1.25rem}
+header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.6rem 1rem;padding:.9rem 1.25rem;padding-top:calc(.9rem + env(safe-area-inset-top,0px))}
+header .langbar{margin-bottom:0;order:3;flex:1 1 100%;justify-content:flex-end}
+@media (min-width:560px){header .langbar{flex:0 0 auto;order:0}}
+header .lb{font-size:.85rem;padding:.28rem .75rem}
 .brand{font-family:"Fredoka",system-ui,sans-serif;font-weight:600;font-size:1.05rem;color:var(--soft)}
 .dots{display:flex;gap:.45rem}
 .dots button{width:12px;height:12px;border-radius:50%;border:2px solid var(--soft);background:transparent;padding:0;cursor:pointer}
@@ -235,6 +238,10 @@ footer{display:flex;justify-content:space-between;align-items:center;padding:.8r
 <header>
   <span class="brand">✨ Star Stories</span>
   <nav class="dots" id="dots" aria-label="Chapters"></nav>
+  <div class="langbar">
+    <button class="lb" id="lbSv" aria-pressed="true">Svenska</button>
+    <button class="lb" id="lbEn" aria-pressed="false">English</button>
+  </div>
 </header>
 
 <main>
@@ -245,15 +252,15 @@ footer{display:flex;justify-content:space-between;align-items:center;padding:.8r
         <svg viewBox="0 0 400 400" width="100%" height="100%" aria-hidden="true">
           <g class="spin hero-ring" id="heroRing"></g>
           <text class="hero-title" x="200" y="190" text-anchor="middle" font-size="44">12</text>
-          <text class="hero-title" x="200" y="228" text-anchor="middle" font-size="22">star pictures</text>
+          <text class="hero-title" x="200" y="228" text-anchor="middle" font-size="22" data-sv="stjärnbilder" data-en="star pictures"></text>
         </svg>
       </div>
     </div>
     <div class="text">
-      <h1>What is a zodiac sign?</h1>
-      <p>Have you ever heard someone say “I’m a Leo!” or “She’s a Pisces”? Those are zodiac signs.</p>
-      <p>There are 12 of them, and each one is a picture made of stars. Let’s find out where they come from, and which one is yours.</p>
-      <button class="btn" data-next>Start the story</button>
+      <h1 data-sv="Vad är ett stjärntecken?" data-en="What is a zodiac sign?"></h1>
+      <p data-sv="Har du någonsin hört någon säga ”Jag är Lejonet!” eller ”Hon är Fiskarna”? Det är stjärntecken." data-en="Have you ever heard someone say “I’m a Leo!” or “She’s a Pisces”? Those are zodiac signs."></p>
+      <p data-sv="Det finns 12 stycken, och varje ett är en bild gjord av stjärnor. Nu ska vi ta reda på var de kommer ifrån, och vilket som är ditt." data-en="There are 12 of them, and each one is a picture made of stars. Let’s find out where they come from, and which one is yours."></p>
+      <button class="btn" data-next data-sv="Börja berättelsen" data-en="Start the story"></button>
     </div>
   </section>
 
@@ -261,7 +268,7 @@ footer{display:flex;justify-content:space-between;align-items:center;padding:.8r
   <section class="slide" data-title="Dot to dot">
     <div class="stage">
       <div class="sky" id="leoSky">
-        <svg viewBox="0 0 400 400" width="100%" height="100%" role="img" aria-label="Stars being joined into the shape of Leo the lion">
+        <svg viewBox="0 0 400 400" width="100%" height="100%" role="img" aria-label="Stars being joined into the shape of Leo the lion" id="leoSvg">
           <text class="ghost-lion" x="215" y="280" text-anchor="middle">🦁</text>
           <path class="link" pathLength="1" d="M95 125 L128 105" style="animation-delay:.2s"/>
           <path class="link" pathLength="1" d="M128 105 L168 130" style="animation-delay:.8s"/>
@@ -282,15 +289,15 @@ footer{display:flex;justify-content:space-between;align-items:center;padding:.8r
           <circle class="star" cx="300" cy="175" r="5"/>
           <circle class="star big" cx="350" cy="235" r="7"/>
           <circle class="star" cx="290" cy="245" r="5"/>
-          <text class="leo-label" x="200" y="350" text-anchor="middle">Leo the Lion</text>
+          <text class="leo-label" x="200" y="350" text-anchor="middle" data-sv="Lejonet" data-en="Leo the Lion"></text>
         </svg>
       </div>
     </div>
     <div class="text">
-      <h2>Stars are a giant dot-to-dot</h2>
-      <p>Thousands of years ago there were no screens and no street lights. At night the sky was full of stars, and people loved telling stories about them.</p>
-      <p>They joined bright stars with imaginary lines, like a dot-to-dot puzzle, and saw animals and heroes. A star picture is called a <b>constellation</b>.</p>
-      <button class="btn ghost" id="replayLeo">Draw it again</button>
+      <h2 data-sv="Stjärnorna är ett jättelikt prick-till-prick" data-en="Stars are a giant dot-to-dot"></h2>
+      <p data-sv="För tusentals år sedan fanns det inga skärmar och ingen gatubelysning. På natten var himlen full av stjärnor, och människor älskade att berätta historier om dem." data-en="Thousands of years ago there were no screens and no street lights. At night the sky was full of stars, and people loved telling stories about them."></p>
+      <p data-sv="De band ihop klara stjärnor med tänkta linjer, som ett prick-till-prick-pussel, och såg djur och hjältar. En sådan bild av stjärnor kallas en <b>stjärnbild</b>." data-en="They joined bright stars with imaginary lines, like a dot-to-dot puzzle, and saw animals and heroes. A star picture is called a <b>constellation</b>."></p>
+      <button class="btn ghost" id="replayLeo" data-sv="Rita igen" data-en="Draw it again"></button>
     </div>
   </section>
 
@@ -298,7 +305,7 @@ footer{display:flex;justify-content:space-between;align-items:center;padding:.8r
   <section class="slide" data-title="The Sun's path">
     <div class="stage">
       <div class="sky">
-        <svg viewBox="0 0 400 400" width="100%" height="100%" role="img" aria-label="Earth moving around the Sun, with the 12 zodiac constellations in a ring around them">
+        <svg viewBox="0 0 400 400" width="100%" height="100%" role="img" aria-label="Earth moving around the Sun, with the 12 zodiac constellations in a ring around them" id="orbitSvg">
           <circle cx="200" cy="200" r="92" fill="none" stroke="#ffffff40" stroke-width="2" stroke-dasharray="4 6"/>
           <line id="sightLine" x1="0" y1="0" x2="0" y2="0" stroke="var(--gold)" stroke-width="2.5" stroke-dasharray="6 6" opacity=".9"/>
           <g id="orbitRing"></g>
@@ -309,15 +316,15 @@ footer{display:flex;justify-content:space-between;align-items:center;padding:.8r
       </div>
     </div>
     <div class="text">
-      <h2>The Sun’s path through the stars</h2>
-      <p>Our Earth travels all the way around the Sun once every year. As we move, the Sun seems to sit in front of different star pictures behind it.</p>
-      <p>People noticed 12 star pictures along the Sun’s path. That ring of 12 is called the <b>zodiac</b>. Each picture gets about one month.</p>
+      <h2 data-sv="Solens väg genom stjärnorna" data-en="The Sun’s path through the stars"></h2>
+      <p data-sv="Vår jord reser hela vägen runt solen en gång om året. När vi rör oss verkar solen stå framför olika stjärnbilder bakom den." data-en="Our Earth travels all the way around the Sun once every year. As we move, the Sun seems to sit in front of different star pictures behind it."></p>
+      <p data-sv="Människor upptäckte 12 stjärnbilder längs solens väg. Den ringen av 12 kallas <b>zodiaken</b>. Varje bild får ungefär en månad." data-en="People noticed 12 star pictures along the Sun’s path. That ring of 12 is called the <b>zodiac</b>. Each picture gets about one month."></p>
       <div class="controls">
         <button class="btn" id="playBtn">Pause</button>
         <input type="range" id="daySlider" min="0" max="364" value="0" aria-label="Move through the year">
       </div>
       <div class="now" aria-live="polite">
-        <span id="nowDate">Jan 1</span>: the Sun is in front of <strong id="nowSign">Capricorn</strong>
+        <span id="nowDate">Jan 1</span><span data-sv=": solen står framför " data-en=": the Sun is in front of "></span><strong id="nowSign">Capricorn</strong>
       </div>
     </div>
   </section>
@@ -332,8 +339,8 @@ footer{display:flex;justify-content:space-between;align-items:center;padding:.8r
       </div>
     </div>
     <div class="text">
-      <h2>Meet all 12 signs</h2>
-      <p>Tap a picture in the ring to meet it.</p>
+      <h2 data-sv="Möt alla 12 tecken" data-en="Meet all 12 signs"></h2>
+      <p data-sv="Tryck på en bild i ringen för att möta den." data-en="Tap a picture in the ring to meet it."></p>
       <div class="info" aria-live="polite">
         <div class="sym" id="infoSym"></div>
         <div class="dates" id="infoDates"></div>
@@ -347,17 +354,17 @@ footer{display:flex;justify-content:space-between;align-items:center;padding:.8r
     <div class="stage">
       <div class="sky" id="revealSky">
         <div class="reveal" id="reveal">
-          <div><div class="big">🎂</div><div class="sub" style="margin-top:.8rem">Pick your birthday to find your sign</div></div>
+          <div><div class="big">🎂</div><div class="sub" style="margin-top:.8rem" data-sv="Välj din födelsedag för att hitta ditt tecken" data-en="Pick your birthday to find your sign"></div></div>
         </div>
       </div>
     </div>
     <div class="text">
-      <h2>Which sign is yours?</h2>
-      <p>Your zodiac sign is the star picture the Sun was sitting in front of on the day you were born.</p>
+      <h2 data-sv="Vilket är ditt tecken?" data-en="Which sign is yours?"></h2>
+      <p data-sv="Ditt stjärntecken är den stjärnbild som solen stod framför den dag du föddes." data-en="Your zodiac sign is the star picture the Sun was sitting in front of on the day you were born."></p>
       <div class="pick">
-        <label>Month<select id="mSel"></select></label>
-        <label>Day<select id="dSel"></select></label>
-        <button class="btn" id="findBtn">Show my sign</button>
+        <label><span data-sv="Månad" data-en="Month"></span><select id="mSel"></select></label>
+        <label><span data-sv="Dag" data-en="Day"></span><select id="dSel"></select></label>
+        <button class="btn" id="findBtn" data-sv="Visa mitt tecken" data-en="Show my sign"></button>
       </div>
       <p id="findText" aria-live="polite"></p>
     </div>
@@ -369,18 +376,18 @@ footer{display:flex;justify-content:space-between;align-items:center;padding:.8r
       <div class="sky">
         <svg viewBox="0 0 400 400" width="100%" height="100%" aria-hidden="true">
           <text x="200" y="215" text-anchor="middle" font-size="120">🔭</text>
-          <text x="200" y="320" text-anchor="middle" class="hero-title" font-size="26">Keep looking up!</text>
+          <text x="200" y="320" text-anchor="middle" class="hero-title" font-size="26" data-sv="Fortsätt titta uppåt!" data-en="Keep looking up!"></text>
         </svg>
       </div>
     </div>
     <div class="text">
-      <h2>Do the stars decide who you are?</h2>
-      <p>Some people read <b>horoscopes</b> that say your sign tells what you’re like or what will happen to you. That is called <b>astrology</b>. It’s a very old tradition and can be fun, but scientists have tested it many times and found no proof that stars choose your personality. You get to decide who you are!</p>
-      <p>Studying the real stars and planets is called <b>astronomy</b>. Here are some true star facts:</p>
+      <h2 data-sv="Bestämmer stjärnorna vem du är?" data-en="Do the stars decide who you are?"></h2>
+      <p data-sv="En del läser <b>horoskop</b> som säger att ditt tecken avslöjar hur du är eller vad som kommer att hända dig. Det kallas <b>astrologi</b>. Det är en mycket gammal tradition och kan vara roligt, men forskare har testat det många gånger och hittat inga bevis för att stjärnorna bestämmer din personlighet. Du får själv bestämma vem du är!" data-en="Some people read <b>horoscopes</b> that say your sign tells what you’re like or what will happen to you. That is called <b>astrology</b>. It’s a very old tradition and can be fun, but scientists have tested it many times and found no proof that stars choose your personality. You get to decide who you are!"></p>
+      <p data-sv="Att studera de riktiga stjärnorna och planeterna kallas <b>astronomi</b>. Här är några sanna stjärnfakta:" data-en="Studying the real stars and planets is called <b>astronomy</b>. Here are some true star facts:"></p>
       <div class="facts">
-        <div class="fact"><b>The sky has slowly shifted</b><p>Earth wobbles like a slow spinning top. So today, on your birthday, the Sun is often in front of the sign next door to yours.</p></div>
-        <div class="fact"><b>There’s a secret 13th picture</b><p>The Sun also passes Ophiuchus, the snake holder, in late November and December. It just never got a sign.</p></div>
-        <div class="fact"><b>Other zodiacs exist too</b><p>The Chinese zodiac has 12 animals, but each one is for a whole year, not a month. Do you know your animal?</p></div>
+        <div class="fact"><b data-sv="Himlen har sakta flyttat sig" data-en="The sky has slowly shifted"></b><p data-sv="Jorden vinglar som en långsam snurra. Så idag, på din födelsedag, står solen ofta framför tecknet bredvid ditt eget." data-en="Earth wobbles like a slow spinning top. So today, on your birthday, the Sun is often in front of the sign next door to yours."></p></div>
+        <div class="fact"><b data-sv="Det finns en hemlig 13:e bild" data-en="There’s a secret 13th picture"></b><p data-sv="Solen passerar även Ormbäraren i slutet av november och i december. Den fick bara aldrig något eget tecken." data-en="The Sun also passes Ophiuchus, the snake holder, in late November and December. It just never got a sign."></p></div>
+        <div class="fact"><b data-sv="Det finns andra djurkretsar också" data-en="Other zodiacs exist too"></b><p data-sv="Den kinesiska zodiaken har 12 djur, men varje djur gäller ett helt år, inte en månad. Vet du vilket djur du har?" data-en="The Chinese zodiac has 12 animals, but each one is for a whole year, not a month. Do you know your animal?"></p></div>
       </div>
     </div>
   </section>
@@ -388,11 +395,6 @@ footer{display:flex;justify-content:space-between;align-items:center;padding:.8r
   <!-- 7 -->
   <section class="slide wide" data-title="Läxan / Homework">
     <div class="col">
-      <div class="langbar no-print">
-        <span class="starter" data-sv="Språk:" data-en="Language:"></span>
-        <button class="lb" id="lbSv" aria-pressed="true">Svenska</button>
-        <button class="lb" id="lbEn" aria-pressed="false">English</button>
-      </div>
       <h2 data-sv="Ta-reda-på-läxa: stjärntecken" data-en="Find-out homework: zodiac signs"></h2>
       <p data-sv="Läxan: du ska ta reda på fakta om ett valfritt stjärntecken. Välj ditt tecken på nästa sida, så får du hjälp med varje fråga – och glöm inte bild och källor." data-en="The homework: find out facts about any zodiac sign you like. Pick your sign on the next page and you get help with every question – and don't forget the picture and the sources."></p>
       <ol class="qlist" id="qlist"></ol>
@@ -492,6 +494,10 @@ footer{display:flex;justify-content:space-between;align-items:center;padding:.8r
 </footer>
 
 <script>
+/* language state is read up front so every slide (not just the homework ones) can use it immediately */
+let lang="sv";
+try{ lang = localStorage.getItem("zodiac-lang")==="en" ? "en" : "sv"; }catch(e){}
+
 const SIGNS = [
   {n:"Aries",e:"🐏",s:"♈",d:"March 21 – April 19",m:3,day:21,f:"A ram with golden wool, from an old Greek story."},
   {n:"Taurus",e:"🐂",s:"♉",d:"April 20 – May 20",m:4,day:20,f:"A bull. Look for a bright orange star called Aldebaran, the bull’s eye!"},
@@ -506,7 +512,23 @@ const SIGNS = [
   {n:"Aquarius",e:"🏺",s:"♒",d:"January 20 – February 18",m:1,day:20,f:"A person pouring water from a big jar."},
   {n:"Pisces",e:"🐟",s:"♓",d:"February 19 – March 20",m:2,day:19,f:"Two fish tied together with a ribbon so they don’t get lost."}
 ];
+const FACTS_SV = [
+  "En bagge med gyllene ull, från en gammal grekisk saga.",
+  "En tjur. Leta efter en klarorange stjärna som heter Aldebaran, tjurens öga!",
+  "Tvillingbröder. Två klara stjärnor sida vid sida är deras huvuden.",
+  "En krabba. Dess stjärnor är svaga, så den är svårast att hitta.",
+  "Ett lejon. Huvudet ser ut som ett bakvänt frågetecken.",
+  "En ung kvinna som håller i vete. Hennes klaraste stjärna heter Spica.",
+  "En vågskål, det enda tecknet som inte är en levande varelse.",
+  "En skorpion med en röd stjärna, Antares, som lyser där hjärtat sitter.",
+  "En bågskytt som är halv häst. Vissa tycker att den ser ut som en tekanna!",
+  "En get med en fiskstjärt. Lite fånigt, men så är berättelsen!",
+  "En person som häller vatten ur en stor kruka.",
+  "Två fiskar som är hopbundna med ett band så att de inte tappar bort varandra."
+];
 const MONTHS=["January","February","March","April","May","June","July","August","September","October","November","December"];
+const MONTHS_SV=["januari","februari","mars","april","maj","juni","juli","augusti","september","oktober","november","december"];
+const MONTHS_SV_ABBR=["jan","feb","mar","apr","maj","jun","jul","aug","sep","okt","nov","dec"];
 const MDAYS=[31,29,31,30,31,30,31,31,30,31,30,31];
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const NS="http://www.w3.org/2000/svg";
@@ -572,7 +594,9 @@ const slider=document.getElementById("daySlider"), playBtn=document.getElementBy
 const MLEN=[31,28,31,30,31,30,31,31,30,31,30,31];
 function dayToDate(t){let m=0; t=Math.floor(t); while(t>=MLEN[m]){t-=MLEN[m];m++;} return [m+1,t+1];}
 let day=0, playing=!reduce, last=null;
-playBtn.textContent = playing?"Pause":"Play";
+function updatePlayLabel(){
+  playBtn.textContent = playing ? (lang==="sv"?"Pausa":"Pause") : (lang==="sv"?"Spela":"Play");
+}
 function drawOrbit(){
   const sunAng=((day-79)/365)*2*Math.PI, ea=sunAng+Math.PI;
   const ex=200+92*Math.cos(ea), ey=200-92*Math.sin(ea);
@@ -581,29 +605,37 @@ function drawOrbit(){
   sight.setAttribute("x2",200+150*Math.cos(sunAng)); sight.setAttribute("y2",200-150*Math.sin(sunAng));
   const [m,d]=dayToDate(day), idx=signFor(m,d);
   ringEls.forEach((el,i)=>el.classList.toggle("on",i===idx));
-  document.getElementById("nowDate").textContent=`${MONTHS[m-1].slice(0,3)} ${d}`;
-  document.getElementById("nowSign").textContent=`${SIGNS[idx].n} ${SIGNS[idx].e}`;
+  const nm = lang==="sv"?HW[idx].sv.n:SIGNS[idx].n;
+  const abbr = lang==="sv"?MONTHS_SV_ABBR[m-1]:MONTHS[m-1].slice(0,3);
+  document.getElementById("nowDate").textContent=`${abbr} ${d}`;
+  document.getElementById("nowSign").textContent=`${nm} ${SIGNS[idx].e}`;
   slider.value=Math.floor(day);
 }
 function tick(ts){
   if(playing && last!==null && cur===2){ day=(day+(ts-last)/1000*15)%365; drawOrbit(); }
   last=ts; requestAnimationFrame(tick);
 }
-playBtn.onclick=()=>{playing=!playing; playBtn.textContent=playing?"Pause":"Play";};
-slider.oninput=()=>{day=+slider.value; playing=false; playBtn.textContent="Play"; drawOrbit();};
-drawOrbit(); requestAnimationFrame(tick);
+playBtn.onclick=()=>{playing=!playing; updatePlayLabel();};
+slider.oninput=()=>{day=+slider.value; playing=false; updatePlayLabel(); drawOrbit();};
 
 /* wheel */
 const wheel=document.getElementById("wheel"), spots=[];
 function pickSign(i){
+  wheelIdx=i;
   const s=SIGNS[i];
+  const nm = lang==="sv"?HW[i].sv.n:SIGNS[i].n;
+  const dt = lang==="sv"?HW[i].sv.d:SIGNS[i].d;
+  const fact = lang==="sv"?FACTS_SV[i]:SIGNS[i].f;
   spots.forEach((b,j)=>b.setAttribute("aria-pressed",j===i));
   document.getElementById("hubE").textContent=s.e;
-  document.getElementById("hubN").textContent=s.n;
-  document.getElementById("infoSym").textContent=`${s.s}\uFE0E  ${s.n}`;
-  document.getElementById("infoDates").textContent=s.d;
-  document.getElementById("infoFact").textContent=s.f;
+  document.getElementById("hubN").textContent=nm;
+  document.getElementById("infoSym").textContent=`${s.s}\uFE0E  ${nm}`;
+  document.getElementById("infoDates").textContent=dt;
+  document.getElementById("infoFact").textContent=fact;
   const hub=document.getElementById("hubE"); hub.classList.remove("pop"); void hub.offsetWidth; hub.classList.add("pop");
+}
+function relabelWheel(){
+  spots.forEach((b,i)=>b.setAttribute("aria-label", lang==="sv"?HW[i].sv.n:SIGNS[i].n));
 }
 SIGNS.forEach((s,i)=>{
   const a=(90-i*30)*Math.PI/180, b=document.createElement("button");
@@ -611,24 +643,35 @@ SIGNS.forEach((s,i)=>{
   b.style.left=(50+39*Math.cos(a))+"%"; b.style.top=(50-39*Math.sin(a))+"%";
   b.onclick=()=>pickSign(i); wheel.appendChild(b); spots.push(b);
 });
-pickSign(0);
 
 /* finder */
 const mSel=document.getElementById("mSel"), dSel=document.getElementById("dSel");
-MONTHS.forEach((m,i)=>mSel.add(new Option(m,i+1)));
+function populateMonths(){
+  const keep=mSel.value;
+  mSel.innerHTML="";
+  (lang==="sv"?MONTHS_SV:MONTHS).forEach((m,i)=>mSel.add(new Option(m,i+1)));
+  if(keep) mSel.value=keep;
+}
 function fillDays(){
   const keep=+dSel.value||1; dSel.innerHTML="";
   for(let d=1;d<=MDAYS[mSel.value-1];d++) dSel.add(new Option(d,d));
   dSel.value=Math.min(keep,MDAYS[mSel.value-1]);
 }
-mSel.onchange=fillDays; fillDays();
-document.getElementById("findBtn").onclick=()=>{
-  const m=+mSel.value, d=+dSel.value, s=SIGNS[signFor(m,d)];
+mSel.onchange=fillDays;
+function renderFound(){
+  const m=+mSel.value, d=+dSel.value, idx=signFor(m,d), s=SIGNS[idx];
+  const nm = lang==="sv"?HW[idx].sv.n:SIGNS[idx].n;
+  const dt = lang==="sv"?HW[idx].sv.d:SIGNS[idx].d;
+  const fact = lang==="sv"?FACTS_SV[idx]:SIGNS[idx].f;
+  const monthDisp = lang==="sv"?MONTHS_SV[m-1]:MONTHS[m-1];
   const r=document.getElementById("reveal");
   r.innerHTML=`<svg class="burst" viewBox="0 0 400 400" style="position:absolute;inset:0;width:100%;height:100%" aria-hidden="true"><circle cx="200" cy="200" r="4" fill="none" stroke="#FFCF4D" stroke-width="6"/></svg>
-    <div class="pop"><div class="big">${s.e}</div><div class="nm">${s.n}</div><div class="sub">${s.d}</div></div>`;
-  document.getElementById("findText").textContent=`Born on ${MONTHS[m-1]} ${d}? Your sign is ${s.n}. ${s.f}`;
-};
+    <div class="pop"><div class="big">${s.e}</div><div class="nm">${nm}</div><div class="sub">${dt}</div></div>`;
+  document.getElementById("findText").textContent = lang==="sv"
+    ? `F\u00F6dd ${d} ${monthDisp}? Ditt stj\u00E4rntecken \u00E4r ${nm}. ${fact}`
+    : `Born on ${monthDisp} ${d}? Your sign is ${nm}. ${fact}`;
+}
+document.getElementById("findBtn").onclick=()=>{ foundIdx=signFor(+mSel.value,+dSel.value); renderFound(); };
 
 /* ==================== Ta-reda-på-läxa ==================== */
 const NAV={next:{sv:"Nästa",en:"Next"},again:{sv:"Börja om",en:"Start again"}};
@@ -887,17 +930,20 @@ const UI={
   answerPh:{sv:"Skriv ditt svar här …",en:"Write your answer here …"}
 };
 
-let lang="sv", hwIdx=4, hwTouched=false;
-try{ lang = localStorage.getItem("zodiac-lang")==="en" ? "en" : "sv"; }catch(e){}
+let hwIdx=4, hwTouched=false, wheelIdx=0, foundIdx=null;
 const L=o=>typeof o==="function"?o:o[lang];
 
 function applyStatic(){
-  document.querySelectorAll("[data-sv]").forEach(el=>{ el.textContent=el.dataset[lang]; });
-  document.querySelectorAll(".slide.wide").forEach(s=>{ s.lang=lang; });
+  document.querySelectorAll("[data-sv]").forEach(el=>{ el.innerHTML=el.dataset[lang]; });
+  document.querySelectorAll(".slide").forEach(s=>{ s.lang=lang; });
   document.getElementById("lbSv").setAttribute("aria-pressed",lang==="sv");
   document.getElementById("lbEn").setAttribute("aria-pressed",lang==="en");
   document.getElementById("nextBtn").textContent = cur===slides.length-1?NAV.again[lang]:NAV.next[lang];
   document.getElementById("myAnswer").placeholder=L(UI.answerPh);
+  document.getElementById("daySlider").setAttribute("aria-label", lang==="sv"?"Flytta dig genom året":"Move through the year");
+  document.getElementById("leoSvg").setAttribute("aria-label", lang==="sv"?"Stjärnor som binds ihop till formen av Lejonet":"Stars being joined into the shape of Leo the lion");
+  document.getElementById("orbitSvg").setAttribute("aria-label", lang==="sv"?"Jorden rör sig runt solen, med de 12 stjärntecknen i en ring runt dem":"Earth moving around the Sun, with the 12 zodiac constellations in a ring around them");
+  [...dots.children].forEach((b,i)=>b.setAttribute("aria-label", `${lang==="sv"?"Kapitel":"Chapter"} ${i+1}`));
 }
 
 function renderQList(){
@@ -1001,6 +1047,8 @@ function hwPick(i){
 
 function renderHW(){
   applyStatic(); renderQList(); renderChips(); drawMap(); renderAnswers(); renderSources();
+  populateMonths(); fillDays(); relabelWheel(); pickSign(wheelIdx); updatePlayLabel(); drawOrbit();
+  if(foundIdx!==null) renderFound();
 }
 
 function setLang(l){
@@ -1030,6 +1078,7 @@ document.getElementById("findBtn").addEventListener("click",()=>{
 
 renderHW();
 go(0);
+requestAnimationFrame(tick);
 </script>
 </body>
 </html>
