@@ -584,7 +584,7 @@ document.getElementById("replayLeo").onclick=playLeo;
 /* orbit */
 const ring=document.getElementById("orbitRing"), ringEls=[];
 SIGNS.forEach((s,i)=>{
-  const a=(i*30+15)*Math.PI/180, t=document.createElementNS(NS,"text");
+  const a=(90-i*30)*Math.PI/180, t=document.createElementNS(NS,"text");
   t.setAttribute("x",200+165*Math.cos(a)); t.setAttribute("y",200-165*Math.sin(a)+8);
   t.setAttribute("text-anchor","middle"); t.setAttribute("class","ring-sign"); t.textContent=s.e;
   ring.appendChild(t); ringEls.push(t);
@@ -598,7 +598,7 @@ function updatePlayLabel(){
   playBtn.textContent = playing ? (lang==="sv"?"Pausa":"Pause") : (lang==="sv"?"Spela":"Play");
 }
 function drawOrbit(){
-  const sunAng=((day-79)/365)*2*Math.PI, ea=sunAng+Math.PI;
+  const sunAng=(105-((day-79)/365)*360)*Math.PI/180, ea=sunAng+Math.PI;
   const ex=200+92*Math.cos(ea), ey=200-92*Math.sin(ea);
   earth.setAttribute("transform",`translate(${ex} ${ey})`);
   sight.setAttribute("x1",ex); sight.setAttribute("y1",ey);
