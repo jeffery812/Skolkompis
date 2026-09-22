@@ -48,9 +48,15 @@ header{display:flex;align-items:center;justify-content:space-between;gap:1rem;pa
 main{flex:1;overflow:auto;padding:0 1.25rem}
 .slide{display:none;min-height:100%;align-items:center;justify-content:center;gap:2.5rem;padding:1rem 0 2rem;max-width:1080px;margin:0 auto}
 .slide.active{display:flex}
-.text{flex:1 1 360px;min-width:0}
+.text{flex:1 1 360px;min-width:0;display:flex;flex-direction:column}
 .stage{flex:0 1 460px;width:100%;max-width:460px}
-@media (max-width:760px){.slide{flex-direction:column;gap:1.25rem}.stage{max-width:400px}}
+@media (max-width:760px){
+  .slide{flex-direction:column;gap:1.25rem}
+  .stage{max-width:400px;flex-basis:auto}
+  .slide[data-title="The Sun's path"] .now{order:-2;margin-top:0}
+  .slide[data-title="The Sun's path"] .controls{order:-1}
+  .slide[data-title="The Sun's path"] h2{margin-top:1.85rem;padding-top:1.85rem;border-top:2px solid var(--line)}
+}
 
 .sky{
   position:relative;aspect-ratio:1;width:100%;border-radius:32px;overflow:hidden;
