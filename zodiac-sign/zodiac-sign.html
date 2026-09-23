@@ -43,7 +43,8 @@ header{display:flex;align-items:center;justify-content:space-between;flex-wrap:w
 header .langbar{margin-bottom:0;order:3;flex:1 1 100%;justify-content:flex-end}
 @media (min-width:560px){header .langbar{flex:0 0 auto;order:0}}
 header .lb{font-size:.85rem;padding:.28rem .75rem}
-.brand{font-family:"Fredoka",system-ui,sans-serif;font-weight:600;font-size:1.05rem;color:var(--soft)}
+.brand{font-family:"Fredoka",system-ui,sans-serif;font-weight:600;font-size:1.05rem;color:var(--soft);display:flex;align-items:center;gap:.5rem}
+.grade-tag{font-family:"Nunito",system-ui,sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.03em;color:var(--soft);background:var(--card);border:1.5px solid var(--line);border-radius:999px;padding:.15rem .6rem}
 .dots{display:flex;gap:.45rem}
 .dots button{width:12px;height:12px;border-radius:50%;border:2px solid var(--soft);background:transparent;padding:0;cursor:pointer}
 .dots button[aria-current="step"]{background:var(--gold);border-color:var(--gold);transform:scale(1.25)}
@@ -236,7 +237,7 @@ footer{display:flex;justify-content:space-between;align-items:center;padding:.8r
 </head>
 <body>
 <header>
-  <span class="brand">✨ Star Stories</span>
+  <span class="brand">✨ Star Stories <span class="grade-tag">PYP5 · 2026</span></span>
   <nav class="dots" id="dots" aria-label="Chapters"></nav>
   <div class="langbar">
     <button class="lb" id="lbSv" aria-pressed="true">Svenska</button>

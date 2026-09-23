@@ -72,15 +72,30 @@
   }
   @keyframes twinkle{ from{opacity:.3;} to{opacity:1;} }
 
+  .kicker-row{
+    display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:.6rem;
+    margin:0 0 1rem;
+    opacity:0;
+    animation: rise .8s ease forwards .2s;
+    position:relative; z-index:2;
+  }
   .hero-kicker{
     font-family:'ZCOOL KuaiLe', cursive;
     color:var(--gold);
     font-size:clamp(1rem, 2vw, 1.3rem);
     letter-spacing:.12em;
-    margin:0 0 1rem;
-    opacity:0;
-    animation: rise .8s ease forwards .2s;
-    position:relative; z-index:2;
+    margin:0;
+  }
+  .grade-tag{
+    display:inline-block;
+    font-family:'Baloo 2', cursive;
+    font-size:.85rem;
+    letter-spacing:.05em;
+    color:#fff7e8;
+    background:rgba(255,255,255,.12);
+    border:1.5px solid rgba(255,255,255,.4);
+    border-radius:999px;
+    padding:.25rem .9rem;
   }
   .hero h1{
     font-family:'Baloo 2', cursive;
@@ -378,7 +393,10 @@
 <body>
 
 <section class="hero">
-  <p class="hero-kicker">EN BOK OM ELTON, MOLLY OCH ROBIN · A STORY ABOUT ELTON, MOLLY AND THE ROBOT ROBIN</p>
+  <div class="kicker-row">
+    <p class="hero-kicker">EN BOK OM ELTON, MOLLY OCH ROBIN · A STORY ABOUT ELTON, MOLLY AND THE ROBOT ROBIN</p>
+    <p class="grade-tag">PYP3 · 2026</p>
+  </div>
   <h1>Robin kollar<br>en <span>tidsmaskin</span></h1>
   <p class="tagline">Grannar. Bästisar. En omöjlig tävling — och en robot som just har uppfunnit något han inte får prata om.</p>
   <div class="rocket-rig" aria-hidden="true">

@@ -44,7 +44,9 @@
   h1,h2,h3{ font-family:var(--font-display); font-weight:400; text-wrap:balance; margin:0; }
   p{ margin:0; }
   .tab{ font-variant-numeric:tabular-nums; }
-  .eyebrow{ font-family:var(--font-display); color:var(--ink-soft); font-size:.85rem; letter-spacing:.05em; margin:0 0 6px; }
+  .eyebrow-row{ display:inline-flex; align-items:center; gap:10px; margin:0 0 6px; }
+  .eyebrow{ font-family:var(--font-display); color:var(--ink-soft); font-size:.85rem; letter-spacing:.05em; margin:0; }
+  .grade-tag{ font-family:var(--font-display); font-size:.8rem; letter-spacing:.03em; color:var(--ink-soft); background:var(--paper); border:1.5px solid var(--card-border); border-radius:999px; padding:.2rem .8rem; }
 
   /* ---- hero ---- */
   .hero{ position:relative; overflow:hidden; padding-block:44px 160px; background:linear-gradient(180deg, var(--sky) 0%, var(--sky-deep) 100%); border-radius:0 0 32px 32px; }
@@ -132,7 +134,10 @@
   <div class="hero-sun" aria-hidden="true"></div>
   <div class="hero-road" aria-hidden="true"></div>
   <div class="hero-content">
-    <p class="eyebrow">Math Detective</p>
+    <div class="eyebrow-row">
+      <p class="eyebrow">Math Detective</p>
+      <p class="grade-tag">PYP5 · 2026</p>
+    </div>
     <h1>The Motorcycle &amp; Car Mystery</h1>
     <p class="lede">A garage full of motorcycles 🏍️ and cars 🚗 — we only know how many vehicles and how many wheels in total. Can you figure out which is which? Let's crack the case with the Wheel-Counting Trick!</p>
   </div>
