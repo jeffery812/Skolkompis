@@ -220,6 +220,7 @@
     padding: 2.2rem 2.4rem 1.6rem;
     margin: 0 auto 3.2rem;
     max-width: 620px;
+    scroll-margin-top: calc(4.6rem + env(safe-area-inset-top,0px));
     box-shadow: 0 1px 0 rgba(0,0,0,.03), 0 18px 34px -18px rgba(34,28,47,.35);
     transform: rotate(var(--tilt,0deg)) translateY(24px);
     opacity:0;
@@ -366,18 +367,87 @@
   }
   .translation-inner p:last-child{ margin-bottom:0; }
 
-  /* ---------- side dot nav ---------- */
+  /* ---------- running header ---------- */
+  .run-header{
+    position:fixed; top:0; left:0; right:0; z-index:30;
+    display:flex; align-items:center; justify-content:space-between; gap:.6rem;
+    padding:.7rem 1rem; padding-top:calc(.7rem + env(safe-area-inset-top,0px));
+    background:rgba(247,236,214,.94); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+    border-bottom:1.5px solid var(--paper-edge);
+  }
+  .run-left{ display:flex; align-items:center; gap:.6rem; flex:none; }
   .home-btn{
-    position:fixed; left:1.2rem; top:calc(1.2rem + env(safe-area-inset-top,0px)); z-index:20;
     display:flex; align-items:center; justify-content:center;
-    width:2.6rem; height:2.6rem; border-radius:50%;
+    width:2.4rem; height:2.4rem; border-radius:50%;
     background:var(--paper); border:1.5px solid var(--paper-edge);
-    color:var(--ink); text-decoration:none; font-size:1.2rem;
-    box-shadow:0 6px 16px -6px rgba(34,28,47,.4);
+    color:var(--ink); text-decoration:none; font-size:1.1rem;
     transition:transform .15s ease, border-color .15s ease;
   }
   .home-btn:hover{ transform:translateY(-2px); border-color:var(--rocket); }
   .home-btn:focus-visible{ outline:3px solid var(--gold); outline-offset:2px; }
+
+  .toc-btn{
+    display:flex; align-items:center; gap:.4rem;
+    height:2.4rem; padding:0 .9rem; border-radius:999px;
+    background:var(--paper); border:1.5px solid var(--paper-edge);
+    color:var(--ink); font-family:'Baloo 2',cursive; font-weight:600; font-size:.92rem;
+    cursor:pointer; transition:transform .15s ease, border-color .15s ease;
+  }
+  .toc-btn:hover{ transform:translateY(-2px); border-color:var(--rocket); }
+  .toc-btn:focus-visible{ outline:3px solid var(--gold); outline-offset:2px; }
+  .toc-btn[aria-expanded="true"]{ border-color:var(--rocket); }
+
+  .run-chapter{
+    display:flex; align-items:baseline; gap:.45rem; min-width:0;
+    font-family:'Baloo 2',cursive; color:var(--ink); text-align:right;
+    opacity:0; transition:opacity .25s ease;
+  }
+  .run-chapter.ready{ opacity:1; }
+  .run-chapter .rc-num{
+    flex:none; width:1.6rem; height:1.6rem; border-radius:50%;
+    background:var(--rocket); color:#fff7e8; font-weight:700; font-size:.82rem;
+    display:inline-flex; align-items:center; justify-content:center;
+  }
+  .run-chapter .rc-text{ min-width:0; overflow:hidden; }
+  .run-chapter .rc-title{
+    display:block; font-weight:700; font-size:.92rem; line-height:1.15;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  .run-chapter .rc-cn{
+    display:block; font-family:'Literata',serif; font-style:italic; font-weight:400;
+    color:var(--ink-soft); font-size:.72rem; line-height:1.2;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  @media (max-width:560px){ .run-chapter .rc-cn{ display:none; } }
+
+  .toc-backdrop{
+    position:fixed; inset:0; z-index:35; background:rgba(11,15,43,.45);
+    opacity:0; pointer-events:none; transition:opacity .2s ease;
+  }
+  .toc-backdrop.open{ opacity:1; pointer-events:auto; }
+
+  .toc-panel{
+    position:fixed; left:1.2rem; top:calc(4.2rem + env(safe-area-inset-top,0px));
+    z-index:36; width:min(340px, calc(100vw - 2.4rem));
+    max-height:calc(100vh - 6rem); overflow-y:auto;
+    background:var(--paper); border:1.5px solid var(--paper-edge); border-radius:16px;
+    padding:.6rem; box-shadow:0 24px 48px -20px rgba(11,15,43,.55);
+    transform:translateY(-8px) scale(.98); opacity:0; pointer-events:none;
+    transition:opacity .18s ease, transform .18s ease;
+  }
+  .toc-panel.open{ transform:translateY(0) scale(1); opacity:1; pointer-events:auto; }
+  .toc-panel a{
+    display:flex; align-items:center; gap:.7rem; padding:.55rem .6rem; border-radius:10px;
+    text-decoration:none; color:var(--ink);
+  }
+  .toc-panel a:hover, .toc-panel a:focus-visible{ background:var(--teal-tint); outline:none; }
+  .toc-panel .tn{
+    flex:none; width:1.8rem; height:1.8rem; border-radius:50%;
+    background:var(--rocket); color:#fff7e8; font-family:'Baloo 2',cursive; font-weight:700; font-size:.9rem;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .toc-panel .tt{ font-weight:600; font-size:.98rem; line-height:1.25; }
+  .toc-panel .tcn{ display:block; font-family:'Literata',serif; font-weight:400; font-style:italic; color:var(--ink-soft); font-size:.82rem; }
 
   .dotnav{
     position:fixed; right:1.6rem; top:50%; transform:translateY(-50%);
@@ -404,7 +474,27 @@
 </head>
 <body>
 
-<a class="home-btn" href="../index.html" aria-label="Till startsidan / Back to home">🏠</a>
+<header class="run-header">
+  <div class="run-left">
+    <a class="home-btn" href="../index.html" aria-label="Till startsidan / Back to home">🏠</a>
+    <button class="toc-btn" id="tocBtn" type="button" aria-expanded="false" aria-controls="tocPanel">📖 <span>Innehåll</span></button>
+  </div>
+  <div class="run-chapter" id="runChapter" aria-live="polite">
+    <span class="rc-num" id="rcNum">1</span>
+    <span class="rc-text"><span class="rc-title" id="rcTitle">En rymdraket!</span><span class="rc-cn" id="rcCn">A Rocket!</span></span>
+  </div>
+</header>
+<div class="toc-backdrop" id="tocBackdrop"></div>
+<nav class="toc-panel" id="tocPanel" aria-label="Kapitel / Chapters">
+  <a href="#p1"><span class="tn">1</span><span class="tt">En rymdraket!<span class="tcn">A Rocket!</span></span></a>
+  <a href="#p6"><span class="tn">2</span><span class="tt">Elton och Judit<span class="tcn">Elton and Judit</span></span></a>
+  <a href="#p11"><span class="tn">3</span><span class="tt">Raket-Robin<span class="tcn">Rocket-Robin</span></span></a>
+  <a href="#p15"><span class="tn">4</span><span class="tt">Planeten Plutanien<span class="tcn">The Planet Plutania</span></span></a>
+  <a href="#p20"><span class="tn">5</span><span class="tt">Raketen lyfter<span class="tcn">The Rocket Lifts Off</span></span></a>
+  <a href="#p25"><span class="tn">6</span><span class="tt">Wow, vi flyger!<span class="tcn">Wow, We're Flying!</span></span></a>
+  <a href="#p31"><span class="tn">7</span><span class="tt">Tillbaka i Östervik<span class="tcn">Back in Östervik</span></span></a>
+  <a href="#p36"><span class="tn">8</span><span class="tt">En jobbig idrottsdag<span class="tcn">A Tough Sports Day</span></span></a>
+</nav>
 
 <section class="hero">
   <div class="kicker-row">
@@ -1825,6 +1915,31 @@
     });
   });
 
+  var tocBtn = document.getElementById('tocBtn');
+  var tocPanel = document.getElementById('tocPanel');
+  var tocBackdrop = document.getElementById('tocBackdrop');
+  function closeToc(){
+    tocPanel.classList.remove('open');
+    tocBackdrop.classList.remove('open');
+    tocBtn.setAttribute('aria-expanded', 'false');
+  }
+  function openToc(){
+    tocPanel.classList.add('open');
+    tocBackdrop.classList.add('open');
+    tocBtn.setAttribute('aria-expanded', 'true');
+  }
+  tocBtn.addEventListener('click', function(){
+    var open = tocBtn.getAttribute('aria-expanded') === 'true';
+    if(open){ closeToc(); } else { openToc(); }
+  });
+  tocBackdrop.addEventListener('click', closeToc);
+  tocPanel.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', closeToc);
+  });
+  addEventListener('keydown', function(e){
+    if(e.key === 'Escape') closeToc();
+  });
+
   var reveals = document.querySelectorAll('.reveal');
   var io = new IntersectionObserver(function(entries){
     entries.forEach(function(entry){
@@ -1838,12 +1953,44 @@
 
   var dots = document.querySelectorAll('.dotnav a');
   var sections = Array.from(document.querySelectorAll('.page-card'));
+
+  var CHAPTERS = [
+    { start:0,  num:1, title:'En rymdraket!',        cn:'A Rocket!' },
+    { start:5,  num:2, title:'Elton och Judit',       cn:'Elton and Judit' },
+    { start:10, num:3, title:'Raket-Robin',           cn:'Rocket-Robin' },
+    { start:14, num:4, title:'Planeten Plutanien',    cn:'The Planet Plutania' },
+    { start:19, num:5, title:'Raketen lyfter',        cn:'The Rocket Lifts Off' },
+    { start:24, num:6, title:'Wow, vi flyger!',       cn:"Wow, We're Flying!" },
+    { start:30, num:7, title:'Tillbaka i Östervik',   cn:'Back in Östervik' },
+    { start:35, num:8, title:'En jobbig idrottsdag',  cn:'A Tough Sports Day' }
+  ];
+  var runChapter = document.getElementById('runChapter');
+  var rcNum = document.getElementById('rcNum');
+  var rcTitle = document.getElementById('rcTitle');
+  var rcCn = document.getElementById('rcCn');
+  var currentChapterNum = null;
+  function chapterForIndex(idx){
+    var c = CHAPTERS[0];
+    for(var i=0;i<CHAPTERS.length;i++){ if(CHAPTERS[i].start <= idx) c = CHAPTERS[i]; }
+    return c;
+  }
+  function showChapter(idx){
+    var c = chapterForIndex(idx);
+    if(c.num === currentChapterNum) return;
+    currentChapterNum = c.num;
+    rcNum.textContent = c.num;
+    rcTitle.textContent = c.title;
+    rcCn.textContent = c.cn;
+    runChapter.classList.add('ready');
+  }
+
   var navIo = new IntersectionObserver(function(entries){
     entries.forEach(function(entry){
       var idx = sections.indexOf(entry.target);
       if(entry.isIntersecting && idx > -1){
         dots.forEach(function(d){ d.classList.remove('active'); });
         dots[idx].classList.add('active');
+        showChapter(idx);
       }
     });
   }, { threshold: 0.5 });
