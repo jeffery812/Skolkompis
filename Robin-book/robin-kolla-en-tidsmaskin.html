@@ -367,6 +367,18 @@
   .translation-inner p:last-child{ margin-bottom:0; }
 
   /* ---------- side dot nav ---------- */
+  .home-btn{
+    position:fixed; left:1.2rem; top:calc(1.2rem + env(safe-area-inset-top,0px)); z-index:20;
+    display:flex; align-items:center; justify-content:center;
+    width:2.6rem; height:2.6rem; border-radius:50%;
+    background:var(--paper); border:1.5px solid var(--paper-edge);
+    color:var(--ink); text-decoration:none; font-size:1.2rem;
+    box-shadow:0 6px 16px -6px rgba(34,28,47,.4);
+    transition:transform .15s ease, border-color .15s ease;
+  }
+  .home-btn:hover{ transform:translateY(-2px); border-color:var(--rocket); }
+  .home-btn:focus-visible{ outline:3px solid var(--gold); outline-offset:2px; }
+
   .dotnav{
     position:fixed; right:1.6rem; top:50%; transform:translateY(-50%);
     display:flex; flex-direction:column; gap:.55rem; z-index:10;
@@ -391,6 +403,8 @@
 </style>
 </head>
 <body>
+
+<a class="home-btn" href="../index.html" aria-label="Till startsidan / Back to home">🏠</a>
 
 <section class="hero">
   <div class="kicker-row">
@@ -419,6 +433,7 @@
   <a href="#p11"></a><a href="#p12"></a><a href="#p13"></a><a href="#p14"></a><a href="#p15"></a>
   <a href="#p16"></a><a href="#p17"></a><a href="#p18"></a><a href="#p19"></a><a href="#p20"></a>
   <a href="#p21"></a><a href="#p22"></a><a href="#p23"></a><a href="#p24"></a>
+  <a href="#p25"></a><a href="#p26"></a><a href="#p27"></a><a href="#p28"></a><a href="#p29"></a><a href="#p30"></a><a href="#p31"></a><a href="#p32"></a><a href="#p33"></a><a href="#p34"></a><a href="#p35"></a><a href="#p36"></a><a href="#p37"></a><a href="#p38"></a><a href="#p39"></a><a href="#p40"></a><a href="#p41"></a>
 </nav>
 
 <main class="book">
@@ -1191,11 +1206,557 @@
       <p>Elton and Molly look at each other, frightened, as the rocket lifts off.</p>
     </div></div>
   </article>
+
+  <div class="chapter-divider reveal">
+    <div class="chapter-number">6</div>
+    <div>
+      <h2>Wow, vi flyger!</h2>
+      <span class="cn">Chapter 6 · Wow, We're Flying!</span>
+    </div>
+  </div>
+
+  <article class="page-card reveal" id="p25" style="--tilt:-1.4deg;">
+    <div class="page-tag">Sida 30</div>
+    <div class="narration">
+      <button class="play-btn" aria-label="Spela upp sida 30 på svenska">
+        <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </button>
+      <div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+      <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
+      <audio preload="none" src="audio/page-30.mp3"></audio>
+    </div>
+    <p class="original" data-audio="audio/page-30-1.mp3" tabindex="0" role="button" title="Click to hear this line">Det kittlar i magen när de flyger rakt upp i luften. Vad snabbt de åker!</p>
+    <p class="original" data-audio="audio/page-30-2.mp3" tabindex="0" role="button" title="Click to hear this line">Molly vrider på huvudet, men hon kan inte se radhusen under alla moln.</p>
+    <p class="original" data-audio="audio/page-30-3.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Du är inte klok!</em> skriker Elton.</p>
+    <p class="original" data-audio="audio/page-30-4.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Det var ju ditt förslag!</em> skriker Molly tillbaka.</p>
+    <p class="original" data-audio="audio/page-30-5.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Men jag trodde aldrig att du skulle våga!</em></p>
+    <p class="original" data-audio="audio/page-30-6.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Det gör jag inte heller!</em></p>
+    <p class="original" data-audio="audio/page-30-7.mp3" tabindex="0" role="button" title="Click to hear this line">Molly vill trösta Elton.</p>
+    <p class="original" data-audio="audio/page-30-8.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Det gick ju bra för Robin,</em> säger hon.</p>
+    <p class="original" data-audio="audio/page-30-9.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Robin är en robot. Vi är människor,</em> säger Elton.</p>
+    <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
+    <div class="translation-panel"><div class="translation-inner">
+      <p>It tickles in their stomachs as they fly straight up into the air. How fast they're going!</p>
+      <p>Molly turns her head, but she can't see the row houses under all the clouds.</p>
+      <p>"You're out of your mind!" Elton shouts.</p>
+      <p>"It was your idea!" Molly shouts back.</p>
+      <p>"But I never thought you'd actually dare!"</p>
+      <p>"I don't either!"</p>
+      <p>Molly wants to comfort Elton.</p>
+      <p>"It worked out fine for Robin," she says.</p>
+      <p>"Robin is a robot. We're humans," says Elton.</p>
+    </div></div>
+  </article>
+
+  <article class="page-card reveal" id="p26" style="--tilt:-1.2deg;">
+    <div class="page-tag">Sida 31</div>
+    <div class="narration">
+      <button class="play-btn" aria-label="Spela upp sida 31 på svenska">
+        <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </button>
+      <div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+      <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
+      <audio preload="none" src="audio/page-31.mp3"></audio>
+    </div>
+    <p class="original" data-audio="audio/page-31-1.mp3" tabindex="0" role="button" title="Click to hear this line">Plötsligt blir det tyst. Det har slutat att skaka, allt är stilla. Har de stannat mitt ute i rymden?</p>
+    <p class="original" data-audio="audio/page-31-2.mp3" tabindex="0" role="button" title="Click to hear this line">Det sprakar till i datorskärmen, snart dyker Robin och pappa upp.</p>
+    <p class="original" data-audio="audio/page-31-3.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Vad har ni gjort?</em> frågar han.</p>
+    <p class="original" data-audio="audio/page-31-4.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Hej,</em> säger Elton och vinkar nervöst.</p>
+    <p class="original" data-audio="audio/page-31-5.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Jag borde följt med, superhjältar är alltid bra att ha på äventyr,</em> säger Robin.</p>
+    <p class="original" data-audio="audio/page-31-6.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Det blev lite fel. Men nu kan vi trycka på hemknappen och åka tillbaka,</em> säger Molly.</p>
+    <p class="original" data-audio="audio/page-31-7.mp3" tabindex="0" role="button" title="Click to hear this line">Pappa suckar tungt.</p>
+    <p class="original" data-audio="audio/page-31-8.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Det fungerar inte så. Det kommer att ta ett tag innan vi kan hjälpa er tillbaka hit igen.</em></p>
+    <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
+    <div class="translation-panel"><div class="translation-inner">
+      <p>Suddenly it goes quiet. The shaking has stopped, everything is still. Have they stopped right in the middle of space?</p>
+      <p>The computer screen crackles, and soon Robin and Dad appear.</p>
+      <p>"What have you done?" he asks.</p>
+      <p>"Hi," says Elton, waving nervously.</p>
+      <p>"I should have come along — superheroes are always good to have on adventures," says Robin.</p>
+      <p>"It went a little wrong. But now we can just press the home button and go back," says Molly.</p>
+      <p>Dad sighs heavily.</p>
+      <p>"It doesn't work like that. It's going to take a while before we can help you get back here."</p>
+    </div></div>
+  </article>
+
+  <article class="page-card reveal" id="p27" style="--tilt:1.5deg;">
+    <div class="page-tag">Sida 32</div>
+    <div class="narration">
+      <button class="play-btn" aria-label="Spela upp sida 32 på svenska">
+        <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </button>
+      <div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+      <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
+      <audio preload="none" src="audio/page-32.mp3"></audio>
+    </div>
+    <p class="original" data-audio="audio/page-32-1.mp3" tabindex="0" role="button" title="Click to hear this line">Långt där nere kan de se jorden. Molly hade aldrig trott att den var så blå. Det är mycket hav på planeten, mer hav än land.</p>
+    <p class="original" data-audio="audio/page-32-2.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Hjälp,</em> piper hon.</p>
+    <p class="original" data-audio="audio/page-32-3.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Mamma,</em> piper Elton.</p>
+    <p class="original" data-audio="audio/page-32-4.mp3" tabindex="0" role="button" title="Click to hear this line">Robin dyker upp på skärmen igen.</p>
+    <p class="original" data-audio="audio/page-32-5.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Jag ska hjälpa er. Jag vet allt om rymden.</em></p>
+    <p class="original" data-audio="audio/page-32-6.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Var är pappa?</em> frågar Molly.</p>
+    <p class="original" data-audio="audio/page-32-7.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Uppfinnaren med det röda håret skriver på datorn för att ta er hem igen. Under tiden ska ni få veta vad man kan hitta på i rymden,</em> säger Robin glatt.</p>
+    <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
+    <div class="translation-panel"><div class="translation-inner">
+      <p>Far below, they can see Earth. Molly had never thought it was so blue. There's a lot of ocean on the planet, more ocean than land.</p>
+      <p>"Help," she squeaks.</p>
+      <p>"Mom," Elton squeaks.</p>
+      <p>Robin appears on the screen again.</p>
+      <p>"I'll help you. I know everything about space."</p>
+      <p>"Where's Dad?" Molly asks.</p>
+      <p>"The inventor with the red hair is working at the computer to bring you home again. Meanwhile, you're going to learn what there is to find in space," says Robin cheerfully.</p>
+    </div></div>
+  </article>
+
+  <article class="page-card reveal" id="p28" style="--tilt:-1.5deg;">
+    <div class="page-tag">Sida 33</div>
+    <div class="narration">
+      <button class="play-btn" aria-label="Spela upp sida 33 på svenska">
+        <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </button>
+      <div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+      <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
+      <audio preload="none" src="audio/page-33.mp3"></audio>
+    </div>
+    <p class="original" data-audio="audio/page-33-1.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Spänn loss er så ska ni få vara med om något roligt,</em> säger Robin.</p>
+    <p class="original" data-audio="audio/page-33-2.mp3" tabindex="0" role="button" title="Click to hear this line">Molly och Elton spänner loss säkerhetsbältena. Plötsligt svävar de i luften.</p>
+    <p class="original" data-audio="audio/page-33-3.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Hjälp,</em> säger de samtidigt.</p>
+    <p class="original" data-audio="audio/page-33-4.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Skoj, va?</em> säger Robin.</p>
+    <p class="original" data-audio="audio/page-33-5.mp3" tabindex="0" role="button" title="Click to hear this line">Molly viftar med armarna.</p>
+    <p class="original" data-audio="audio/page-33-6.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Vi kan flyga!</em></p>
+    <p class="original" data-audio="audio/page-33-7.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Det är för att ni är utanför jordens atmosfär,</em> säger Robin.</p>
+    <p class="original" data-audio="audio/page-33-8.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Wow,</em> säger Elton.</p>
+    <p class="original" data-audio="audio/page-33-9.mp3" tabindex="0" role="button" title="Click to hear this line">Molly har ingen aning om vad Robin pratar om, men det är roligt att sväva omkring. Molly och Elton skrattar när de krockar in i varandra.</p>
+    <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
+    <div class="translation-panel"><div class="translation-inner">
+      <p>"Unbuckle yourselves and you'll get to experience something fun," says Robin.</p>
+      <p>Molly and Elton unbuckle their seatbelts. Suddenly they float in the air.</p>
+      <p>"Help," they say at the same time.</p>
+      <p>"Fun, right?" says Robin.</p>
+      <p>Molly waves her arms.</p>
+      <p>"We can fly!"</p>
+      <p>"That's because you're outside Earth's atmosphere," says Robin.</p>
+      <p>"Wow," says Elton.</p>
+      <p>Molly has no idea what Robin is talking about, but it's fun floating around. Molly and Elton laugh when they bump into each other.</p>
+    </div></div>
+  </article>
+
+  <article class="page-card reveal" id="p29" style="--tilt:-1.3deg;">
+    <div class="page-tag">Sida 34</div>
+    <div class="narration">
+      <button class="play-btn" aria-label="Spela upp sida 34 på svenska">
+        <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </button>
+      <div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+      <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
+      <audio preload="none" src="audio/page-34.mp3"></audio>
+    </div>
+    <p class="original" data-audio="audio/page-34-1.mp3" tabindex="0" role="button" title="Click to hear this line">Pappa blir synlig på datorskärmen igen. Han torkar svett från pannan.</p>
+    <p class="original" data-audio="audio/page-34-2.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Nu har jag lyckats skriva in i datorn att ni ska åka tillbaka hit igen,</em> säger han.</p>
+    <p class="original" data-audio="audio/page-34-3.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Vad bra, då spänner vi fast oss,</em> säger Elton.</p>
+    <p class="original" data-audio="audio/page-34-4.mp3" tabindex="0" role="button" title="Click to hear this line">Pappa blir tyst.</p>
+    <p class="original" data-audio="audio/page-34-5.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Nja, så enkelt är det inte. Först måste ni lämna raketen och fixa en sak.</em></p>
+    <p class="original" data-audio="audio/page-34-6.mp3" tabindex="0" role="button" title="Click to hear this line">Molly och Elton tittar ut genom fönstret. Lämna raketen? Sväva långt från jordklotet, bara de två? Hur ska de våga det?</p>
+    <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
+    <div class="translation-panel"><div class="translation-inner">
+      <p>Dad becomes visible on the computer screen again. He wipes sweat from his forehead.</p>
+      <p>"I've managed to program the computer to bring you back here again," he says.</p>
+      <p>"Great, then we'll buckle up," says Elton.</p>
+      <p>Dad goes quiet.</p>
+      <p>"Well, it's not quite that simple. First you have to leave the rocket and fix something."</p>
+      <p>Molly and Elton look out the window. Leave the rocket? Float far from the Earth, just the two of them? How will they ever dare?</p>
+    </div></div>
+  </article>
+
+  <article class="page-card reveal" id="p30" style="--tilt:1.2deg;">
+    <div class="page-tag">Sida 35</div>
+    <div class="narration">
+      <button class="play-btn" aria-label="Spela upp sida 35 på svenska">
+        <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </button>
+      <div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+      <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
+      <audio preload="none" src="audio/page-35.mp3"></audio>
+    </div>
+    <p class="original" data-audio="audio/page-35-1.mp3" tabindex="0" role="button" title="Click to hear this line">Det är svårt att sätta på sig en rymddräkt när man svävar i luften, men utan rymddräkterna kan de inte andas.</p>
+    <p class="original" data-audio="audio/page-35-2.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Dessutom kan det vara både väldigt kallt och mycket varmt i rymden,</em> säger Robin.</p>
+    <p class="original" data-audio="audio/page-35-3.mp3" tabindex="0" role="button" title="Click to hear this line">De öppnar luckan och kliver ut&#8230; ingenting. Molly tycker att det känns som att sväva i mjukt vatten. Vilken tur att de är fastspända till raketen, annars skulle de bara åka iväg.</p>
+    <p class="original" data-audio="audio/page-35-4.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Hallå, Molly, hör du mig?</em></p>
+    <p class="original" data-audio="audio/page-35-5.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Hallå, Elton. Visst är det häftigt!</em></p>
+    <p class="original" data-audio="audio/page-35-6.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Det häftigaste jag har varit med om,</em> säger Elton.</p>
+    <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
+    <div class="translation-panel"><div class="translation-inner">
+      <p>It's hard to put on a spacesuit when you're floating in the air, but without the spacesuits they can't breathe.</p>
+      <p>"Besides, it can be both very cold and very hot in space," says Robin.</p>
+      <p>They open the hatch and step out into... nothing. Molly thinks it feels like floating in soft water. What luck that they're clipped to the rocket, otherwise they'd just drift away.</p>
+      <p>"Hello, Molly, can you hear me?"</p>
+      <p>"Hello, Elton. Isn't this amazing!"</p>
+      <p>"The most amazing thing I've ever experienced," says Elton.</p>
+    </div></div>
+  </article>
+
+  <div class="chapter-divider reveal">
+    <div class="chapter-number">7</div>
+    <div>
+      <h2>Tillbaka i Östervik</h2>
+      <span class="cn">Chapter 7 · Back in Östervik</span>
+    </div>
+  </div>
+
+  <article class="page-card reveal" id="p31" style="--tilt:-1.1deg;">
+    <div class="page-tag">Sida 36</div>
+    <div class="narration">
+      <button class="play-btn" aria-label="Spela upp sida 36 på svenska">
+        <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </button>
+      <div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+      <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
+      <audio preload="none" src="audio/page-36.mp3"></audio>
+    </div>
+    <p class="original" data-audio="audio/page-36-1.mp3" tabindex="0" role="button" title="Click to hear this line">Elton ser ett starkt ljus. Det måste vara solen som går upp. När han tittar ner på jorden kittlar det i magen. Det är tur att han inte är höjdrädd.</p>
+    <p class="original" data-audio="audio/page-36-2.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Ni hittar spaken nära luckan,</em> säger Mollys pappa i högtalaren.</p>
+    <p class="original" data-audio="audio/page-36-3.mp3" tabindex="0" role="button" title="Click to hear this line">Elton och Molly rör sig långsamt framåt i sina rymddräkter.</p>
+    <p class="original" data-audio="audio/page-36-4.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Dra den bara nedåt,</em> säger pappa. <em>Sen kan ni flyga hem.</em></p>
+    <p class="original" data-audio="audio/page-36-5.mp3" tabindex="0" role="button" title="Click to hear this line">Molly och Elton hjälps åt att dra i spaken. Det är svårt. Plötsligt tappar Elton taget och far iväg. Tänk om linan går av och han svävar iväg ut i den svarta rymden? Som tur är får Molly tag i hans arm och drar in honom igen.</p>
+    <p class="original" data-audio="audio/page-36-6.mp3" tabindex="0" role="button" title="Click to hear this line">Till slut lyckas de dra spaken rätt och svävar långsamt tillbaka in i raketen.</p>
+    <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
+    <div class="translation-panel"><div class="translation-inner">
+      <p>Elton sees a bright light. It must be the sun coming up. When he looks down at Earth, his stomach tingles. It's lucky he's not afraid of heights.</p>
+      <p>"You'll find the lever near the hatch," says Molly's dad through the speaker.</p>
+      <p>Elton and Molly move slowly forward in their spacesuits.</p>
+      <p>"Just pull it downward," says Dad. "Then you can fly home."</p>
+      <p>Molly and Elton work together to pull the lever. It's hard. Suddenly Elton loses his grip and flies off. What if the tether snaps and he floats away into the black of space? Luckily, Molly grabs his arm and pulls him back in.</p>
+      <p>In the end they manage to pull the lever right and float slowly back into the rocket.</p>
+    </div></div>
+  </article>
+
+  <article class="page-card reveal" id="p32" style="--tilt:1.4deg;">
+    <div class="page-tag">Sida 37</div>
+    <div class="narration">
+      <button class="play-btn" aria-label="Spela upp sida 37 på svenska">
+        <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </button>
+      <div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+      <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
+      <audio preload="none" src="audio/page-37.mp3"></audio>
+    </div>
+    <p class="original" data-audio="audio/page-37-1.mp3" tabindex="0" role="button" title="Click to hear this line">Elton har svårt att förstå vad de precis har gjort. Vem kan tro att de har varit ute och svävat i rymden, utanför en rymdraket?</p>
+    <p class="original" data-audio="audio/page-37-2.mp3" tabindex="0" role="button" title="Click to hear this line">Robin och pappa dyker upp på skärmen.</p>
+    <p class="original" data-audio="audio/page-37-3.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Bravo, jordbarn,</em> säger Robin.</p>
+    <p class="original" data-audio="audio/page-37-4.mp3" tabindex="0" role="button" title="Click to hear this line">Pappa ser blek ut.</p>
+    <p class="original" data-audio="audio/page-37-5.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Nu måste ni lyssna exakt på det jag säger,</em> säger han. <em>Tryck på de två gröna knapparna.</em></p>
+    <p class="original" data-audio="audio/page-37-6.mp3" tabindex="0" role="button" title="Click to hear this line">Puh, raketen startar snällt. Elton ser hur jorden blir större under dem. Plötsligt åker raketen först åt vänster och sen åt höger.</p>
+    <p class="original" data-audio="audio/page-37-7.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Det är för att ni inte ska brinna upp,</em> säger pappa.</p>
+    <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
+    <div class="translation-panel"><div class="translation-inner">
+      <p>Elton has a hard time understanding what they just did. Who would believe they've been floating out in space, outside a rocket?</p>
+      <p>Robin and Dad appear on the screen.</p>
+      <p>"Well done, Earth children," says Robin.</p>
+      <p>Dad looks pale.</p>
+      <p>"Now you need to listen exactly to what I say," he says. "Press the two green buttons."</p>
+      <p>Phew, the rocket starts up gently. Elton watches the Earth grow bigger beneath them. Suddenly the rocket swerves first to the left and then to the right.</p>
+      <p>"That's so you don't burn up," says Dad.</p>
+    </div></div>
+  </article>
+
+  <article class="page-card reveal" id="p33" style="--tilt:1.2deg;">
+    <div class="page-tag">Sida 38</div>
+    <div class="narration">
+      <button class="play-btn" aria-label="Spela upp sida 38 på svenska">
+        <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </button>
+      <div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+      <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
+      <audio preload="none" src="audio/page-38.mp3"></audio>
+    </div>
+    <p class="original" data-audio="audio/page-38-1.mp3" tabindex="0" role="button" title="Click to hear this line">Raketen har vänt i luften och nu backar de långsamt ner den sista biten mot Eltons och Mollys tomt. Det verkar vara sent, för det är redan mörkt ute.</p>
+    <p class="original" data-audio="audio/page-38-2.mp3" tabindex="0" role="button" title="Click to hear this line">Raketen slocknar. De klarade det! Molly öppnar luckan och stegen fälls ut.</p>
+    <p class="original" data-audio="audio/page-38-3.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Fridens på er, jordbarn,</em> säger Robin.</p>
+    <p class="original" data-audio="audio/page-38-4.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Gör aldrig om det där,</em> säger Mollys pappa och kan inte sluta krama dem. Elton och Molly berättar om allt de har sett.</p>
+    <p class="original" data-audio="audio/page-38-5.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Dina föräldrar är så oroliga,</em> säger pappa.</p>
+    <p class="original" data-audio="audio/page-38-6.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Jag sa att ni var i rymden, men de trodde mig inte,</em> säger Robin.</p>
+    <p class="original" data-audio="audio/page-38-7.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Som tur var,</em> säger pappa och ler.</p>
+    <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
+    <div class="translation-panel"><div class="translation-inner">
+      <p>The rocket has turned around in the air, and now they're slowly backing down the last stretch toward Elton and Molly's yard. It seems to be late, since it's already dark outside.</p>
+      <p>The rocket powers down. They made it! Molly opens the hatch and the ladder folds out.</p>
+      <p>"Peace be with you, Earth children," says Robin.</p>
+      <p>"Never do that again," says Molly's dad, unable to stop hugging them. Elton and Molly tell him everything they've seen.</p>
+      <p>"Your parents are so worried," says Dad.</p>
+      <p>"I told them you were in space, but they didn't believe me," says Robin.</p>
+      <p>"Just as well," says Dad, and smiles.</p>
+    </div></div>
+  </article>
+
+  <article class="page-card reveal" id="p34" style="--tilt:-1.5deg;">
+    <div class="page-tag">Sida 39</div>
+    <div class="narration">
+      <button class="play-btn" aria-label="Spela upp sida 39 på svenska">
+        <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </button>
+      <div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+      <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
+      <audio preload="none" src="audio/page-39.mp3"></audio>
+    </div>
+    <p class="original" data-audio="audio/page-39-1.mp3" tabindex="0" role="button" title="Click to hear this line">Elton smyger in i hallen och stänger dörren. Han hoppas att mamma och pappa sover, för Elton tycker inte om att ljuga. Men så fort han har kommit in rusar de fram till honom.</p>
+    <p class="original" data-audio="audio/page-39-2.mp3" tabindex="0" role="button" title="Click to hear this line">Mamma vill aldrig sluta krama honom. Pappa torkar bort en tår under ögat.</p>
+    <p class="original" data-audio="audio/page-39-3.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Var har du varit?</em> frågar mamma.</p>
+    <p class="original" data-audio="audio/page-39-4.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; I rymden,</em> svarar Elton.</p>
+    <p class="original" data-audio="audio/page-39-5.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Man får inte ljuga,</em> säger pappa. <em>Du måste säga som det är.</em></p>
+    <p class="original" data-audio="audio/page-39-6.mp3" tabindex="0" role="button" title="Click to hear this line">Elton undrar vad han ska säga då.</p>
+    <p class="original" data-audio="audio/page-39-7.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Långt bort?</em> försöker han.</p>
+    <p class="original" data-audio="audio/page-39-8.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Ni får inte gå långt bort utan en vuxen,</em> säger mamma.</p>
+    <p class="original" data-audio="audio/page-39-9.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Ni kan gå vilse,</em> säger pappa.</p>
+    <p class="original" data-audio="audio/page-39-10.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Okej,</em> säger Elton. Han har i alla fall inte ljugit.</p>
+    <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
+    <div class="translation-panel"><div class="translation-inner">
+      <p>Elton sneaks into the hallway and closes the door. He hopes Mom and Dad are asleep, because Elton doesn't like to lie. But the moment he steps inside, they rush toward him.</p>
+      <p>Mom never wants to stop hugging him. Dad wipes away a tear under his eye.</p>
+      <p>"Where have you been?" Mom asks.</p>
+      <p>"In space," Elton answers.</p>
+      <p>"You mustn't lie," says Dad. "You have to tell it like it is."</p>
+      <p>Elton wonders what he should say instead.</p>
+      <p>"Far away?" he tries.</p>
+      <p>"You're not allowed to go far away without an adult," says Mom.</p>
+      <p>"You could get lost," says Dad.</p>
+      <p>"Okay," says Elton. At least he hasn't lied.</p>
+    </div></div>
+  </article>
+
+  <article class="page-card reveal" id="p35" style="--tilt:1.5deg;">
+    <div class="page-tag">Sida 40</div>
+    <div class="narration">
+      <button class="play-btn" aria-label="Spela upp sida 40 på svenska">
+        <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </button>
+      <div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+      <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
+      <audio preload="none" src="audio/page-40.mp3"></audio>
+    </div>
+    <p class="original" data-audio="audio/page-40-1.mp3" tabindex="0" role="button" title="Click to hear this line">Elton ligger i sin säng. Han försöker sova, men det går inte. Utanför fönstret ser han stjärnorna. Tänk att han har varit i rymden på riktigt. Han har svävat utanför en rymdraket i en rymddräkt. Trots att han är trött har han svårt att somna. Han kramar om sina gosedjur och håller upp dem mot fönstret.</p>
+    <p class="original" data-audio="audio/page-40-2.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Fattar ni att jag har varit i rymden? Det är verkligen konstigt.</em> Han måste fråga Molly imorgon.</p>
+    <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
+    <div class="translation-panel"><div class="translation-inner">
+      <p>Elton lies in his bed. He tries to sleep, but he can't. Outside the window he sees the stars. To think he's really been in space. He's floated outside a rocket in a spacesuit. Even though he's tired, he can't fall asleep. He hugs his stuffed animals and holds them up to the window.</p>
+      <p>"Can you believe I've been in space? It's really strange." He has to ask Molly tomorrow.</p>
+    </div></div>
+  </article>
+
+  <div class="chapter-divider reveal">
+    <div class="chapter-number">8</div>
+    <div>
+      <h2>En jobbig idrottsdag</h2>
+      <span class="cn">Chapter 8 · A Tough Sports Day</span>
+    </div>
+  </div>
+
+  <article class="page-card reveal" id="p36" style="--tilt:-1.3deg;">
+    <div class="page-tag">Sida 41</div>
+    <div class="narration">
+      <button class="play-btn" aria-label="Spela upp sida 41 på svenska">
+        <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </button>
+      <div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+      <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
+      <audio preload="none" src="audio/page-41.mp3"></audio>
+    </div>
+    <p class="original" data-audio="audio/page-41-1.mp3" tabindex="0" role="button" title="Click to hear this line">Molly slår upp ögonen och känner sig annorlunda. Har hon drömt? Var hon verkligen i rymden? Dörren åker upp och Robin rullar in.</p>
+    <p class="original" data-audio="audio/page-41-2.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; God morgon, jordbarn som har färdats i rymden.</em></p>
+    <p class="original" data-audio="audio/page-41-3.mp3" tabindex="0" role="button" title="Click to hear this line">Det var alltså inte en dröm.</p>
+    <p class="original" data-audio="audio/page-41-4.mp3" tabindex="0" role="button" title="Click to hear this line">Pappa blir synlig bakom Robin.</p>
+    <p class="original" data-audio="audio/page-41-5.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Det är idrottsdag i skolan,</em> säger han. <em>Robin vill gärna följa med.</em></p>
+    <p class="original" data-audio="audio/page-41-6.mp3" tabindex="0" role="button" title="Click to hear this line">Molly tycker inte om idrottsdagar. Då vill Elton alltid tävla och då blir allt fel. Robin övar på att hoppa, det går inte så bra. Molly blir på bättre humör. Det är säkert roligare om Robin är med.</p>
+    <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
+    <div class="translation-panel"><div class="translation-inner">
+      <p>Molly opens her eyes and feels different. Did she dream it? Was she really in space? The door swings open and Robin rolls in.</p>
+      <p>"Good morning, Earth child who has traveled through space."</p>
+      <p>So it wasn't a dream.</p>
+      <p>Dad appears behind Robin.</p>
+      <p>"It's sports day at school," he says. "Robin would love to come along."</p>
+      <p>Molly doesn't like sports days. That's when Elton always wants to compete, and then everything goes wrong. Robin practices jumping — it doesn't go very well. Molly cheers up. It'll definitely be more fun with Robin along.</p>
+    </div></div>
+  </article>
+
+  <article class="page-card reveal" id="p37" style="--tilt:-1.6deg;">
+    <div class="page-tag">Sida 42</div>
+    <div class="narration">
+      <button class="play-btn" aria-label="Spela upp sida 42 på svenska">
+        <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </button>
+      <div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+      <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
+      <audio preload="none" src="audio/page-42.mp3"></audio>
+    </div>
+    <p class="original" data-audio="audio/page-42-1.mp3" tabindex="0" role="button" title="Click to hear this line">Robin rullar gångvägen fram. Det går fort. Manteln fladdrar i vinden. Molly och Elton går långt efter.</p>
+    <p class="original" data-audio="audio/page-42-2.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Synd att det ska vara idrottsdag just när man är som tröttast,</em> säger Elton.</p>
+    <p class="original" data-audio="audio/page-42-3.mp3" tabindex="0" role="button" title="Click to hear this line">Han pekar mot himlen.</p>
+    <p class="original" data-audio="audio/page-42-4.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Kan du fatta att vi var där?</em></p>
+    <p class="original" data-audio="audio/page-42-5.mp3" tabindex="0" role="button" title="Click to hear this line">Molly och Elton stannar till och tittar.</p>
+    <p class="original" data-audio="audio/page-42-6.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Ingen kommer att tro oss,</em> säger Molly.</p>
+    <p class="original" data-audio="audio/page-42-7.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Det är vår hemlighet,</em> säger Elton.</p>
+    <p class="original" data-audio="audio/page-42-8.mp3" tabindex="0" role="button" title="Click to hear this line">Molly tittar på Elton och ler stort. Tänk att de är de första barnen i hela världen som har varit ute i rymden.</p>
+    <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
+    <div class="translation-panel"><div class="translation-inner">
+      <p>Robin rolls along the path. It's fast. The cape flutters in the wind. Molly and Elton walk far behind.</p>
+      <p>"Too bad it has to be sports day right when you're at your most tired," says Elton.</p>
+      <p>He points at the sky.</p>
+      <p>"Can you believe we were up there?"</p>
+      <p>Molly and Elton stop and look.</p>
+      <p>"No one will believe us," says Molly.</p>
+      <p>"It's our secret," says Elton.</p>
+      <p>Molly looks at Elton and smiles broadly. To think they're the first children in the whole world to have been out in space.</p>
+    </div></div>
+  </article>
+
+  <article class="page-card reveal" id="p38" style="--tilt:-1.1deg;">
+    <div class="page-tag">Sida 43</div>
+    <div class="narration">
+      <button class="play-btn" aria-label="Spela upp sida 43 på svenska">
+        <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </button>
+      <div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+      <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
+      <audio preload="none" src="audio/page-43.mp3"></audio>
+    </div>
+    <p class="original" data-audio="audio/page-43-1.mp3" tabindex="0" role="button" title="Click to hear this line">Klassen har idrottsdag på fotbollsplanen som ligger vid skolan. Deras idrottslärare Stefan har gjort i ordning en bana för höjdhopp, en för längdhopp och en för att springa 60 meter. Molly vill inte springa alls idag. Hon släpar sig i mål.</p>
+    <p class="original" data-audio="audio/page-43-2.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Lite snabbare kan du kanske,</em> säger Stefan.</p>
+    <p class="original" data-audio="audio/page-43-3.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Nä,</em> säger Molly. <em>Det är för kallt för att springa.</em></p>
+    <p class="original" data-audio="audio/page-43-4.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Men om du springer blir du varm,</em> säger Hamid.</p>
+    <p class="original" data-audio="audio/page-43-5.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Så är det inte för mig,</em> säger Molly.</p>
+    <p class="original" data-audio="audio/page-43-6.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Okej,</em> suckar Stefan.</p>
+    <p class="original" data-audio="audio/page-43-7.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Men jag kan springa snabbare,</em> säger Elton.</p>
+    <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
+    <div class="translation-panel"><div class="translation-inner">
+      <p>The class has sports day on the football pitch next to the school. Their PE teacher Stefan has set up a course for high jump, one for long jump, and one for running 60 meters. Molly doesn't want to run at all today. She drags herself to the finish line.</p>
+      <p>"Maybe a little faster?" says Stefan.</p>
+      <p>"Nope," says Molly. "It's too cold to run."</p>
+      <p>"But if you run you'll get warm," says Hamid.</p>
+      <p>"That's not how it works for me," says Molly.</p>
+      <p>"Okay," sighs Stefan.</p>
+      <p>"But I can run faster," says Elton.</p>
+    </div></div>
+  </article>
+
+  <article class="page-card reveal" id="p39" style="--tilt:1.5deg;">
+    <div class="page-tag">Sida 44</div>
+    <div class="narration">
+      <button class="play-btn" aria-label="Spela upp sida 44 på svenska">
+        <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </button>
+      <div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+      <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
+      <audio preload="none" src="audio/page-44.mp3"></audio>
+    </div>
+    <p class="original" data-audio="audio/page-44-1.mp3" tabindex="0" role="button" title="Click to hear this line">Elton springer väldigt fort. Judit, Danilo, Hamid och Pella klappar händerna.</p>
+    <p class="original" data-audio="audio/page-44-2.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Oj,</em> säger Danilo.</p>
+    <p class="original" data-audio="audio/page-44-3.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Världens snabbaste,</em> säger Judit.</p>
+    <p class="original" data-audio="audio/page-44-4.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Vänta ni bara,</em> säger Robin.</p>
+    <p class="original" data-audio="audio/page-44-5.mp3" tabindex="0" role="button" title="Click to hear this line">Robin ställer sig vid start.</p>
+    <p class="original" data-audio="audio/page-44-6.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Kolla på mig! Vi superhjältar är bra på att sporta. Vi gör allt supersnabbt och superstarkt.</em></p>
+    <p class="original" data-audio="audio/page-44-7.mp3" tabindex="0" role="button" title="Click to hear this line">Och som ett skott är Robin i mål.</p>
+    <p class="original" data-audio="audio/page-44-8.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Det gör ni inte om!</em></p>
+    <p class="original" data-audio="audio/page-44-9.mp3" tabindex="0" role="button" title="Click to hear this line">Elton sparkar ilsket i marken. Judit och Pella står med armarna i kors.</p>
+    <p class="original" data-audio="audio/page-44-10.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Det där är fusk,</em> säger Pella.</p>
+    <p class="original" data-audio="audio/page-44-11.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Ja, för du är en robot,</em> säger Judit.</p>
+    <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
+    <div class="translation-panel"><div class="translation-inner">
+      <p>Elton runs really fast. Judit, Danilo, Hamid, and Pella clap their hands.</p>
+      <p>"Whoa," says Danilo.</p>
+      <p>"The fastest in the world," says Judit.</p>
+      <p>"Just you wait," says Robin.</p>
+      <p>Robin lines up at the start.</p>
+      <p>"Watch me! We superheroes are great at sports. We do everything super fast and super strong."</p>
+      <p>And like a shot, Robin is at the finish line.</p>
+      <p>"You can't do that again!"</p>
+      <p>Elton kicks angrily at the ground. Judit and Pella stand with their arms crossed.</p>
+      <p>"That's cheating," says Pella.</p>
+      <p>"Yeah, because you're a robot," says Judit.</p>
+    </div></div>
+  </article>
+
+  <article class="page-card reveal" id="p40" style="--tilt:1.5deg;">
+    <div class="page-tag">Sida 45</div>
+    <div class="narration">
+      <button class="play-btn" aria-label="Spela upp sida 45 på svenska">
+        <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </button>
+      <div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+      <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
+      <audio preload="none" src="audio/page-45.mp3"></audio>
+    </div>
+    <p class="original" data-audio="audio/page-45-1.mp3" tabindex="0" role="button" title="Click to hear this line">Molly tycker inte om när hennes kompisar säger så. Som om det inte är bra att vara en robot.</p>
+    <p class="original" data-audio="audio/page-45-2.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Min pappa är faktiskt världens bästa uppfinnare,</em> säger hon.</p>
+    <p class="original" data-audio="audio/page-45-3.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Uppfinnaren med röda håret. Den bäste som finns,</em> säger Robin.</p>
+    <p class="original" data-audio="audio/page-45-4.mp3" tabindex="0" role="button" title="Click to hear this line">Molly börjar berätta om alla uppfinningar som hennes pappa har gjort. Alla, utom om rymdraketen, för det vågar hon inte.</p>
+    <p class="original" data-audio="audio/page-45-5.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Man får inte skryta,</em> säger Judit.</p>
+    <p class="original" data-audio="audio/page-45-6.mp3" tabindex="0" role="button" title="Click to hear this line">Molly blir arg.</p>
+    <p class="original" data-audio="audio/page-45-7.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Man får säga som det är,</em> säger hon.</p>
+    <p class="original" data-audio="audio/page-45-8.mp3" tabindex="0" role="button" title="Click to hear this line">De stirrar argt på varandra.</p>
+    <p class="original" data-audio="audio/page-45-9.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Kan inte alla vara kompisar?</em> frågar Elton.</p>
+    <p class="original" data-audio="audio/page-45-10.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Ja,</em> säger Danilo. <em>Sluta bråka.</em></p>
+    <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
+    <div class="translation-panel"><div class="translation-inner">
+      <p>Molly doesn't like it when her friends talk that way. As if it's not okay to be a robot.</p>
+      <p>"My dad happens to be the best inventor in the world," she says.</p>
+      <p>"The inventor with the red hair. The best there is," says Robin.</p>
+      <p>Molly starts telling them about all the inventions her dad has made. All of them, except the rocket — that one she doesn't dare mention.</p>
+      <p>"You're not supposed to brag," says Judit.</p>
+      <p>Molly gets angry.</p>
+      <p>"You're allowed to say how things are," she says.</p>
+      <p>They glare angrily at each other.</p>
+      <p>"Can't we all just be friends?" Elton asks.</p>
+      <p>"Yeah," says Danilo. "Stop fighting."</p>
+    </div></div>
+  </article>
+
+  <article class="page-card reveal" id="p41" style="--tilt:1.4deg;">
+    <div class="page-tag">Sida 46</div>
+    <div class="narration">
+      <button class="play-btn" aria-label="Spela upp sida 46 på svenska">
+        <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </button>
+      <div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+      <span class="narration-label">Lyssna på svenska<span class="cn-sub">Native Swedish audio</span></span>
+      <audio preload="none" src="audio/page-46.mp3"></audio>
+    </div>
+    <p class="original" data-audio="audio/page-46-1.mp3" tabindex="0" role="button" title="Click to hear this line">Innan Molly och Judit hinner säga något mer ställer sig Robin mellan dem.</p>
+    <p class="original" data-audio="audio/page-46-2.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Ett fall för Raket-Robin!</em></p>
+    <p class="original" data-audio="audio/page-46-3.mp3" tabindex="0" role="button" title="Click to hear this line">Och på en sekund har Robin lyft upp Molly och rullar iväg. När de är långt borta från fotbollsplanen sätter han ner henne.</p>
+    <p class="original" data-audio="audio/page-46-4.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Så där ja. Fallet är löst.</em></p>
+    <p class="original" data-audio="audio/page-46-5.mp3" tabindex="0" role="button" title="Click to hear this line">Molly blänger på sin robot.</p>
+    <p class="original" data-audio="audio/page-46-6.mp3" tabindex="0" role="button" title="Click to hear this line"><em>&#8211; Så här löser man inte alls bråk. Nu blir det mycket värre,</em> säger hon och marscherar ilsket iväg.</p>
+    <button class="translate-toggle" aria-expanded="false">EN <span>Read in English</span><span class="chevron">▾</span></button>
+    <div class="translation-panel"><div class="translation-inner">
+      <p>Before Molly and Judit can say anything more, Robin steps between them.</p>
+      <p>"A case for Rocket-Robin!"</p>
+      <p>And in a second, Robin has scooped up Molly and rolls away. When they're far from the football pitch, he sets her down.</p>
+      <p>"There we go. Case solved."</p>
+      <p>Molly glares at her robot.</p>
+      <p>"This is not how you solve an argument. Now it's going to be so much worse," she says, and marches off angrily.</p>
+    </div></div>
+  </article>
 </main>
 
 <div class="book-footer">
   <span>✦ ✧ ✦</span>
-  Sida 6&#8211;29 · Kapitel 1&#8211;5 · fortsättning följer&#8230;
+  Sida 6&#8211;46 · Kapitel 1&#8211;8 · fortsättning följer&#8230;
 </div>
 
 <script>
