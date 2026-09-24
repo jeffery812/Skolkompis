@@ -41,6 +41,17 @@
 
   *{box-sizing:border-box;}
   body{ background:var(--sky); color:var(--ink); font-family:var(--font-body); font-size:16px; line-height:1.6; }
+  .home-btn{
+    position:fixed; left:1.2rem; top:calc(1.2rem + env(safe-area-inset-top,0px)); z-index:20;
+    display:flex; align-items:center; justify-content:center;
+    width:2.6rem; height:2.6rem; border-radius:50%;
+    background:var(--paper); border:1.5px solid var(--card-border);
+    color:var(--ink); text-decoration:none; font-size:1.2rem;
+    box-shadow:0 6px 16px -6px rgba(0,0,0,.25);
+    transition:transform .15s ease, border-color .15s ease;
+  }
+  .home-btn:hover{ transform:translateY(-2px); border-color:var(--chicken); }
+  .home-btn:focus-visible{ outline:3px solid var(--sun); outline-offset:2px; }
   h1,h2,h3{ font-family:var(--font-display); font-weight:400; text-wrap:balance; margin:0; }
   p{ margin:0; }
   .tab{ font-variant-numeric:tabular-nums; }
@@ -129,6 +140,8 @@
 </style>
 </head>
 <body>
+
+<a class="home-btn" href="../index.html" aria-label="Back to home">🏠</a>
 
 <header class="hero">
   <div class="hero-sun" aria-hidden="true"></div>
