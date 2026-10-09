@@ -356,6 +356,10 @@
     background: var(--teal-tint);
     border-left:3px solid var(--teal);
     border-radius: 0 8px 8px 0;
+    transition: margin .35s ease, padding .35s ease;
+  }
+  .translate-toggle[aria-expanded="false"] + .translation-panel .translation-inner{
+    margin-top:0; padding-top:0; padding-bottom:0;
   }
   .translation-inner p{
     font-family:'Literata', serif;
@@ -366,6 +370,96 @@
     margin:0 0 .8em;
   }
   .translation-inner p:last-child{ margin-bottom:0; }
+  .translate-toggle .back-ico{ display:inline-block; }
+  .en-head{ display:none; }
+
+  /* ---------- desktop: Swedish | English side by side, line by line ---------- */
+  @media (min-width:900px){
+    .page-card{
+      --w:min(620px, 100%);
+      width:var(--w); max-width:none;
+      margin-left:calc((100% - var(--w)) / 2); margin-right:0;
+      transition: opacity .6s ease, transform .6s ease,
+                  width .45s cubic-bezier(.2,.7,.2,1), margin-left .45s cubic-bezier(.2,.7,.2,1);
+    }
+    .page-card.en-open{
+      --w:min(1080px, calc(100vw - 7rem));
+      display:grid;
+      grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+      column-gap:2.4rem;
+    }
+    .page-card.en-open > *{ grid-column:1; }
+    .page-card.en-open .page-tag{ grid-row:1; grid-column:1 / -1; }
+    .page-card.en-open .narration{ grid-row:2; align-self:start; }
+    .page-card.en-open p.original{ grid-row:var(--r); align-self:start; }
+    .page-card.en-open .translate-toggle{ grid-row:var(--r); justify-self:start; align-self:start; }
+    .page-card.en-open .translation-panel,
+    .page-card.en-open .translation-inner{ display:contents; }
+    .page-card.en-open .en-head,
+    .page-card.en-open .translation-inner p{
+      grid-column:2;
+      background:var(--teal-tint);
+      border-left:3px solid var(--teal);
+      animation: en-in .5s cubic-bezier(.2,.7,.2,1) both;
+      animation-delay: calc(var(--i, 0) * 45ms + 120ms);
+    }
+    .page-card.en-open .en-head{
+      display:flex; align-items:center; gap:.5rem;
+      grid-row:2;
+      padding:.6rem 1.2rem;
+      border-radius:0 8px 0 0;
+      font-family:'Baloo 2', cursive; font-weight:600; font-size:.85rem;
+      letter-spacing:.06em; text-transform:uppercase;
+      color:var(--teal);
+    }
+    .en-head b{
+      font-weight:700; letter-spacing:.04em;
+      color:var(--teal-tint); background:var(--teal);
+      border-radius:999px; padding:.05em .55em;
+    }
+    .page-card.en-open .translation-inner p{
+      grid-row:var(--r);
+      margin:0;
+      padding:.2em 1.2em 1rem;
+      transition: background-color .2s ease;
+    }
+    .page-card.en-open .translation-inner p:last-child{ border-radius:0 0 8px 0; }
+    .page-card.en-open .translation-inner p.pair{ background:#d3ebe4; }
+    .page-card.en-open p.original.pair{ background: rgba(255,106,77,.08); }
+  }
+  @keyframes en-in{
+    from{ opacity:0; transform:translateX(-14px); }
+    to{ opacity:1; transform:translateX(0); }
+  }
+
+  /* ---------- phone: the page turns over to its English side ---------- */
+  @media (max-width:899px){
+    .translation-panel{ transition:none; }
+    .page-card.en-open{
+      display:flex; flex-direction:column;
+      background:#eef4ec;
+    }
+    .page-card.en-open .narration,
+    .page-card.en-open p.original{ display:none; }
+    .page-card.en-open .translation-panel{ order:1; }
+    .page-card.en-open .translate-toggle{ order:2; align-self:flex-start; }
+    .page-card.en-open .translation-inner{
+      margin:0; padding:0; background:none; border:0; border-radius:0;
+    }
+    .page-card.en-open .translation-inner p{
+      font-style:normal; font-size:1.08rem; line-height:1.75;
+      color:var(--ink);
+      margin:0 0 1rem; padding:.2em .5em;
+    }
+    .page-card.en-open .translation-inner p:last-child{ margin-bottom:0; }
+    .page-card.en-open .page-tag::after{
+      content:"English";
+      font-family:'Baloo 2', cursive; font-weight:600; font-size:.72rem; letter-spacing:.04em;
+      color:var(--teal); background:var(--teal-tint);
+      border:1px solid rgba(31,111,106,.25); border-radius:999px;
+      padding:0 .6em;
+    }
+  }
 
   /* ---------- running header ---------- */
   .run-header{
@@ -1908,11 +2002,91 @@
     speakingP = null;
   });
 
-  document.querySelectorAll('.translate-toggle').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var open = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', String(!open));
+  // Desktop: English opens beside the Swedish, paragraph by paragraph.
+  // Phone: the page turns over and shows only the English.
+  var wide = matchMedia('(min-width: 900px)');
+  var reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  function labelToggle(btn){
+    var open = btn.getAttribute('aria-expanded') === 'true';
+    if(!open){
+      btn.innerHTML = 'EN <span>Read in English</span><span class="chevron">▾</span>';
+    } else if(wide.matches){
+      btn.innerHTML = 'EN <span>Hide English</span><span class="chevron">▾</span>';
+    } else {
+      btn.innerHTML = 'SV <span>Tillbaka till svenska</span><span class="back-ico">↺</span>';
+    }
+  }
+  function setEnglish(card, btn, open){
+    card.classList.toggle('en-open', open);
+    btn.setAttribute('aria-expanded', String(open));
+    labelToggle(btn);
+  }
+  function turnPage(card, btn, open){
+    var tilt = getComputedStyle(card).getPropertyValue('--tilt').trim() || '0deg';
+    var base = 'perspective(1400px) rotate(' + tilt + ') ';
+    card.dataset.turning = '1';
+    var away = card.animate([
+      { transformOrigin:'left center', transform: base + 'rotateY(0deg)' },
+      { transformOrigin:'left center', transform: base + 'rotateY(-90deg)' }
+    ], { duration:230, easing:'ease-in', fill:'forwards' });
+    away.onfinish = function(){
+      setEnglish(card, btn, open);
+      var back = card.animate([
+        { transformOrigin:'left center', transform: base + 'rotateY(90deg)' },
+        { transformOrigin:'left center', transform: base + 'rotateY(0deg)' }
+      ], { duration:260, easing:'ease-out' });
+      away.cancel();
+      back.onfinish = function(){
+        delete card.dataset.turning;
+        if(card.getBoundingClientRect().top < 0){
+          card.scrollIntoView({ behavior:'smooth', block:'start' });
+        }
+      };
+    };
+  }
+  document.querySelectorAll('.page-card').forEach(function(card){
+    var btn = card.querySelector('.translate-toggle');
+    var inner = card.querySelector('.translation-inner');
+    if(!btn || !inner) return;
+    var sv = card.querySelectorAll('p.original');
+    var en = inner.querySelectorAll('p');
+    var head = document.createElement('div');
+    head.className = 'en-head';
+    head.innerHTML = '<b>EN</b> English';
+    inner.insertBefore(head, inner.firstChild);
+    sv.forEach(function(p, i){
+      p.style.setProperty('--r', i + 3);
+      var partner = en[i];
+      if(!partner) return;
+      partner.style.setProperty('--r', i + 3);
+      partner.style.setProperty('--i', i + 1);
+      [p, partner].forEach(function(el){
+        el.addEventListener('mouseenter', function(){ p.classList.add('pair'); partner.classList.add('pair'); });
+        el.addEventListener('mouseleave', function(){ p.classList.remove('pair'); partner.classList.remove('pair'); });
+      });
     });
+    btn.style.setProperty('--r', sv.length + 3);
+    btn.addEventListener('click', function(){
+      if(card.dataset.turning) return;
+      var open = btn.getAttribute('aria-expanded') !== 'true';
+      if(wide.matches){
+        setEnglish(card, btn, open);
+        return;
+      }
+      if(open){
+        if(speakingP && card.contains(speakingP)){ stopLineAudio(); }
+        var pageAudio = card.querySelector('.narration audio');
+        if(pageAudio){ pageAudio.pause(); }
+      }
+      if(reduceMotion.matches || !card.animate){
+        setEnglish(card, btn, open);
+      } else {
+        turnPage(card, btn, open);
+      }
+    });
+  });
+  wide.addEventListener('change', function(){
+    document.querySelectorAll('.translate-toggle').forEach(labelToggle);
   });
 
   var tocBtn = document.getElementById('tocBtn');
