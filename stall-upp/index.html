@@ -1,0 +1,765 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ställ upp!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light dark;
+  --bg:#FBF7F0; --card:#FFFFFF; --ink:#2B2320; --soft:#7A6F63;
+  --accent:#1F8A70; --accent-deep:#166B57; --amber:#F2A93B; --hl:#FCE7BF;
+  --bad:#D9534F; --bad-bg:#FBE3E1; --ok-bg:#DDF3EB; --border:#E8E0D4;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#181310; --card:#231D19; --ink:#F4EFE9; --soft:#B9AEA1;
+    --accent:#3FBFA0; --accent-deep:#63D4B6; --amber:#F5BE5E; --hl:#4A3A1C;
+    --bad:#FF8A80; --bad-bg:#4A2522; --ok-bg:#1D3F35; --border:#382F28;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#181310; --card:#231D19; --ink:#F4EFE9; --soft:#B9AEA1;
+  --accent:#3FBFA0; --accent-deep:#63D4B6; --amber:#F5BE5E; --hl:#4A3A1C;
+  --bad:#FF8A80; --bad-bg:#4A2522; --ok-bg:#1D3F35; --border:#382F28;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Nunito","Segoe UI",system-ui,sans-serif;font-size:16px;line-height:1.6}
+h1,h2,.fred{font-family:"Fredoka","Nunito",system-ui,sans-serif;font-weight:600;margin:0}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+[hidden]{display:none!important}
+
+header.bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.6rem 1rem;padding:.9rem 16px;max-width:1040px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:.55rem;font-family:"Fredoka",system-ui,sans-serif;font-weight:600;color:var(--soft)}
+.home-btn{display:inline-flex;align-items:center;justify-content:center;width:2.1rem;height:2.1rem;border-radius:50%;border:2px solid var(--border);background:var(--card);font-size:1.05rem;text-decoration:none;flex:none}
+.home-btn:hover{border-color:var(--accent)}
+.grade-tag{font-family:"Nunito",sans-serif;font-weight:700;font-size:.72rem;color:var(--accent-deep);background:var(--card);border:1.5px solid var(--border);border-radius:999px;padding:.12rem .6rem}
+.seg{display:inline-flex;gap:.3rem;flex-wrap:wrap}
+.pill{border:2px solid var(--border);background:var(--card);border-radius:999px;padding:.3rem .85rem;font-weight:700;font-size:.9rem;cursor:pointer}
+.pill:hover{border-color:var(--accent)}
+.pill[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+main{max-width:1040px;margin:0 auto;padding:4px 16px 64px}
+.intro h1{font-size:clamp(1.9rem,4vw + 1rem,2.7rem)}
+.intro p{margin:.3rem 0 0;color:var(--soft)}
+
+.tabs{display:flex;gap:.5rem;margin:1.4rem 0 1rem;flex-wrap:wrap}
+.tab{display:flex;align-items:center;gap:.45rem;border:2px solid var(--border);background:var(--card);border-radius:16px;padding:.5rem 1rem;font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.1rem;cursor:pointer}
+.tab .sym{display:inline-grid;place-items:center;width:1.7rem;height:1.7rem;border-radius:50%;background:var(--bg);font-size:1.15rem}
+.tab:hover{border-color:var(--accent)}
+.tab[aria-selected="true"]{border-color:var(--accent);background:var(--accent);color:#fff}
+.tab[aria-selected="true"] .sym{background:rgba(255,255,255,.22)}
+
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:.7rem 1.2rem;margin-bottom:1rem}
+.btn{border:none;border-radius:12px;padding:.5rem 1rem;font-weight:800;cursor:pointer;background:var(--accent);color:#fff}
+.btn:hover{background:var(--accent-deep)}
+.btn.ghost{background:var(--card);color:var(--ink);border:2px solid var(--border)}
+.btn.ghost:hover{border-color:var(--accent)}
+.btn:disabled{opacity:.4;cursor:default}
+.custom{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+.custom label{font-weight:700;color:var(--soft);font-size:.9rem}
+.custom input{width:5.6rem;padding:.35rem .5rem;border:2px solid var(--border);border-radius:10px;background:var(--card);text-align:center;font-weight:700}
+.custom .opsym{font-family:"Fredoka",sans-serif;font-size:1.2rem;font-weight:600}
+.err{color:var(--bad);font-weight:700;font-size:.9rem;min-height:1.2em;margin:-.4rem 0 .6rem}
+
+.layout{display:grid;gap:16px}
+@media (min-width:860px){.layout{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);align-items:start}}
+.card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:18px}
+.question{font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.5rem;text-align:center;color:var(--soft);margin-bottom:.6rem}
+.board-wrap{display:flex;justify-content:center;overflow-x:auto;padding:8px 0 14px}
+
+/* the column board */
+.board{--cw:clamp(30px,8.4vw,54px);--ch:calc(var(--cw)*1.18);--sh:calc(var(--cw)*.5);display:grid;font-family:"Fredoka",sans-serif;font-weight:600}
+.cell{display:flex;align-items:center;justify-content:center;font-size:calc(var(--cw)*.78);line-height:1;border-radius:10px}
+.cell.op{color:var(--soft)}
+.cell.c{font-size:calc(var(--cw)*.42);color:var(--accent-deep);align-items:flex-end}
+.cell.dot{font-size:calc(var(--cw)*.5);color:var(--bad);align-items:flex-end;line-height:.6}
+.cell.br svg{width:60%;height:100%;margin-left:auto;overflow:visible}
+.cell.br path{fill:none;stroke:var(--ink);stroke-width:3;vector-effect:non-scaling-stroke;stroke-linecap:round}
+.cell.hl{background:var(--hl);box-shadow:0 0 0 2px var(--amber) inset}
+.cell.new{color:var(--accent);animation:pop .35s ease-out}
+.cell.c.new,.cell.dot.new{animation:pop .35s ease-out}
+.rule{align-self:center;border-top:3px solid var(--ink);border-radius:2px}
+.rule.new{animation:grow .35s ease-out;transform-origin:right}
+@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.cell input{width:88%;height:88%;border:2px dashed var(--border);border-radius:10px;background:var(--bg);text-align:center;font-family:"Fredoka",sans-serif;font-weight:600;font-size:calc(var(--cw)*.66);padding:0;color:var(--accent-deep)}
+.cell input:focus{border-style:solid;border-color:var(--accent);outline:none}
+.cell.c input{width:70%;height:100%;font-size:calc(var(--cw)*.38);border-width:1.5px;border-radius:6px}
+.cell input.ok{border:2px solid var(--accent);background:var(--ok-bg)}
+.cell input.bad{border:2px solid var(--bad);background:var(--bad-bg);color:var(--bad)}
+
+.side .count{font-family:"Fredoka",sans-serif;color:var(--soft);font-size:.95rem}
+.msg{font-size:1.15rem;line-height:1.55;min-height:5.2em;margin:.4rem 0 1rem}
+.msg.done{color:var(--accent-deep);font-weight:700}
+.controls{display:flex;flex-wrap:wrap;gap:.5rem}
+.progress{height:6px;border-radius:3px;background:var(--border);margin-top:.9rem;overflow:hidden}
+.progress span{display:block;height:100%;background:var(--accent);transition:width .25s}
+.feedback{font-weight:800;margin-top:.8rem;min-height:1.6em}
+.feedback.good{color:var(--accent-deep)}
+.feedback.bad{color:var(--bad)}
+.stars{font-family:"Fredoka",sans-serif;color:var(--soft);font-size:.95rem;margin-top:.4rem}
+.rules{margin-top:1.1rem;border-top:1px dashed var(--border);padding-top:.8rem}
+.rules h2{font-size:1.05rem;color:var(--accent-deep)}
+.rules ol{margin:.4rem 0 0;padding-left:1.3rem}
+.rules li{margin:.15rem 0}
+.keys{color:var(--soft);font-size:.82rem;margin-top:.6rem}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <span class="brand"><a class="home-btn" href="../index.html" aria-label="Back to home">🏠</a> 🧮 Ställ upp! <span class="grade-tag">PYP3–5 · 2026</span></span>
+</header>
+
+<main>
+  <section class="intro">
+    <h1 data-ui="title"></h1>
+    <p data-ui="subtitle"></p>
+  </section>
+
+  <nav class="tabs" role="tablist" id="tabs">
+    <button class="tab" role="tab" data-op="add"><span class="sym">+</span><span data-ui="add"></span></button>
+    <button class="tab" role="tab" data-op="sub"><span class="sym">−</span><span data-ui="sub"></span></button>
+    <button class="tab" role="tab" data-op="mul"><span class="sym">×</span><span data-ui="mul"></span></button>
+    <button class="tab" role="tab" data-op="div"><span class="sym">÷</span><span data-ui="div"></span></button>
+  </nav>
+
+  <div class="toolbar">
+    <div class="seg" id="modes">
+      <button class="pill" data-mode="demo" data-ui="modeDemo"></button>
+      <button class="pill" data-mode="practice" data-ui="modePractice"></button>
+    </div>
+    <div class="seg" id="levels">
+      <button class="pill" data-level="0" data-ui="lv0"></button>
+      <button class="pill" data-level="1" data-ui="lv1"></button>
+      <button class="pill" data-level="2" data-ui="lv2"></button>
+    </div>
+    <button class="btn" id="newBtn" data-ui="newProblem"></button>
+    <form class="custom" id="custom" autocomplete="off">
+      <label for="na" data-ui="custom"></label>
+      <input id="na" inputmode="numeric" aria-label="first number">
+      <span class="opsym" id="opSym">+</span>
+      <input id="nb" inputmode="numeric" aria-label="second number">
+      <button class="btn ghost" type="submit" data-ui="go"></button>
+    </form>
+  </div>
+  <p class="err" id="err" role="alert"></p>
+
+  <div class="layout">
+    <section class="card">
+      <div class="question" id="question"></div>
+      <div class="board-wrap"><div class="board" id="board"></div></div>
+    </section>
+
+    <aside class="card side">
+      <div id="demoPanel">
+        <div class="count" id="count"></div>
+        <p class="msg" id="msg" aria-live="polite"></p>
+        <div class="controls">
+          <button class="btn ghost" id="prevBtn" data-ui="prev"></button>
+          <button class="btn" id="nextBtn" data-ui="next"></button>
+          <button class="btn ghost" id="playBtn"></button>
+          <button class="btn ghost" id="resetBtn" data-ui="restart"></button>
+        </div>
+        <div class="progress"><span id="bar"></span></div>
+        <p class="keys" data-ui="keys"></p>
+      </div>
+
+      <div id="practicePanel" hidden>
+        <p class="msg" data-ui="practiceHint"></p>
+        <div class="controls">
+          <button class="btn" id="checkBtn" data-ui="check"></button>
+          <button class="btn ghost" id="clearBtn" data-ui="clear"></button>
+          <button class="btn ghost" id="revealBtn" data-ui="reveal"></button>
+        </div>
+        <p class="feedback" id="feedback" aria-live="polite"></p>
+        <p class="stars" id="stars"></p>
+      </div>
+
+      <div class="rules">
+        <h2 data-ui="rules"></h2>
+        <ol id="rules"></ol>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<script>
+(function(){
+var $ = function(id){ return document.getElementById(id); };
+var store = {
+  get: function(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } },
+  set: function(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+};
+
+/* ---------------- text ---------------- */
+var PLACES = ['ones','tens','hundreds','thousands','ten thousands','hundred thousands'];
+
+var UI = { title:'Column Arithmetic', subtitle:'Learn to set up sums in columns, step by step: add, subtract, multiply, divide. Watch first, then try it yourself!',
+    add:'Add', sub:'Subtract', mul:'Multiply', div:'Divide',
+    modeDemo:'👀 Show steps', modePractice:'✏️ Try it', lv0:'Easy', lv1:'Medium', lv2:'Challenge',
+    newProblem:'🎲 New problem', custom:'Your own:', go:'Go',
+    prev:'◀ Back', next:'Next ▶', play:'⏵ Auto', pause:'⏸ Pause', restart:'↺ Restart',
+    stepOf:'Step {i} of {n}', keys:'Tip: the ← → keys step too.',
+    practiceHint:'Fill in the dashed boxes, starting from the ones. The small boxes are for carries and are not checked. Press “Check” when you are done.',
+    check:'✅ Check', clear:'🧽 Clear', reveal:'💡 Show me',
+    allRight:'All correct! Brilliant 🎉', wrong:'{n} box(es) are not right yet – look at the red ones again.', stars:'⭐ {n} solved so far',
+    rules:'📌 Remember', carry:'{c} (carried)',
+    errAdd:'Enter two whole numbers from 0 to 99999.', errSub:'Enter whole numbers 0–99999; the first must not be smaller than the second.',
+    errMul:'First number 1–9999, second number 1–999.', errDiv:'Number 1–99999, divisor 1–99, and the number must not be smaller than the divisor.' };
+
+var MSG = {
+  addIntro:'Line up the digits by place (ones under ones), then add, starting from the ones.',
+  addCol:'{p}: {expr} = {s}. Write {s}.',
+  addColCarry:'{p}: {expr} = {s}. That is 10 or more! Write {d} and carry {c} to the {np} (write it small, just above the line).',
+  addOnly:'{p}: there is only a {x} here – just write it down.',
+  addLastCarry:'{p}: only the carried {c} is left – write it down.',
+  addDone:'Done! {a} + {b} = {r}',
+  subIntro:'Line up the places and subtract, starting from the ones. If a digit is too small, borrow 1 from the next place (it counts as 10) and put a dot over the digit you borrowed from.',
+  subCol:'{p}: {x} − {y} = {r}. Write {r}.',
+  subDown:'{p}: nothing to take away here, so {x} comes straight down.',
+  subColAfter:'{p}: this digit lent 1, so {x} − 1 = {x1}; then {x1} − {y} = {r}. Write {r}.',
+  subDownAfter:'{p}: this digit lent 1, so {x} − 1 = {x1}. Write {x1}.',
+  subBorrow:'{p}: {x} is smaller than {y}, so borrow 1 from the {np} and put a dot over it. {x} + 10 = {x2}, {x2} − {y} = {r}. Write {r}.',
+  subBorrowAfter:'{p}: after lending 1 only {x1} is left, which is smaller than {y} – borrow 1 from the {np} (dot it). {x1} + 10 = {x2}, {x2} − {y} = {r}. Write {r}.',
+  subZeroChain:'{p}: this is a 0 that already lent 1, so it has to borrow 1 from the {np} (dot it). The borrowed 10 minus the 1 it lent leaves 9. 9 − {y} = {r}. Write {r}.',
+  subSkip:'{p}: this comes out as 0. We don\'t write a 0 at the front of a number.',
+  subDone:'Done! {a} − {b} = {r}',
+  mulIntro:'Line the numbers up on the right. Multiply the top number by each digit of the bottom number, starting with the ones.',
+  mulRow0:'First multiply {a} by the {y} in the {p}, one digit at a time from right to left.',
+  mulRow:'Now multiply {a} by the {y} in the {p}. That {y} is really worth {v}, so this row starts under the {p}.',
+  mulZeroRow:'The digit in the {p} is 0, and 0 times anything is 0, so we can skip this row.',
+  mulDig:'{y} × {x} = {s}. Write {s}.',
+  mulDigC:'{y} × {x} = {s}. Write {d}, carry {c}.',
+  mulDigIn:'{y} × {x} = {m}, plus the carried {cin} makes {s}. Write {s}.',
+  mulDigInC:'{y} × {x} = {m}, plus the carried {cin} makes {s}. Write {d}, carry {c}.',
+  mulLast:'{y} × {x} = {s}. This is the last digit, so write all of {s}.',
+  mulLastIn:'{y} × {x} = {m}, plus the carried {cin} makes {s}. This is the last digit, so write all of {s}.',
+  mulSumIntro:'Finally add the rows together, again starting from the ones.',
+  mulSumEmpty:'{p}: no digits in this column – write 0.',
+  mulDone:'Done! {a} × {b} = {r}',
+  divIntro:'Division starts from the biggest place, on the left. The number being divided goes inside the bracket, the divisor on the left, and the answer on top.',
+  divLook:'Start with the first digit: {cur} is at least {d}, so we can divide.',
+  divMore:'{prev} is smaller than {d}, so it can\'t be divided yet. Take one more digit: {cur}.',
+  divQ:'How many {d}s fit in {cur}? {q} × {d} = {qd}, but {q1} × {d} = {q1d} is too much – so write {q} on top, above the {p}.',
+  divMul:'{q} × {d} = {qd}. Write {qd} under {cur}, lined up on the right.',
+  divSub:'{cur} − {qd} = {r}. The remainder {r} is smaller than the divisor {d} – good!',
+  divSub0:'{cur} − {qd} = 0. Nothing left over, so we don\'t need to write the 0.',
+  divDown:'Bring down the next digit, {x}. Now we have {cur}.',
+  divZero:'{cur} is smaller than {d}, so {d} fits 0 times – write 0 on top, above the {p}.',
+  divRemLast:'There are no more digits to bring down, so {cur} is the remainder.',
+  divDone:'Done! {D} ÷ {d} = {q}. Check: {q} × {d} = {D} ✓',
+  divDoneR:'Done! {D} ÷ {d} = {q} remainder {r}. Check: {q} × {d} + {r} = {D} ✓'
+};
+
+var RULES = {
+  add:['Line up the places: ones under ones, tens under tens.','Start adding from the ones.','If a column makes 10 or more, write the ones digit and carry 1 to the next column.'],
+     sub:['Line up the places.','Start subtracting from the ones.','If the top digit is too small, borrow 1 from the next place – it counts as 10 here.'],
+     mul:['Line the numbers up on the right.','Multiply the top number by each digit of the bottom number.','Each row starts under the digit you are multiplying by.','Add the rows together at the end.'],
+     div:['Start from the biggest place, on the left.','Write each answer digit above the last digit you used.','Each remainder must be smaller than the divisor.','If it is too small to divide, write 0 in the answer.']
+};
+
+var SYM = { add:'+', sub:'−', mul:'×', div:'÷' };
+
+/* ---------------- state ---------------- */
+var S = {
+  op:'add', mode:'demo', level:0, step:0,
+  board:null, prob:null, timer:null, solved:false, inputs:[],
+  stars: +(store.get('stallupp-stars') || 0)
+};
+
+function ui(key, params){ return fill(UI[key], params); }
+function fill(t, params){
+  return t.replace(/\{(\w+)\}/g, function(_, k){ return localize(params ? params[k] : ''); });
+}
+function localize(v){
+  if (v == null) return '';
+  if (Array.isArray(v)) return v.map(localize).join(' + ');
+  if (typeof v === 'object'){
+    if ('place' in v) return PLACES[v.place];
+    if ('carry' in v) return ui('carry', { c:v.carry });
+  }
+  return String(v);
+}
+function message(st){
+  var t = fill(MSG[st.key], st.p);
+  return t.charAt(0).toUpperCase() + t.slice(1);
+}
+
+/* ---------------- board model ----------------
+   A board is a grid of cells. Each cell appears at step `show` (0 = the problem itself)
+   and optionally disappears at step `hide`. Each step has a message and highlighted cells. */
+function Board(){ this.cells=[]; this.rules=[]; this.steps=[]; this.rows={}; this.cols=0; }
+Board.prototype.step = function(key, p, hl){
+  this.steps.push({ key:key, p:p || {}, hl:(hl || []).filter(Boolean) });
+  return this.steps.length - 1;
+};
+Board.prototype.cell = function(r, c, text, kind, show){
+  var o = { r:r, c:c, t:String(text), k:kind || 'd', show:show, hide:null, n:this.cells.length };
+  this.cells.push(o);
+  if (c > this.cols) this.cols = c;
+  return o;
+};
+Board.prototype.rule = function(r, c1, c2, show){ this.rules.push({ r:r, c1:c1, c2:c2, show:show }); };
+Board.prototype.rowTypes = function(o){ for (var k in o) this.rows[k] = o[k]; };
+
+function digs(n){ return String(n).split('').reverse().map(Number); }
+
+/* ---- addition ---- */
+function buildAdd(a, b){
+  var B = new Board(), A = digs(a), Bd = digs(b), sum = a + b;
+  var n = Math.max(A.length, Bd.length), W = Math.max(n, String(sum).length) + 1;
+  var col = function(k){ return W - k; };
+  B.cols = W;
+  B.rowTypes({ 0:'d', 1:'d', 2:'s', 3:'rule', 4:'d' });
+  B.step('addIntro');
+  var ca = A.map(function(d, k){ return B.cell(0, col(k), d, 'd', 0); });
+  var cb = Bd.map(function(d, k){ return B.cell(1, col(k), d, 'd', 0); });
+  B.cell(1, 1, '+', 'op', 0);
+  B.rule(3, 1, W, 0);
+  var carry = 0, carryCell = null;
+  for (var k = 0; k < n; k++){
+    var terms = [], s = carry;
+    if (k < A.length){ terms.push(A[k]); s += A[k]; }
+    if (k < Bd.length){ terms.push(Bd[k]); s += Bd[k]; }
+    if (carry) terms.push({ carry:carry });
+    var hl = [ca[k], cb[k], carryCell], st;
+    if (s >= 10){
+      st = B.step('addColCarry', { p:{place:k}, np:{place:k+1}, expr:terms, s:s, d:s%10, c:1 }, hl);
+      B.cell(4, col(k), s % 10, 'd', st);
+      carryCell = B.cell(2, col(k+1), 1, 'c', st); carry = 1;
+    } else {
+      st = terms.length === 1 ? B.step('addOnly', { p:{place:k}, x:s }, hl)
+                              : B.step('addCol', { p:{place:k}, expr:terms, s:s }, hl);
+      B.cell(4, col(k), s, 'd', st);
+      carryCell = null; carry = 0;
+    }
+  }
+  if (carry){
+    var st2 = B.step('addLastCarry', { p:{place:n}, c:1 }, [carryCell]);
+    B.cell(4, col(n), 1, 'd', st2);
+  }
+  B.step('addDone', { a:a, b:b, r:sum });
+  return B;
+}
+
+/* ---- subtraction ---- */
+function buildSub(a, b){
+  var B = new Board(), A = digs(a), Bd = digs(b), R = a - b, rl = String(R).length;
+  var n = A.length, W = n + 1;
+  var col = function(k){ return W - k; };
+  B.cols = W;
+  B.rowTypes({ 0:'s', 1:'d', 2:'d', 3:'rule', 4:'d' });
+  B.step('subIntro');
+  var ca = A.map(function(d, k){ return B.cell(1, col(k), d, 'd', 0); });
+  var cb = Bd.map(function(d, k){ return B.cell(2, col(k), d, 'd', 0); });
+  B.cell(2, 1, '−', 'op', 0);
+  B.rule(3, 1, W, 0);
+  var borrowIn = 0, dot = null;
+  for (var k = 0; k < n; k++){
+    var x = A[k], hasY = k < Bd.length, y = hasY ? Bd[k] : 0, x1 = x - borrowIn, r, key, p, st, borrow = 0;
+    var hl = [ca[k], cb[k], dot];
+    if (x1 < y || x1 < 0){
+      borrow = 1; r = x1 + 10 - y;
+      key = !borrowIn ? 'subBorrow' : (x === 0 ? 'subZeroChain' : 'subBorrowAfter');
+      p = { p:{place:k}, np:{place:k+1}, x:x, x1:x1, x2:x1+10, y:y, r:r };
+    } else {
+      r = x1 - y;
+      key = borrowIn ? (hasY ? 'subColAfter' : 'subDownAfter') : (hasY ? 'subCol' : 'subDown');
+      p = { p:{place:k}, x:x, x1:x1, y:y, r:r };
+    }
+    var skip = k >= rl && !(R === 0 && k === 0);
+    st = B.step(skip ? 'subSkip' : key, p, hl);
+    if (borrow) dot = B.cell(0, col(k+1), '•', 'dot', st); else dot = null;
+    if (!skip) B.cell(4, col(k), r, 'd', st);
+    borrowIn = borrow;
+  }
+  B.step('subDone', { a:a, b:b, r:R });
+  return B;
+}
+
+/* ---- multiplication ---- */
+function buildMul(a, b){
+  if (String(b).length > String(a).length){ var t = a; a = b; b = t; }
+  var B = new Board(), A = digs(a), Bd = digs(b), P = a * b;
+  var n = A.length, m = Bd.length, W = Math.max(String(P).length, n, m) + 1;
+  var col = function(k){ return W - k; };
+  B.cols = W;
+  B.rowTypes({ 0:'s', 1:'d', 2:'d', 3:'rule' });
+  B.step('mulIntro');
+  var ca = A.map(function(d, k){ return B.cell(1, col(k), d, 'd', 0); });
+  var cb = Bd.map(function(d, k){ return B.cell(2, col(k), d, 'd', 0); });
+  B.cell(2, 1, '×', 'op', 0);
+  B.rule(3, 1, W, 0);
+  var r = 4, rows = [], carries = [];
+  function dropCarries(st){ carries.forEach(function(c){ c.hide = st; }); carries = []; }
+  for (var j = 0; j < m; j++){
+    var y = Bd[j], st;
+    if (y === 0 && m > 1){
+      st = B.step('mulZeroRow', { p:{place:j} }, [cb[j]]);
+      dropCarries(st);
+      continue;
+    }
+    st = B.step(j === 0 ? 'mulRow0' : 'mulRow', { p:{place:j}, y:y, a:a, v:y * Math.pow(10, j) }, [cb[j]]);
+    dropCarries(st);
+    B.rows[r] = 'd';
+    var cells = {}, cin = 0, cinCell = null;
+    for (var i = 0; i < n; i++){
+      var x = A[i], m1 = x * y, s = m1 + cin, last = i === n - 1;
+      var d = s % 10, c = Math.floor(s / 10), key;
+      if (last && c) key = cin ? 'mulLastIn' : 'mulLast';
+      else key = cin ? (c ? 'mulDigInC' : 'mulDigIn') : (c ? 'mulDigC' : 'mulDig');
+      st = B.step(key, { x:x, y:y, m:m1, cin:cin, s:s, d:d, c:c }, [ca[i], cb[j], cinCell]);
+      cells[i + j] = B.cell(r, col(i + j), d, 'd', st);
+      if (last && c){ cells[i + j + 1] = B.cell(r, col(i + j + 1), c, 'd', st); }
+      if (!last && c){ cinCell = B.cell(0, col(i + 1), c, 'c', st); carries.push(cinCell); cin = c; }
+      else { cinCell = null; cin = 0; }
+    }
+    rows.push({ cells:cells });
+    r++;
+  }
+  if (m > 1){
+    var carryRow = r, ruleRow = r + 1, resRow = r + 2;
+    B.rows[carryRow] = 's'; B.rows[ruleRow] = 'rule'; B.rows[resRow] = 'd';
+    var st0 = B.step('mulSumIntro');
+    dropCarries(st0);
+    B.rule(ruleRow, 1, W, st0);
+    var pl = String(P).length, carry = 0, carryCell = null;
+    for (var k = 0; k < pl; k++){
+      var terms = [], hl = [], sum = carry;
+      rows.forEach(function(row){ var c = row.cells[k]; if (c){ terms.push(+c.t); hl.push(c); sum += +c.t; } });
+      if (carry){ terms.push({ carry:carry }); hl.push(carryCell); }
+      var st2;
+      if (!terms.length) st2 = B.step('mulSumEmpty', { p:{place:k} });
+      else if (terms.length === 1 && carry) st2 = B.step('addLastCarry', { p:{place:k}, c:carry }, hl);
+      else if (terms.length === 1) st2 = B.step('addOnly', { p:{place:k}, x:sum }, hl);
+      else if (sum >= 10) st2 = B.step('addColCarry', { p:{place:k}, np:{place:k+1}, expr:terms, s:sum, d:sum%10, c:Math.floor(sum/10) }, hl);
+      else st2 = B.step('addCol', { p:{place:k}, expr:terms, s:sum }, hl);
+      B.cell(resRow, col(k), sum % 10, 'd', st2);
+      if (sum >= 10){ carry = Math.floor(sum / 10); carryCell = B.cell(carryRow, col(k + 1), carry, 'c', st2); }
+      else { carry = 0; carryCell = null; }
+    }
+  }
+  B.step('mulDone', { a:a, b:b, r:P });
+  return B;
+}
+
+/* ---- long division (bracket layout) ---- */
+function buildDiv(D, d){
+  var B = new Board(), Dd = String(D).split('').map(Number), N = Dd.length, ds = String(d), L = ds.length;
+  var colD = function(i){ return L + 2 + i; };
+  B.cols = L + 1 + N;
+  B.rowTypes({ 0:'d', 1:'rule', 2:'d' });
+  B.step('divIntro');
+  var dvs = ds.split('').map(function(ch, i){ return B.cell(2, 1 + i, ch, 'd', 0); });
+  B.cell(2, L + 1, '', 'br', 0);
+  var dc = Dd.map(function(x, i){ return B.cell(2, colD(i), x, 'd', 0); });
+  B.rule(1, L + 1, B.cols, 0);
+
+  function writeRight(row, endCol, num, show){
+    var s = String(num), out = [];
+    for (var i = 0; i < s.length; i++) out.push(B.cell(row, endCol - (s.length - 1 - i), s[i], 'd', show));
+    return out;
+  }
+
+  var pos = 0, cur = Dd[0];
+  if (cur >= d) B.step('divLook', { cur:cur, d:d }, [dc[0]].concat(dvs));
+  while (cur < d && pos < N - 1){
+    var prev = cur; pos++; cur = cur * 10 + Dd[pos];
+    B.step('divMore', { prev:prev, d:d, cur:cur }, dc.slice(0, pos + 1).concat(dvs));
+  }
+  var curCells = dc.slice(0, pos + 1), r = 3, remRow = null, rem = 0, st;
+  for (;;){
+    var q = Math.floor(cur / d), qPlace = N - 1 - pos;
+    if (q === 0){
+      st = B.step('divZero', { cur:cur, d:d, p:{place:qPlace} }, curCells.concat(dvs));
+      B.cell(0, colD(pos), 0, 'd', st);
+      if (pos === N - 1){ B.step('divRemLast', { cur:cur }, curCells); rem = cur; break; }
+      pos++;
+      var next = cur * 10 + Dd[pos];
+      st = B.step('divDown', { x:Dd[pos], cur:next }, [dc[pos]]);
+      if (cur === 0){ curCells.forEach(function(c){ c.hide = st; }); curCells = []; }
+      curCells = curCells.concat([B.cell(remRow, colD(pos), Dd[pos], 'd', st)]);
+      cur = next;
+      continue;
+    }
+    var qd = q * d;
+    st = B.step('divQ', { cur:cur, d:d, q:q, qd:qd, q1:q + 1, q1d:(q + 1) * d, p:{place:qPlace} }, curCells.concat(dvs));
+    var qc = B.cell(0, colD(pos), q, 'd', st);
+
+    B.rows[r] = 'd'; B.rows[r + 1] = 'rule';
+    st = B.step('divMul', { q:q, d:d, qd:qd, cur:cur }, [qc].concat(dvs));
+    var prodCells = writeRight(r, colD(pos), qd, st);
+    var width = Math.max(String(cur).length, String(qd).length);
+    B.rule(r + 1, colD(pos) - width + 1, colD(pos), st);
+
+    rem = cur - qd; remRow = r + 2; B.rows[remRow] = 'd';
+    var subHl = curCells.concat(prodCells), remCells = [];
+    if (pos === N - 1){
+      st = B.step('divSub', { cur:cur, qd:qd, r:rem, d:d }, subHl);
+      writeRight(remRow, colD(pos), rem, st);
+      break;
+    }
+    if (rem === 0) B.step('divSub0', { cur:cur, qd:qd }, subHl);
+    else {
+      st = B.step('divSub', { cur:cur, qd:qd, r:rem, d:d }, subHl);
+      remCells = writeRight(remRow, colD(pos), rem, st);
+    }
+    pos++;
+    cur = rem * 10 + Dd[pos];
+    st = B.step('divDown', { x:Dd[pos], cur:cur }, [dc[pos]]);
+    curCells = remCells.concat([B.cell(remRow, colD(pos), Dd[pos], 'd', st)]);
+    r = remRow + 1;
+  }
+  var Q = Math.floor(D / d);
+  B.step(rem ? 'divDoneR' : 'divDone', { D:D, d:d, q:Q, r:rem });
+  return B;
+}
+
+var BUILD = { add:buildAdd, sub:buildSub, mul:buildMul, div:buildDiv };
+
+/* ---------------- problem generator ---------------- */
+function rnd(lo, hi){ return lo + Math.floor(Math.random() * (hi - lo + 1)); }
+function noZeros(lo, hi){ var v; do { v = rnd(lo, hi); } while (/0/.test(String(v))); return v; }
+function generate(op, lv){
+  var a, b;
+  if (op === 'add'){
+    var sz = [[10,99,10,99],[100,999,100,999],[1000,9999,100,9999]][lv];
+    a = rnd(sz[0], sz[1]); b = rnd(sz[2], sz[3]);
+  } else if (op === 'sub'){
+    var sz2 = [[20,99,10,99],[100,999,10,999],[1000,9999,100,9999]][lv];
+    do { a = rnd(sz2[0], sz2[1]); b = rnd(sz2[2], sz2[3]); } while (b >= a);
+    if (lv === 2 && Math.random() < .5){            // a zero in the middle makes borrowing interesting
+      var s = String(a).split(''); s[rnd(1, s.length - 2)] = '0'; a = +s.join('');
+      if (b >= a) b = rnd(100, a - 1);
+    }
+  } else if (op === 'mul'){
+    if (lv === 0){ a = rnd(12, 99); b = rnd(2, 9); }
+    else if (lv === 1){ if (Math.random() < .5){ a = rnd(102, 999); b = rnd(2, 9); } else { a = rnd(12, 99); b = noZeros(11, 99); } }
+    else { a = rnd(102, 999); b = noZeros(11, 99); }
+  } else {
+    if (lv === 0){ b = rnd(2, 9); a = rnd(b, 99); if (Math.random() < .5) a -= a % b; if (a < b) a = b * 2; }
+    else if (lv === 1){ b = rnd(2, 9); a = rnd(100, 999); }
+    else if (Math.random() < .5){ b = rnd(3, 9); a = rnd(1000, 9999); }
+    else { b = rnd(11, 39); a = rnd(100, 999); }
+  }
+  return { a:a, b:b };
+}
+function validate(op, a, b){
+  var ok = function(v, lo, hi){ return Number.isInteger(v) && v >= lo && v <= hi; };
+  if (op === 'add') return ok(a,0,99999) && ok(b,0,99999);
+  if (op === 'sub') return ok(a,0,99999) && ok(b,0,99999) && a >= b;
+  if (op === 'mul') return ok(a,1,9999) && ok(b,1,999);
+  return ok(a,1,99999) && ok(b,1,99) && a >= b;
+}
+
+/* ---------------- rendering ---------------- */
+var BRACKET = '<svg viewBox="0 0 20 100" preserveAspectRatio="none" aria-hidden="true"><path d="M4 0 Q18 50 4 100"/></svg>';
+
+function render(){
+  var B = S.board, g = $('board'), demo = S.mode === 'demo';
+  g.innerHTML = '';
+  var nr = 0;
+  Object.keys(B.rows).forEach(function(k){ nr = Math.max(nr, +k + 1); });
+  var tracks = [];
+  for (var r = 0; r < nr; r++){
+    var t = B.rows[r];
+    tracks.push(t === 'd' ? 'var(--ch)' : t === 's' ? 'var(--sh)' : t === 'rule' ? '10px' : '0px');
+  }
+  g.style.gridTemplateColumns = 'repeat(' + B.cols + ', var(--cw))';
+  g.style.gridTemplateRows = tracks.join(' ');
+  var hl = demo ? B.steps[S.step].hl : [];
+
+  B.rules.forEach(function(ru){
+    if (demo && ru.show > S.step) return;
+    var el = document.createElement('div');
+    el.className = 'rule' + (demo && S.step > 0 && ru.show === S.step ? ' new' : '');
+    el.style.gridRow = ru.r + 1;
+    el.style.gridColumn = ru.c1 + ' / ' + (ru.c2 + 1);
+    g.appendChild(el);
+  });
+
+  S.inputs = [];
+  var seen = {};
+  B.cells.forEach(function(c){
+    var el = document.createElement('div');
+    el.className = 'cell ' + c.k;
+    el.style.gridRow = c.r + 1;
+    el.style.gridColumn = c.c;
+    if (demo){
+      if (c.show > S.step || (c.hide != null && S.step >= c.hide)) return;
+      if (hl.indexOf(c) >= 0) el.className += ' hl';
+      if (S.step > 0 && c.show === S.step) el.className += ' new';
+      if (c.k === 'br') el.innerHTML = BRACKET; else el.textContent = c.t;
+    } else if (c.show === 0){
+      if (c.k === 'br') el.innerHTML = BRACKET; else el.textContent = c.t;
+    } else if (c.k === 'd' && c.hide == null){
+      var inp = makeInput(); el.appendChild(inp);
+      S.inputs.push({ el:inp, cell:c });
+    } else if (c.k === 'c'){
+      var key = c.r + ',' + c.c;
+      if (seen[key]) return;
+      seen[key] = 1;
+      el.appendChild(makeInput(true));
+    } else return;
+    g.appendChild(el);
+  });
+  S.inputs.sort(function(x, y){ return (x.cell.show - y.cell.show) || (x.cell.n - y.cell.n); });
+  S.inputs.forEach(function(o, i){ o.el.dataset.i = i; });
+}
+
+function makeInput(small){
+  var inp = document.createElement('input');
+  inp.inputMode = 'numeric'; inp.maxLength = 1; inp.autocomplete = 'off';
+  inp.setAttribute('aria-label', small ? 'carry' : 'digit');
+  if (small) inp.dataset.small = '1';
+  return inp;
+}
+
+function updatePanels(){
+  var demo = S.mode === 'demo', B = S.board;
+  $('demoPanel').hidden = !demo;
+  $('practicePanel').hidden = demo;
+  if (demo){
+    var n = B.steps.length, st = B.steps[S.step], last = S.step === n - 1;
+    $('count').textContent = ui('stepOf', { i:S.step + 1, n:n });
+    $('msg').textContent = message(st);
+    $('msg').className = 'msg' + (last ? ' done' : '');
+    $('prevBtn').disabled = S.step === 0;
+    $('nextBtn').disabled = last;
+    $('bar').style.width = (100 * S.step / (n - 1)) + '%';
+    $('playBtn').textContent = ui(S.timer ? 'pause' : 'play');
+  }
+  $('stars').textContent = ui('stars', { n:S.stars });
+}
+
+function updateTexts(){
+  document.querySelectorAll('[data-ui]').forEach(function(el){ el.textContent = ui(el.dataset.ui); });
+  document.querySelectorAll('#tabs .tab').forEach(function(b){ b.setAttribute('aria-selected', b.dataset.op === S.op); });
+  document.querySelectorAll('#modes .pill').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.mode === S.mode); });
+  document.querySelectorAll('#levels .pill').forEach(function(b){ b.setAttribute('aria-pressed', +b.dataset.level === S.level); });
+  $('opSym').textContent = SYM[S.op];
+  $('rules').innerHTML = RULES[S.op].map(function(t){ return '<li>' + t + '</li>'; }).join('');
+  if (S.prob) $('question').textContent = S.prob.a + ' ' + SYM[S.op] + ' ' + S.prob.b + ' = ?';
+  updatePanels();
+}
+
+/* ---------------- actions ---------------- */
+function setProblem(a, b){
+  stopPlay();
+  S.prob = { a:a, b:b };
+  S.board = BUILD[S.op](a, b);
+  S.step = 0; S.solved = false;
+  $('na').value = a; $('nb').value = b; $('err').textContent = '';
+  $('feedback').textContent = ''; $('feedback').className = 'feedback';
+  render(); updateTexts();
+  if (S.mode === 'practice' && S.inputs[0]) S.inputs[0].el.focus({ preventScroll:true });
+}
+function newProblem(){ var p = generate(S.op, S.level); setProblem(p.a, p.b); }
+
+function go(delta){
+  var n = S.board.steps.length, s = Math.max(0, Math.min(n - 1, S.step + delta));
+  if (s === S.step) return false;
+  S.step = s; render(); updatePanels();
+  return true;
+}
+function stopPlay(){ if (S.timer){ clearInterval(S.timer); S.timer = null; } }
+function togglePlay(){
+  if (S.timer) stopPlay();
+  else {
+    if (S.step === S.board.steps.length - 1){ S.step = 0; render(); }
+    S.timer = setInterval(function(){ if (!go(1) || S.step === S.board.steps.length - 1){ stopPlay(); updatePanels(); } }, 2600);
+  }
+  updatePanels();
+}
+function setMode(m){
+  stopPlay(); S.mode = m; S.step = 0;
+  $('feedback').textContent = '';
+  render(); updateTexts();
+  if (m === 'practice' && S.inputs[0]) S.inputs[0].el.focus({ preventScroll:true });
+}
+
+function check(){
+  var wrong = 0;
+  S.inputs.forEach(function(o){
+    var good = o.el.value.trim() === o.cell.t;
+    o.el.classList.toggle('ok', good);
+    o.el.classList.toggle('bad', !good);
+    if (!good) wrong++;
+  });
+  var fb = $('feedback');
+  if (!wrong){
+    fb.textContent = ui('allRight'); fb.className = 'feedback good';
+    if (!S.solved){ S.solved = true; S.stars++; store.set('stallupp-stars', S.stars); updatePanels(); }
+  } else {
+    fb.textContent = ui('wrong', { n:wrong }); fb.className = 'feedback bad';
+  }
+}
+
+/* ---------------- events ---------------- */
+$('tabs').addEventListener('click', function(e){
+  var b = e.target.closest('[data-op]'); if (!b || b.dataset.op === S.op) return;
+  S.op = b.dataset.op; newProblem();
+});
+$('modes').addEventListener('click', function(e){
+  var b = e.target.closest('[data-mode]'); if (b && b.dataset.mode !== S.mode) setMode(b.dataset.mode);
+});
+$('levels').addEventListener('click', function(e){
+  var b = e.target.closest('[data-level]'); if (!b) return;
+  S.level = +b.dataset.level; newProblem();
+});
+$('newBtn').addEventListener('click', newProblem);
+$('custom').addEventListener('submit', function(e){
+  e.preventDefault();
+  var a = Number($('na').value.trim()), b = Number($('nb').value.trim());
+  if ($('na').value.trim() === '' || $('nb').value.trim() === '' || !validate(S.op, a, b)){
+    $('err').textContent = ui('err' + S.op.charAt(0).toUpperCase() + S.op.slice(1));
+    return;
+  }
+  setProblem(a, b);
+});
+$('prevBtn').addEventListener('click', function(){ stopPlay(); go(-1); });
+$('nextBtn').addEventListener('click', function(){ stopPlay(); go(1); });
+$('resetBtn').addEventListener('click', function(){ stopPlay(); S.step = 0; render(); updatePanels(); });
+$('playBtn').addEventListener('click', togglePlay);
+$('checkBtn').addEventListener('click', check);
+$('clearBtn').addEventListener('click', function(){
+  $('feedback').textContent = '';
+  render(); if (S.inputs[0]) S.inputs[0].el.focus();
+});
+$('revealBtn').addEventListener('click', function(){ setMode('demo'); });
+
+$('board').addEventListener('input', function(e){
+  var inp = e.target; if (inp.tagName !== 'INPUT') return;
+  inp.value = inp.value.replace(/\D/g, '').slice(-1);
+  inp.classList.remove('ok', 'bad');
+  if (inp.value && !inp.dataset.small){
+    var nxt = S.inputs[+inp.dataset.i + 1];
+    if (nxt) nxt.el.focus();
+  }
+});
+$('board').addEventListener('keydown', function(e){
+  var inp = e.target; if (inp.tagName !== 'INPUT') return;
+  if (e.key === 'Enter'){ e.preventDefault(); check(); }
+  else if (e.key === 'Backspace' && !inp.value && !inp.dataset.small){
+    var prev = S.inputs[+inp.dataset.i - 1];
+    if (prev){ e.preventDefault(); prev.el.focus(); prev.el.value = ''; }
+  }
+});
+document.addEventListener('keydown', function(e){
+  if (S.mode !== 'demo' || /INPUT|TEXTAREA/.test(document.activeElement.tagName)) return;
+  if (e.key === 'ArrowRight'){ stopPlay(); go(1); }
+  else if (e.key === 'ArrowLeft'){ stopPlay(); go(-1); }
+});
+
+newProblem();
+})();
+</script>
+</body>
+</html>

@@ -27,11 +27,18 @@ A read-along companion for a Swedish children's book, built for a parent who doe
 
 See `Robin-book/README.md` for the full technical write-up, including the workflow for adding future chapters (extracting text, translating, generating narration audio, and appending new pages).
 
+### Ställ upp! — column arithmetic
+
+`stall-upp/index.html`
+
+Teaches written column methods ("uppställning" in Swedish) for addition, subtraction, multiplication and long division. **Show steps** mode animates each problem one digit at a time with an explanation (carries, borrow dots, partial products, bring-downs); **Try it** mode lets the child fill in every digit and check the answer. Problems come in three difficulty levels or can be typed in.
+
 ## Repository layout
 
 ```
 index.html                   root landing page — links to every project below
 ride-or-drive/index.html     math: chicken-and-rabbit wheel-counting puzzle
+stall-upp/index.html         math: column arithmetic (+ − × ÷), step by step
 Robin-book/
   index.html                 redirects to the reading page (GitHub Pages entry point)
   robin-kolla-en-tidsmaskin.html   the reading page — open with a browser
