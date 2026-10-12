@@ -42,7 +42,9 @@ header.bar{display:flex;align-items:center;gap:.55rem;padding:.9rem 16px;max-wid
 main{max-width:1240px;margin:0 auto;padding:4px 16px 64px}
 .intro h1{font-size:clamp(1.8rem,3vw + 1rem,2.5rem)}
 .intro p{margin:.3rem 0 0;color:var(--soft)}
-.actions{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0}
+.actions{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0 .35rem}
+.hint{margin:0 0 .9rem;color:var(--soft);font-size:.85rem}
+.hint.done{color:var(--accent-deep);font-weight:700}
 .btn{display:inline-flex;align-items:center;gap:.4rem;border:none;border-radius:12px;padding:.5rem 1rem;font:inherit;font-weight:800;cursor:pointer;background:var(--accent);color:#fff;text-decoration:none}
 .btn:hover{background:var(--accent-deep)}
 .btn.ghost{background:var(--card);color:var(--ink);border:2px solid var(--border)}
@@ -137,9 +139,11 @@ footer{margin-top:1.4rem;color:var(--soft);font-size:.85rem}
   </section>
 
   <div class="actions">
-    <a class="btn" href="Vasa-2026-27.ics" download>📲 Add to phone calendar (.ics)</a>
+    <a class="btn" id="subscribe" href="Vasa-2026-27.ics">📲 Subscribe on iPhone / Mac</a>
+    <button class="btn ghost" id="copyLink" type="button">🔗 Copy link for Google Calendar</button>
     <button class="btn ghost" id="jump" type="button">📍 Jump to this week</button>
   </div>
+  <p class="hint" id="hint" aria-live="polite">Subscribing adds a separate “Vasa 2026-27” calendar that you can show or hide, and it stays up to date. Or <a href="Vasa-2026-27.ics" download>download the .ics file</a>.</p>
 
   <ul class="legend" id="legend"></ul>
 
@@ -327,6 +331,24 @@ footer{margin-top:1.4rem;color:var(--soft);font-size:.85rem}
   document.addEventListener('scroll', hideTip, { passive:true, capture:true });
   var lastW = window.innerWidth;
   window.addEventListener('resize', function(){ if (window.innerWidth !== lastW){ lastW = window.innerWidth; hideTip(); } });
+
+  // ---- calendar subscription: webcal:// makes iOS/macOS add a separate, auto-updating calendar ----
+  var icsUrl = new URL('Vasa-2026-27.ics', location.href);
+  if (/^https?:$/.test(location.protocol)){
+    document.getElementById('subscribe').href = 'webcal://' + icsUrl.host + icsUrl.pathname;
+  }
+  document.getElementById('copyLink').addEventListener('click', function(){
+    var hint = document.getElementById('hint');
+    var done = function(){
+      hint.className = 'hint done';
+      hint.textContent = 'Link copied! In Google Calendar on a computer: Other calendars → + → From URL → paste. It then shows up on your Android phone as its own calendar.';
+    };
+    if (navigator.clipboard && window.isSecureContext){
+      navigator.clipboard.writeText(icsUrl.href).then(done, function(){ window.prompt('Copy this link:', icsUrl.href); });
+    } else {
+      window.prompt('Copy this link:', icsUrl.href);
+    }
+  });
 
   var jump = document.getElementById('jump');
   if (!nowId) jump.hidden = true;
