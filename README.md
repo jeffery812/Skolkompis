@@ -33,12 +33,21 @@ See `Robin-book/README.md` for the full technical write-up, including the workfl
 
 Teaches written column methods ("uppställning" in Swedish) for addition, subtraction, multiplication and long division. **Show steps** mode animates each problem one digit at a time with an explanation (carries, borrow dots, partial products, bring-downs); **Try it** mode lets the child fill in every digit and check the answer. Problems come in three difficulty levels or can be typed in.
 
+### Vasa Calendar 2026–27
+
+`Calendar/index.html` (phone calendar: `Calendar/Vasa-2026-27.ics`)
+
+The school's 2026–27 academic calendar transcribed from the published sheet (screenshots kept in `Calendar/`): a colour-coded week-by-week table on desktop and a card list on phones, with the current week highlighted and a tooltip naming each colour's category. The `.ics` file holds a PYP5-focused selection of the events (closures, ASC days, theme days, packed-lunch reminders) for importing into a phone calendar.
+
 ## Repository layout
 
 ```
 index.html                   root landing page — links to every project below
 ride-or-drive/index.html     math: chicken-and-rabbit wheel-counting puzzle
 stall-upp/index.html         math: column arithmetic (+ − × ÷), step by step
+Calendar/
+  index.html                 Vasa academic calendar 2026–27
+  Vasa-2026-27.ics           the same calendar for phone import
 Robin-book/
   index.html                 redirects to the reading page (GitHub Pages entry point)
   robin-kolla-en-tidsmaskin.html   the reading page — open with a browser

@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vasa Calendar 2026–27</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light dark;
+  --bg:#FBF7F0; --card:#FFFFFF; --ink:#2B2320; --soft:#7A6F63; --border:#E8E0D4;
+  --accent:#1F8A70; --accent-deep:#166B57; --amber:#F2A93B;
+  --asc:#F3C9C6; --closed:#FFF07A; --packed:#A9F1F3; --theme:#BFD3F7; --prao:#9FF0A0; --np:#FFC978; --end:#DDE7F8;
+  --green-text:#138A1C; --red-text:#C62828;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#181310; --card:#231D19; --ink:#F4EFE9; --soft:#B9AEA1; --border:#382F28;
+    --accent:#3FBFA0; --accent-deep:#63D4B6; --amber:#F5BE5E;
+    --asc:#5A2F2D; --closed:#5A5218; --packed:#164E50; --theme:#26395E; --prao:#1F5222; --np:#5E3F12; --end:#2E3646;
+    --green-text:#6FE07A; --red-text:#FF8A80;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#181310; --card:#231D19; --ink:#F4EFE9; --soft:#B9AEA1; --border:#382F28;
+  --accent:#3FBFA0; --accent-deep:#63D4B6; --amber:#F5BE5E;
+  --asc:#5A2F2D; --closed:#5A5218; --packed:#164E50; --theme:#26395E; --prao:#1F5222; --np:#5E3F12; --end:#2E3646;
+  --green-text:#6FE07A; --red-text:#FF8A80;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Nunito","Segoe UI",system-ui,sans-serif;font-size:15px;line-height:1.45}
+h1,h2{font-family:"Fredoka","Nunito",system-ui,sans-serif;font-weight:600;margin:0}
+a{color:var(--accent-deep)}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+
+header.bar{display:flex;align-items:center;gap:.55rem;padding:.9rem 16px;max-width:1240px;margin:0 auto;font-family:"Fredoka",sans-serif;font-weight:600;color:var(--soft)}
+.home-btn{display:inline-flex;align-items:center;justify-content:center;width:2.1rem;height:2.1rem;border-radius:50%;border:2px solid var(--border);background:var(--card);font-size:1.05rem;text-decoration:none;flex:none}
+.home-btn:hover{border-color:var(--accent)}
+
+main{max-width:1240px;margin:0 auto;padding:4px 16px 64px}
+.intro h1{font-size:clamp(1.8rem,3vw + 1rem,2.5rem)}
+.intro p{margin:.3rem 0 0;color:var(--soft)}
+.actions{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0}
+.btn{display:inline-flex;align-items:center;gap:.4rem;border:none;border-radius:12px;padding:.5rem 1rem;font:inherit;font-weight:800;cursor:pointer;background:var(--accent);color:#fff;text-decoration:none}
+.btn:hover{background:var(--accent-deep)}
+.btn.ghost{background:var(--card);color:var(--ink);border:2px solid var(--border)}
+.btn.ghost:hover{border-color:var(--accent)}
+
+.legend{display:flex;flex-wrap:wrap;gap:.4rem .9rem;margin:0 0 1rem;padding:0;list-style:none;font-size:.88rem}
+.legend li{display:flex;align-items:center;gap:.4rem}
+.sw{width:1.4rem;height:.95rem;border-radius:4px;border:1px solid var(--border);flex:none}
+
+/* colour categories */
+.asc{background:var(--asc)} .closed{background:var(--closed)} .packed{background:var(--packed)}
+.theme{background:var(--theme)} .prao{background:var(--prao)} .np{background:var(--np)} .end{background:var(--end)}
+.g{color:var(--green-text);font-weight:700}
+.r{color:var(--red-text);font-weight:700}
+
+/* desktop table */
+.wrap{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+table{width:100%;border-collapse:collapse;table-layout:fixed}
+th{font-family:"Fredoka",sans-serif;font-weight:600;text-align:left;padding:.55rem .5rem;background:var(--bg);border-bottom:2px solid var(--border);position:sticky;top:0;z-index:1}
+td{vertical-align:top;border-bottom:1px solid var(--border);border-left:1px solid var(--border);padding:.35rem .45rem;white-space:pre-line;word-wrap:break-word}
+td:first-child{border-left:none}
+col.wk{width:3.4rem} col.mo{width:5.2rem} col.all{width:13%}
+td.wk{font-family:"Fredoka",sans-serif;font-weight:600;text-align:center}
+td.mo{color:var(--soft);font-weight:700}
+.day{display:flex;gap:.4rem}
+.num{font-family:"Fredoka",sans-serif;font-weight:600;color:var(--soft);min-width:1.4rem;flex:none}
+.today .num{background:var(--accent);color:#fff;border-radius:999px;text-align:center;padding:0 .3rem}
+tr.now td.wk,tr.now td.mo{box-shadow:inset 4px 0 0 var(--accent)}
+tr.now td.wk{color:var(--accent-deep)}
+tr.now td.mo{box-shadow:none}
+tr.now{outline:2px solid var(--accent);outline-offset:-2px}
+
+/* phone list */
+.list{display:none}
+.week{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:.6rem;overflow:hidden}
+.week.now{border:2px solid var(--accent)}
+.week h2{font-size:1rem;padding:.5rem .8rem;background:var(--bg);display:flex;justify-content:space-between;gap:.5rem}
+.week h2 span{color:var(--soft);font-weight:500}
+.week ul{list-style:none;margin:0;padding:0}
+.week li{display:flex;gap:.6rem;padding:.45rem .8rem;border-top:1px solid var(--border);white-space:pre-line}
+.week li .dl{font-family:"Fredoka",sans-serif;font-weight:600;color:var(--soft);width:4.2rem;flex:none}
+.week li.today .dl{color:var(--accent-deep)}
+.week .empty{color:var(--soft);font-size:.88rem;padding:.45rem .8rem;border-top:1px solid var(--border)}
+
+@media (max-width:820px){
+  .wrap{display:none}
+  .list{display:block}
+}
+/* category tooltip */
+[data-cat]{cursor:help}
+td[data-cat]:hover,td[data-cat]:focus-visible{box-shadow:inset 0 0 0 2px var(--ink)}
+.week li[data-cat]:focus-visible{outline-offset:-3px}
+.tip{position:fixed;left:0;top:0;z-index:20;pointer-events:none;max-width:min(300px,calc(100vw - 24px));
+  background:var(--ink);color:var(--bg);border-radius:12px;padding:.55rem .75rem .6rem;
+  box-shadow:0 10px 28px rgba(0,0,0,.22),0 2px 6px rgba(0,0,0,.12);
+  opacity:0;transform:translateY(4px) scale(.97);transition:opacity .12s ease,transform .12s ease}
+.tip.show{opacity:1;transform:none}
+.tip.below{transform-origin:top center}
+.tip .cat{display:flex;align-items:center;gap:.5rem;font-family:"Fredoka",sans-serif;font-weight:600;font-size:.98rem;line-height:1.25}
+.tip .cat .sw{width:.95rem;height:.95rem;border-radius:50%;border:2px solid var(--bg)}
+.tip .when{margin-top:.15rem;padding-left:1.45rem;font-size:.8rem;opacity:.72}
+.tip::after{content:"";position:absolute;left:var(--ax,50%);bottom:-5px;width:10px;height:10px;margin-left:-5px;background:var(--ink);transform:rotate(45deg);border-radius:2px}
+.tip.below::after{bottom:auto;top:-5px}
+@media (prefers-reduced-motion: reduce){.tip{transition:none}}
+footer{margin-top:1.4rem;color:var(--soft);font-size:.85rem}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <a class="home-btn" href="../index.html" aria-label="Back to home">🏠</a> 📅 Vasa Calendar
+</header>
+
+<main>
+  <section class="intro">
+    <h1>Academic Calendar 2026–27</h1>
+    <p>VASA International School of Stockholm (VASA) — every week of the school year, as published by the school.</p>
+  </section>
+
+  <div class="actions">
+    <a class="btn" href="Vasa-2026-27.ics" download>📲 Add to phone calendar (.ics)</a>
+    <button class="btn ghost" id="jump" type="button">📍 Jump to this week</button>
+  </div>
+
+  <ul class="legend" id="legend"></ul>
+
+  <div class="wrap">
+    <table>
+      <colgroup><col class="wk"><col class="mo"><col><col><col><col><col><col class="all"></colgroup>
+      <thead><tr><th>Week</th><th>Month</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th><th>All week</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+  <div class="list" id="list"></div>
+
+  <div class="tip" id="tip" role="tooltip" aria-hidden="true"></div>
+
+  <footer>Transcribed from the school's calendar sheet. Check with the school if a date matters — the calendar can change during the year.</footer>
+</main>
+
+<script>
+(function(){
+  var LEGEND = [
+    ['asc', 'School is closed / ASC open'],
+    ['closed', 'School and ASC are closed'],
+    ['packed', 'Theme day / Packed lunch day'],
+    ['theme', 'Theme day / School lunch'],
+    ['prao', 'PRAO'],
+    ['np', 'Nationella Prov / National tests'],
+    ['end', 'Students start / end']
+  ];
+
+  // [week, month label, Monday's date, [Mon..Fri], all-week]. A cell is null, "text" or ["category", "text"].
+  // Text may contain <span class="g"> (green) or <span class="r"> (red) as in the original sheet.
+  var A = function(t){ return ['asc', t || 'ASC']; };
+  var WEEKS = [
+    ['31', 'July', '2026-07-27', [A(), A(), A(), A(), A()]],
+    ['32', 'Aug', '2026-08-03', [A(), A(), A('ASC (Vasa)'), A(), A('ASC (Teachers start)')]],
+    ['33', 'Aug', '2026-08-10', [A(), A('ASC\nNo meeting'), A('ASC\nStaff meeting'), A(), A()]],
+    ['34', 'Aug', '2026-08-17', [['closed', 'Students start/opening ceremony (ASC Closed)'], ['packed', 'Mentor Day'], null, null, null], 'Form PTA\nForm Winter Party Committee'],
+    ['35', 'Aug', '2026-08-24', [null, null, 'MYP 4 Eknäs', 'MYP 4 Eknäs', null]],
+    ['36', 'Aug/Sep', '2026-08-31', [null, 'PYP Parent evening\nEY-PYP3 16.00-17.00,\nPYP 4-PYP6 16.30-17.30', 'MYP Parent Meeting 16.30-17.30', null, ['packed', 'Learner Profile Day']]],
+    ['37', 'Sep', '2026-09-07', [['theme', 'Integrity Week\nMT Lesson starts'], ['theme', 'Integrity Week'], ['theme', 'Integrity Week'], ['theme', 'Integrity Week'], ['theme', 'Integrity Week']], 'Integrity Week'],
+    ['38', 'Sep', '2026-09-14', [null, null, null, ['theme', 'Vasa Health Run (Skoljoggen)'], null], 'Dev Talks Week 38-43'],
+    ['39', 'Sep', '2026-09-21', [null, null, null, 'School photo', 'School photo']],
+    ['40', 'Sep/Oct', '2026-09-28', [['theme', 'PYP6 - Football tournament (ES, VASA & ISKH)'], null, null, null, null]],
+    ['41', 'Oct', '2026-10-05', [null, null, null, null, null]],
+    ['42', 'Oct', '2026-10-12', [null, 'MYP Dev Talk', 'MYP Dev Talk', 'MYP Dev Talk', null]],
+    ['43', 'Oct', '2026-10-19', [null, null, null, ['packed', 'UN day\nPYP 5-PYP 6 dev talks, PYP 3'], ['theme', 'Halloween Party']]],
+    ['44', 'Oct', '2026-10-26', [A(), A(), A(), A(), ['closed', 'ASC Closed Study Day']]],
+    ['45', 'Nov', '2026-11-02', [null, null, null, null, ['theme', 'Diwali Celebration Nov 8th']]],
+    ['46', 'Nov', '2026-11-09', [null, 'MYP classes end at 14.00 (most likely)', null, null, null]],
+    ['47', 'Nov', '2026-11-16', [
+      ['theme', 'Career Week\n<span class="g">PRAO MYP3</span>'],
+      ['theme', 'Career Week\n<span class="g">PRAO MYP3</span>\nGymnasiemässan Nov 17-19'],
+      ['theme', 'Career Week\n<span class="g">PRAO MYP3</span>\nGymnasiemässan Nov 17-19'],
+      ['theme', 'Career Week\n<span class="g">PRAO MYP3</span>\nGymnasiemässan VASA and ISKH 9.00-15.00'],
+      ['theme', 'Career Week\n<span class="g">PRAO MYP3</span>']], ['np', 'Oral NP']],
+    ['48', 'Nov', '2026-11-23', [null, null, null, null, A('ASC Open\nTeacher Study Day')]],
+    ['49', 'Nov/Dec', '2026-11-30', [null, null, null, null, 'Winter Concert (church booked 15.00-17.00) & Winter Party']],
+    ['50', 'Dec', '2026-12-07', [null, null, ['theme', 'Nobel Meal and Nobel day focus'], null, null]],
+    ['51', 'Dec', '2026-12-14', [null, null, ['packed', 'Class Day / Choice Day MYP'], ['end', 'Students end'], A('ASC Open')]],
+    ['52', 'Dec', '2026-12-21', [A(), A(), A('ASC\nClosing 15:00'), ['closed', 'ASC Closed\nRÖD DAG'], ['closed', 'ASC Closed | RÖD DAG: Juldagen']]],
+    ['53', 'Dec/Jan', '2026-12-28', [['closed', 'ASC Closed'], ['closed', 'ASC Closed'], ['closed', 'ASC Closed'], ['closed', 'ASC Closed\nRÖD DAG'], ['closed', 'ASC Closed\nRÖD DAG']]],
+    ['1', 'Jan', '2027-01-04', [A(), A('ASC\nClosing 15:00'), ['closed', 'ASC Closed | RÖD DAG: Trettondedag jul'], A(), A()]],
+    ['2', 'Jan', '2027-01-11', [A('ASC\nTeachers start'), ['end', 'Students start - regular schedule'], null, null, null]],
+    ['3', 'Jan', '2027-01-18', [null, null, null, null, null]],
+    ['4', 'Jan', '2027-01-25', [null, null, null, null, null]],
+    ['5', 'Feb', '2027-02-01', [['theme', 'Book Week'], ['theme', 'Book Week'], ['theme', 'Book Week'], ['theme', 'Book Week\nPYP3: Tvåornas Kör 1a lektionen 40 min efter lunch'], ['theme', 'Book Week']]],
+    ['6', 'Feb', '2027-02-08', [null, null, null, null, null], 'PYP Dev Talks Week 6-12'],
+    ['7', 'Feb', '2027-02-15', [null, null, null, null, null]],
+    ['8', 'Feb', '2027-02-22', [null, 'MYP Subject Talks (14.00-18.00)', 'MYP Subject Talks (14.00-18.00)', 'MYP Subject Talks (14.00-18.00)\nPYP3: Tvåornas Kör 2a lektion 40 min efter lunch', null]],
+    ['9', 'Mar', '2027-03-01', [A(), A(), A(), A(), ['closed', 'ASC Study Day']]],
+    ['10', 'Mar', '2027-03-08', [null, null, null, 'Pi Day', A('Romme Ski Trip\nASC Open\nTeacher Study Day')]],
+    ['11', 'Mar', '2027-03-15', [null, null, ['np', 'NP - Sv MYP 4\n200 min'], null, ['np', 'NP - Sv MYP 4\n200 min']], ['np', 'NP - PYP4\nMarch 15 - May 21']],
+    ['12', 'Mar', '2027-03-22', [null, null, null, 'ASC Closing 15.00', ['closed', 'Långfredagen']]],
+    ['13', 'Mar/Apr', '2027-03-29', [['closed', 'Annandag påsk'], A('ASC/ Easter break'), A('ASC/ Easter break'), A('ASC/ Easter break'), A('ASC/ Easter break')]],
+    ['14', 'Apr', '2027-04-05', [['prao', 'PRAO'], ['prao', 'PRAO'], ['prao', 'PRAO'], ['prao', 'PRAO'], ['prao', 'PRAO']]],
+    ['15', 'Apr', '2027-04-12', [null, ['np', 'NP - Eng MYP 4\n90+30 min'], null, ['np', 'NP - Eng MYP 4\n80 min\nPYP3: Tvåornas Kör 3e lektion 40 min efter lunch'], 'Staff Conference?']],
+    ['16', 'Apr', '2027-04-19', [['np', 'NP - Eng MYP 1\n70 + 55 min'], ['np', 'NP - NO MYP 4\n90+90 min'], ['np', 'NP - Eng MYP 1\n45 min'], ['packed', 'Celebration of Learning Day\nPYP 6 Exhibition\nMYP Community Project\n13.00-17.00'], null], '<span class="r">MYP4 Tallinn- TBD</span>'],
+    ['17', 'Apr', '2027-04-26', ['IB Evaluation visit', ['np', 'NP - SV MYP 1\n80 + 80 min\nIB Evaluation visit'], ['np', 'NP - SO MYP 4\n120 min\nIB Evaluation visit'], ['np', 'NP - SV MYP 1\n70 + 60 min'], 'ASC Closing 15.00\nValborg']],
+    ['18', 'May', '2027-05-03', [null, ['np', 'NP - SO MYP 4\n120 min'], 'ASC Closing 15.00', ['closed', 'Ascension day'], ['closed', 'Bridge Day / Klämdag']]],
+    ['19', 'May', '2027-05-10', [null, ['np', 'NP - Math MYP 1\n40+80 min\nFritidshemmets dag 2027'], ['np', 'NP- Math MYP 4\n40+80 min'], ['np', 'NP - Math MYP 1\n80+40 min'], ['np', 'NP - Math MYP 4\n40+80 min']]],
+    ['20', 'May', '2027-05-17', [null, null, null, 'Student orientation day PYP1', 'Student orientation day EY']],
+    ['21', 'May', '2027-05-24', [null, ['packed', 'Global Day\nEY-P5 / P6-MYP'], null, null, null]],
+    ['22', 'May/Jun', '2027-05-31', [['packed', 'Sports Day\nEY-PYP6 / MYP'], null, null, null, null]],
+    ['23', 'Jun', '2027-06-07', [null, null, ['packed', 'Gärdet/Spring Outing'], ['packed', 'Mentor Day'], ['end', 'Students end']]],
+    ['24', 'Jun', '2027-06-14', [A(), A(), A(), A('ASC /Teachers last day/Staff party?'), A()]],
+    ['25', 'Jun', '2027-06-21', [A(), A(), A(), A('ASC closes 15:00'), ['closed', 'Mid-Summer Eve']]],
+    ['26', 'Jun/July', '2027-06-28', [A(), A(), A(), A(), A('ASC closes 15:00')]],
+    ['27-30', 'July', '2027-07-05', [['closed', 'School Closed'], ['closed', 'School Closed'], ['closed', 'School Closed'], ['closed', 'School Closed'], ['closed', 'School Closed']], null, 4]
+  ];
+
+  var LABEL = {};
+  LEGEND.forEach(function(l){ LABEL[l[0]] = l[1]; });
+  var DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+  var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+  function parse(iso){ var p = iso.split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }
+  function addDays(d, n){ var x = new Date(d); x.setDate(x.getDate() + n); return x; }
+  function sameDay(a, b){ return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate(); }
+  function cat(c){ return Array.isArray(c) ? c[0] : ''; }
+  function fmt(d){ return DAYS[d.getDay() - 1] + ' ' + d.getDate() + ' ' + MONTHS[d.getMonth()] + ' ' + d.getFullYear(); }
+  // data-* attributes the tooltip reads; empty when the cell has no colour category
+  function tipAttrs(c, when){ return cat(c) ? ' data-cat="' + cat(c) + '" data-when="' + when + '"' : ''; }
+  function txt(c){ return c == null ? '' : Array.isArray(c) ? c[1] : c; }
+
+  var today = new Date(); today.setHours(0, 0, 0, 0);
+
+  document.getElementById('legend').innerHTML = LEGEND.map(function(l){
+    return '<li><span class="sw ' + l[0] + '"></span>' + l[1] + '</li>';
+  }).join('');
+
+  var rows = '', list = '', nowId = null;
+  WEEKS.forEach(function(w, i){
+    var mon = parse(w[2]), spanWeeks = w[5] || 1;
+    var last = addDays(mon, 4 + 7 * (spanWeeks - 1));
+    var isNow = today >= mon && today <= addDays(last, 2);
+    var id = 'w' + i;
+    if (isNow) nowId = id;
+
+    var range = spanWeeks > 1
+      ? MONTHS[mon.getMonth()] + ' ' + mon.getDate() + ' – ' + MONTHS[last.getMonth()] + ' ' + last.getDate()
+      : mon.getDate() + (mon.getMonth() !== last.getMonth() ? ' ' + MONTHS[mon.getMonth()] : '') + ' – ' + last.getDate() + ' ' + MONTHS[last.getMonth()];
+    // table row
+    rows += '<tr id="' + id + '-t"' + (isNow ? ' class="now"' : '') + '><td class="wk">' + w[0] + '</td><td class="mo">' + w[1] + '</td>';
+    w[3].forEach(function(c, d){
+      var date = addDays(mon, d), multi = spanWeeks > 1 && d > 0;
+      var tdy = spanWeeks === 1 && sameDay(date, today);
+      var when = spanWeeks > 1 ? range : fmt(date);
+      rows += '<td class="' + cat(c) + (tdy ? ' today' : '') + '"' + tipAttrs(c, when) + '><div class="day"><span class="num">' + (multi ? '' : date.getDate()) + '</span><span>' + txt(c) + '</span></div></td>';
+    });
+    rows += '<td class="' + cat(w[4]) + '"' + tipAttrs(w[4], 'Week ' + w[0] + ' · all week') + '>' + txt(w[4]) + '</td></tr>';
+
+    // phone card
+    var items = '';
+    if (spanWeeks > 1){
+      items += '<li class="' + cat(w[3][0]) + '"' + tipAttrs(w[3][0], range) + '><span class="dl">All weeks</span><span>' + txt(w[3][0]) + '</span></li>';
+    } else {
+      w[3].forEach(function(c, d){
+        if (c == null) return;
+        var date = addDays(mon, d);
+        items += '<li class="' + cat(c) + (sameDay(date, today) ? ' today' : '') + '"' + tipAttrs(c, fmt(date)) + '><span class="dl">' + DAYS[d] + ' ' + date.getDate() + '</span><span>' + txt(c) + '</span></li>';
+      });
+    }
+    if (w[4]) items += '<li class="' + cat(w[4]) + '"' + tipAttrs(w[4], 'Week ' + w[0] + ' · all week') + '><span class="dl">All week</span><span>' + txt(w[4]) + '</span></li>';
+    list += '<section class="week' + (isNow ? ' now' : '') + '" id="' + id + '-l"><h2>Week ' + w[0] + ' <span>' + range + '</span></h2>' +
+      (items ? '<ul>' + items + '</ul>' : '<div class="empty">Regular school week</div>') + '</section>';
+  });
+  document.getElementById('rows').innerHTML = rows;
+  document.getElementById('list').innerHTML = list;
+
+  // ---- category tooltip: hover / keyboard focus on desktop, tap on touch screens ----
+  var tip = document.getElementById('tip'), tipFor = null;
+  function showTip(el){
+    tipFor = el;
+    var c = el.dataset.cat;
+    tip.innerHTML = '<div class="cat"><span class="sw ' + c + '"></span>' + LABEL[c] + '</div><div class="when">' + el.dataset.when + '</div>';
+    tip.classList.remove('below');
+    var r = el.getBoundingClientRect(), tw = tip.offsetWidth, th = tip.offsetHeight, gap = 9;
+    var x = Math.min(Math.max(12, r.left + r.width / 2 - tw / 2), window.innerWidth - tw - 12);
+    var y = r.top - th - gap;
+    if (y < 8){ y = r.bottom + gap; tip.classList.add('below'); }
+    tip.style.left = x + 'px';
+    tip.style.top = y + 'px';
+    tip.style.setProperty('--ax', Math.min(Math.max(14, r.left + r.width / 2 - x), tw - 14) + 'px');
+    tip.classList.add('show');
+    tip.setAttribute('aria-hidden', 'false');
+  }
+  function hideTip(){
+    tipFor = null;
+    tip.classList.remove('show');
+    tip.setAttribute('aria-hidden', 'true');
+  }
+  document.addEventListener('pointerover', function(e){
+    if (e.pointerType === 'touch') return;
+    var el = e.target.closest('[data-cat]');
+    if (el && el !== tipFor) showTip(el); else if (!el && tipFor) hideTip();
+  });
+  document.addEventListener('pointerleave', hideTip);
+  document.addEventListener('focusin', function(e){ var el = e.target.closest('[data-cat]'); if (el) showTip(el); });
+  document.addEventListener('focusout', hideTip);
+  document.addEventListener('click', function(e){
+    var el = e.target.closest('[data-cat]');
+    if (!el) hideTip(); else if (el === tipFor && e.pointerType === 'touch') hideTip(); else showTip(el);
+  });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') hideTip(); });
+  window.addEventListener('scroll', hideTip, { passive:true });
+  var lastW = window.innerWidth;
+  window.addEventListener('resize', function(){ if (window.innerWidth !== lastW){ lastW = window.innerWidth; hideTip(); } });
+
+  var jump = document.getElementById('jump');
+  if (!nowId) jump.hidden = true;
+  jump.addEventListener('click', function(){
+    var phone = window.matchMedia('(max-width:820px)').matches;
+    var el = document.getElementById(nowId + (phone ? '-l' : '-t'));
+    if (el) el.scrollIntoView({ behavior:'smooth', block:'center' });
+  });
+})();
+</script>
+</body>
+</html>
