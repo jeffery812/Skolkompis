@@ -5,56 +5,111 @@ CALSCALE:GREGORIAN
 METHOD:PUBLISH
 NAME:Vasa 2026-27
 X-WR-CALNAME:Vasa 2026-27
-X-WR-CALDESC:VASA International School of Stockholm – academic calendar 2026-27
+X-WR-CALDESC:VASA International School of Stockholm – academic calendar 2
+ 026-27
 X-WR-TIMEZONE:Europe/Stockholm
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 X-APPLE-CALENDAR-COLOR:#1F8A70
-BEGIN:VTIMEZONE
-TZID:Europe/Stockholm
-BEGIN:DAYLIGHT
-TZOFFSETFROM:+0100
-TZOFFSETTO:+0200
-TZNAME:CEST
-DTSTART:19700329T020000
-RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
-END:DAYLIGHT
-BEGIN:STANDARD
-TZOFFSETFROM:+0200
-TZOFFSETTO:+0100
-TZNAME:CET
-DTSTART:19701025T030000
-RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
-END:STANDARD
-END:VTIMEZONE
 BEGIN:VEVENT
-UID:vasa-2026-27-20260727-schoolclosedascopen@skolkompis
+UID:vasa-2026-27-20260727-asc@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20260727
+DTEND;VALUE=DATE:20260801
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: School closed – ASC open
+DESCRIPTION:School is closed / ASC open.\nASC\nWeek 31.
+CATEGORIES:School is closed / ASC open
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20260803-asc@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20260803
+DTEND;VALUE=DATE:20260805
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: School closed – ASC open
+DESCRIPTION:School is closed / ASC open.\nASC\nWeek 32.
+CATEGORIES:School is closed / ASC open
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20260805-ascvasa@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20260805
+DTEND;VALUE=DATE:20260806
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: School closed – ASC open – Vasa
+DESCRIPTION:School is closed / ASC open.\nASC (Vasa)\nWeek 32.
+CATEGORIES:School is closed / ASC open
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20260806-asc@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20260806
+DTEND;VALUE=DATE:20260807
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: School closed – ASC open
+DESCRIPTION:School is closed / ASC open.\nASC\nWeek 32.
+CATEGORIES:School is closed / ASC open
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20260807-ascteachersstart@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20260807
+DTEND;VALUE=DATE:20260808
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: School closed – ASC open – Teachers start
+DESCRIPTION:School is closed / ASC open.\nASC (Teachers start)\nWeek 32.
+CATEGORIES:School is closed / ASC open
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20260810-asc@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20260810
+DTEND;VALUE=DATE:20260811
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: School closed – ASC open
+DESCRIPTION:School is closed / ASC open.\nASC\nWeek 33.
+CATEGORIES:School is closed / ASC open
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20260811-ascnomeeting@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20260811
+DTEND;VALUE=DATE:20260812
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: School closed – ASC open – No meeting
+DESCRIPTION:School is closed / ASC open.\nASC\nNo meeting\nWeek 33.
+CATEGORIES:School is closed / ASC open
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20260812-ascstaffmeeting@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20260812
+DTEND;VALUE=DATE:20260813
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: School closed – ASC open – Staff meeting
+DESCRIPTION:School is closed / ASC open.\nASC\nStaff meeting\nWeek 33.
+CATEGORIES:School is closed / ASC open
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20260813-asc@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20260813
 DTEND;VALUE=DATE:20260815
 TRANSP:TRANSPARENT
 SUMMARY:Vasa: School closed – ASC open
-DESCRIPTION:Summer: school closed\, ASC (fritids) open. Aug 5: ASC at Vasa.
-  Aug 7: teachers start.
+DESCRIPTION:School is closed / ASC open.\nASC\nWeek 33.
+CATEGORIES:School is closed / ASC open
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20260817-studentsstartopeningceremonyas@skolkompis
+UID:vasa-2026-27-20260817-studentsstartopeningcere@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20260817
 DTEND;VALUE=DATE:20260818
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: Students start – opening ceremony (ASC closed)
-DESCRIPTION:First school day with the opening ceremony. ASC is closed.
-END:VEVENT
-BEGIN:VEVENT
-UID:vasa-2026-27-20260817-formptawinterpartycommittee@skolkompis
-DTSTAMP:20261013T000000Z
-DTSTART;VALUE=DATE:20260817
-DTEND;VALUE=DATE:20260822
-TRANSP:TRANSPARENT
-SUMMARY:Vasa: Form PTA & Winter Party Committee
-DESCRIPTION:All week (week 34): forming the PTA and the Winter Party Commit
- tee.
+SUMMARY:Vasa: Students start/opening ceremony (ASC Closed)
+DESCRIPTION:School and ASC are closed.\nWeek 34.
+CATEGORIES:School and ASC are closed
 END:VEVENT
 BEGIN:VEVENT
 UID:vasa-2026-27-20260818-mentorday@skolkompis
@@ -63,20 +118,51 @@ DTSTART;VALUE=DATE:20260818
 DTEND;VALUE=DATE:20260819
 TRANSP:TRANSPARENT
 SUMMARY:Vasa: Mentor Day
-DESCRIPTION:Packed lunch day.
+DESCRIPTION:Theme day / Packed lunch day.\nWeek 34.
+CATEGORIES:Theme day / Packed lunch day
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Pack lunch for tomorrow: Mentor Day
+DESCRIPTION:Packed lunch tomorrow – Mentor Day
 TRIGGER:-PT5H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20260901-pypparenteveningpyp4pyp6@skolkompis
+UID:vasa-2026-27-20260817-week-formptaformwinterpartyco@skolkompis
 DTSTAMP:20261013T000000Z
-DTSTART;TZID=Europe/Stockholm:20260901T163000
-DTEND;TZID=Europe/Stockholm:20260901T173000
-SUMMARY:Vasa: PYP Parent evening (PYP4–PYP6)
-DESCRIPTION:PYP 4–PYP 6: 16:30–17:30. (EY–PYP3: 16:00–17:00.)
+DTSTART;VALUE=DATE:20260817
+DTEND;VALUE=DATE:20260822
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: Form PTA – Form Winter Party Committee
+DESCRIPTION:Form PTA\nForm Winter Party Committee\nWeek 34 (all week).
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20260826-myp4eknas@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20260826
+DTEND;VALUE=DATE:20260828
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: MYP 4 Eknäs
+DESCRIPTION:Week 35.
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20260901-pypparenteveningeypyp316@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20260901
+DTEND;VALUE=DATE:20260902
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: PYP Parent evening – EY-PYP3 16.00-17.00 – PYP 4-PYP6 16.
+ 30-17.30
+DESCRIPTION:PYP Parent evening\nEY-PYP3 16.00-17.00\,\nPYP 4-PYP6 16.30-17.
+ 30\nWeek 36.
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20260902-mypparentmeeting16301730@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20260902
+DTEND;VALUE=DATE:20260903
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: MYP Parent Meeting 16.30-17.30
+DESCRIPTION:Week 36.
 END:VEVENT
 BEGIN:VEVENT
 UID:vasa-2026-27-20260904-learnerprofileday@skolkompis
@@ -85,30 +171,43 @@ DTSTART;VALUE=DATE:20260904
 DTEND;VALUE=DATE:20260905
 TRANSP:TRANSPARENT
 SUMMARY:Vasa: Learner Profile Day
-DESCRIPTION:Packed lunch day.
+DESCRIPTION:Theme day / Packed lunch day.\nWeek 36.
+CATEGORIES:Theme day / Packed lunch day
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Pack lunch for tomorrow: Learner Profile Day
+DESCRIPTION:Packed lunch tomorrow – Learner Profile Day
 TRIGGER:-PT5H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20260907-integrityweek@skolkompis
+UID:vasa-2026-27-20260907-integrityweekmtlessonsta@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20260907
+DTEND;VALUE=DATE:20260908
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: Integrity Week – MT Lesson starts
+DESCRIPTION:Theme day / School lunch.\nIntegrity Week\nMT Lesson starts\nWe
+ ek 37.
+CATEGORIES:Theme day / School lunch
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20260908-integrityweek@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20260908
+DTEND;VALUE=DATE:20260912
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: Integrity Week
+DESCRIPTION:Theme day / School lunch.\nWeek 37.
+CATEGORIES:Theme day / School lunch
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20260907-week-integrityweek@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20260907
 DTEND;VALUE=DATE:20260912
 TRANSP:TRANSPARENT
 SUMMARY:Vasa: Integrity Week
-DESCRIPTION:Theme week (school lunch).
-END:VEVENT
-BEGIN:VEVENT
-UID:vasa-2026-27-20260907-mothertonguelessonsstart@skolkompis
-DTSTAMP:20261013T000000Z
-DTSTART;VALUE=DATE:20260907
-DTEND;VALUE=DATE:20260908
-TRANSP:TRANSPARENT
-SUMMARY:Vasa: Mother tongue lessons start
-DESCRIPTION:MT lessons start.
+DESCRIPTION:Week 37 (all week).
 END:VEVENT
 BEGIN:VEVENT
 UID:vasa-2026-27-20260917-vasahealthrunskoljoggen@skolkompis
@@ -117,7 +216,17 @@ DTSTART;VALUE=DATE:20260917
 DTEND;VALUE=DATE:20260918
 TRANSP:TRANSPARENT
 SUMMARY:Vasa: Vasa Health Run (Skoljoggen)
-DESCRIPTION:Theme day (school lunch).
+DESCRIPTION:Theme day / School lunch.\nWeek 38.
+CATEGORIES:Theme day / School lunch
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20260914-week-devtalksweek3843@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20260914
+DTEND;VALUE=DATE:20261024
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: Dev Talks Week 38-43
+DESCRIPTION:Week 38 (all week).
 END:VEVENT
 BEGIN:VEVENT
 UID:vasa-2026-27-20260924-schoolphoto@skolkompis
@@ -126,20 +235,41 @@ DTSTART;VALUE=DATE:20260924
 DTEND;VALUE=DATE:20260926
 TRANSP:TRANSPARENT
 SUMMARY:Vasa: School photo
-DESCRIPTION:School photo Thursday and Friday.
+DESCRIPTION:Week 39.
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20261022-undaypyp5devtalks@skolkompis
+UID:vasa-2026-27-20260928-pyp6footballtournamentes@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20260928
+DTEND;VALUE=DATE:20260929
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: PYP6 - Football tournament (ES\, VASA & ISKH)
+DESCRIPTION:Theme day / School lunch.\nWeek 40.
+CATEGORIES:Theme day / School lunch
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20261013-mypdevtalk@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20261013
+DTEND;VALUE=DATE:20261016
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: MYP Dev Talk
+DESCRIPTION:Week 42.
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20261022-undaypyp5pyp6devtalkspyp@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20261022
 DTEND;VALUE=DATE:20261023
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: UN Day + PYP5 dev talks
-DESCRIPTION:UN day. Development talks for PYP 5–PYP 6 and PYP 3. Packed l
- unch day.
+SUMMARY:Vasa: UN day – PYP 5-PYP 6 dev talks\, PYP 3
+DESCRIPTION:Theme day / Packed lunch day.\nUN day\nPYP 5-PYP 6 dev talks\, 
+ PYP 3\nWeek 43.
+CATEGORIES:Theme day / Packed lunch day
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Pack lunch for tomorrow: UN Day + PYP5 dev talks
+DESCRIPTION:Packed lunch tomorrow – UN day – PYP 5-PYP 6 dev talks\, PY
+ P 3
 TRIGGER:-PT5H
 END:VALARM
 END:VEVENT
@@ -150,198 +280,368 @@ DTSTART;VALUE=DATE:20261023
 DTEND;VALUE=DATE:20261024
 TRANSP:TRANSPARENT
 SUMMARY:Vasa: Halloween Party
-DESCRIPTION:Theme day (school lunch).
+DESCRIPTION:Theme day / School lunch.\nWeek 43.
+CATEGORIES:Theme day / School lunch
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20261026-schoolclosedascopenautumnbreak@skolkompis
+UID:vasa-2026-27-20261026-asc@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20261026
 DTEND;VALUE=DATE:20261030
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: School closed – ASC open (autumn break)
-DESCRIPTION:Week 44: school closed\, ASC open.
+SUMMARY:Vasa: School closed – ASC open
+DESCRIPTION:School is closed / ASC open.\nASC\nWeek 44.
+CATEGORIES:School is closed / ASC open
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20261030-schoolandascclosedstudyday@skolkompis
+UID:vasa-2026-27-20261030-ascclosedstudyday@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20261030
 DTEND;VALUE=DATE:20261031
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: School and ASC closed (study day)
-DESCRIPTION:ASC closed study day.
+SUMMARY:Vasa: School & ASC closed – Study Day
+DESCRIPTION:School and ASC are closed.\nASC Closed Study Day\nWeek 44.
+CATEGORIES:School and ASC are closed
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20261106-diwalicelebration@skolkompis
+UID:vasa-2026-27-20261106-diwalicelebrationnov8th@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20261106
 DTEND;VALUE=DATE:20261107
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: Diwali celebration
-DESCRIPTION:Calendar cell says “Diwali Celebration Nov 8th” on Friday N
- ov 6. Theme day (school lunch).
+SUMMARY:Vasa: Diwali Celebration Nov 8th
+DESCRIPTION:Theme day / School lunch.\nWeek 45.
+CATEGORIES:Theme day / School lunch
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20261116-careerweek@skolkompis
+UID:vasa-2026-27-20261110-mypclassesendat1400mostl@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20261110
+DTEND;VALUE=DATE:20261111
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: MYP classes end at 14.00 (most likely)
+DESCRIPTION:Week 46.
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20261116-careerweekpraomyp3@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20261116
+DTEND;VALUE=DATE:20261117
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: Career Week – PRAO MYP3
+DESCRIPTION:Theme day / School lunch.\nCareer Week\nPRAO MYP3\nWeek 47.
+CATEGORIES:Theme day / School lunch
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20261117-careerweekpraomyp3gymnas@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20261117
+DTEND;VALUE=DATE:20261119
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: Career Week – PRAO MYP3 – Gymnasiemässan Nov 17-19
+DESCRIPTION:Theme day / School lunch.\nCareer Week\nPRAO MYP3\nGymnasiemäs
+ san Nov 17-19\nWeek 47.
+CATEGORIES:Theme day / School lunch
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20261119-careerweekpraomyp3gymnas@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20261119
+DTEND;VALUE=DATE:20261120
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: Career Week – PRAO MYP3 – Gymnasiemässan VASA and ISKH 9
+ .00-15.00
+DESCRIPTION:Theme day / School lunch.\nCareer Week\nPRAO MYP3\nGymnasiemäs
+ san VASA and ISKH 9.00-15.00\nWeek 47.
+CATEGORIES:Theme day / School lunch
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20261120-careerweekpraomyp3@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20261120
+DTEND;VALUE=DATE:20261121
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: Career Week – PRAO MYP3
+DESCRIPTION:Theme day / School lunch.\nCareer Week\nPRAO MYP3\nWeek 47.
+CATEGORIES:Theme day / School lunch
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20261116-week-oralnp@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20261116
 DTEND;VALUE=DATE:20261121
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: Career Week
-DESCRIPTION:Theme week (school lunch).
+SUMMARY:Vasa: Oral NP
+DESCRIPTION:Nationella Prov / National tests.\nWeek 47 (all week).
+CATEGORIES:Nationella Prov / National tests
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20261127-schoolclosedascopenteacherstud@skolkompis
+UID:vasa-2026-27-20261127-ascopenteacherstudyday@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20261127
 DTEND;VALUE=DATE:20261128
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: School closed – ASC open (teacher study day)
+SUMMARY:Vasa: School closed – ASC open – Teacher Study Day
+DESCRIPTION:School is closed / ASC open.\nASC Open\nTeacher Study Day\nWeek
+  48.
+CATEGORIES:School is closed / ASC open
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20261204-winterconcertwinterparty@skolkompis
+UID:vasa-2026-27-20261204-winterconcertchurchbooke@skolkompis
 DTSTAMP:20261013T000000Z
-DTSTART;TZID=Europe/Stockholm:20261204T150000
-DTEND;TZID=Europe/Stockholm:20261204T170000
-SUMMARY:Vasa: Winter Concert & Winter Party
-DESCRIPTION:Winter Concert in the church\, 15:00–17:00\, and the Winter P
- arty.
+DTSTART;VALUE=DATE:20261204
+DTEND;VALUE=DATE:20261205
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: Winter Concert (church booked 15.00-17.00) & Winter Party
+DESCRIPTION:Week 49.
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20261209-nobelmealnobeldayfocus@skolkompis
+UID:vasa-2026-27-20261209-nobelmealandnobeldayfocu@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20261209
 DTEND;VALUE=DATE:20261210
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: Nobel Meal – Nobel day focus
-DESCRIPTION:Theme day (school lunch).
+SUMMARY:Vasa: Nobel Meal and Nobel day focus
+DESCRIPTION:Theme day / School lunch.\nWeek 50.
+CATEGORIES:Theme day / School lunch
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20261216-classdaychoiceday@skolkompis
+UID:vasa-2026-27-20261216-classdaychoicedaymyp@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20261216
 DTEND;VALUE=DATE:20261217
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: Class Day / Choice Day
-DESCRIPTION:Class Day / Choice Day MYP. Packed lunch day.
+SUMMARY:Vasa: Class Day / Choice Day MYP
+DESCRIPTION:Theme day / Packed lunch day.\nWeek 51.
+CATEGORIES:Theme day / Packed lunch day
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Pack lunch for tomorrow: Class Day / Choice Day
+DESCRIPTION:Packed lunch tomorrow – Class Day / Choice Day MYP
 TRIGGER:-PT5H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20261217-studentsendlastdaybeforewinter@skolkompis
+UID:vasa-2026-27-20261217-studentsend@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20261217
 DTEND;VALUE=DATE:20261218
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: Students end – last day before winter break
+SUMMARY:Vasa: Students end
+DESCRIPTION:Students start / end.\nWeek 51.
+CATEGORIES:Students start / end
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20261218-schoolclosedascopenwinterbreak@skolkompis
+UID:vasa-2026-27-20261218-ascopen@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20261218
-DTEND;VALUE=DATE:20261224
+DTEND;VALUE=DATE:20261219
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: School closed – ASC open (winter break)
-DESCRIPTION:ASC open. Dec 23: ASC closes 15:00.
+SUMMARY:Vasa: School closed – ASC open
+DESCRIPTION:School is closed / ASC open.\nASC Open\nWeek 51.
+CATEGORIES:School is closed / ASC open
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20261223-asccloses1500@skolkompis
+UID:vasa-2026-27-20261221-asc@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20261221
+DTEND;VALUE=DATE:20261223
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: School closed – ASC open
+DESCRIPTION:School is closed / ASC open.\nASC\nWeek 52.
+CATEGORIES:School is closed / ASC open
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20261223-ascclosing1500@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20261223
 DTEND;VALUE=DATE:20261224
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: ASC closes 15:00
+SUMMARY:Vasa: School closed – ASC open – Closing 15:00
+DESCRIPTION:School is closed / ASC open.\nASC\nClosing 15:00\nWeek 52.
+CATEGORIES:School is closed / ASC open
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20261224-schoolandascclosedchristmas@skolkompis
+UID:vasa-2026-27-20261224-ascclosedroddag@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20261224
+DTEND;VALUE=DATE:20261225
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: School & ASC closed – RÖD DAG
+DESCRIPTION:School and ASC are closed.\nASC Closed\nRÖD DAG\nWeek 52.
+CATEGORIES:School and ASC are closed
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20261225-ascclosedroddagjuldagen@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20261225
+DTEND;VALUE=DATE:20261226
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: School & ASC closed – RÖD DAG: Juldagen
+DESCRIPTION:School and ASC are closed.\nASC Closed | RÖD DAG: Juldagen\nWe
+ ek 52.
+CATEGORIES:School and ASC are closed
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20261228-ascclosed@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20261228
+DTEND;VALUE=DATE:20261231
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: School & ASC closed
+DESCRIPTION:School and ASC are closed.\nASC Closed\nWeek 53.
+CATEGORIES:School and ASC are closed
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20261231-ascclosedroddag@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20261231
 DTEND;VALUE=DATE:20270102
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: School and ASC closed (Christmas)
-DESCRIPTION:Röda dagar: julafton\, juldagen\, nyårsafton\, nyårsdagen. A
- SC closed Dec 24 – Jan 1.
+SUMMARY:Vasa: School & ASC closed – RÖD DAG
+DESCRIPTION:School and ASC are closed.\nASC Closed\nRÖD DAG\nWeek 53.
+CATEGORIES:School and ASC are closed
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20270104-schoolclosedascopenwinterbreak@skolkompis
+UID:vasa-2026-27-20270104-asc@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20270104
-DTEND;VALUE=DATE:20270106
+DTEND;VALUE=DATE:20270105
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: School closed – ASC open (winter break)
-DESCRIPTION:Jan 5: ASC closes 15:00.
+SUMMARY:Vasa: School closed – ASC open
+DESCRIPTION:School is closed / ASC open.\nASC\nWeek 1.
+CATEGORIES:School is closed / ASC open
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20270105-asccloses1500@skolkompis
+UID:vasa-2026-27-20270105-ascclosing1500@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20270105
 DTEND;VALUE=DATE:20270106
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: ASC closes 15:00
+SUMMARY:Vasa: School closed – ASC open – Closing 15:00
+DESCRIPTION:School is closed / ASC open.\nASC\nClosing 15:00\nWeek 1.
+CATEGORIES:School is closed / ASC open
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20270106-schoolandascclosedtrettondedag@skolkompis
+UID:vasa-2026-27-20270106-ascclosedroddagtrettonde@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20270106
 DTEND;VALUE=DATE:20270107
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: School and ASC closed – Trettondedag jul
-DESCRIPTION:Röd dag.
+SUMMARY:Vasa: School & ASC closed – RÖD DAG: Trettondedag jul
+DESCRIPTION:School and ASC are closed.\nASC Closed | RÖD DAG: Trettondedag
+  jul\nWeek 1.
+CATEGORIES:School and ASC are closed
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20270107-schoolclosedascopenwinterbreak@skolkompis
+UID:vasa-2026-27-20270107-asc@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20270107
-DTEND;VALUE=DATE:20270112
+DTEND;VALUE=DATE:20270109
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: School closed – ASC open (winter break)
-DESCRIPTION:Jan 11: teachers start.
+SUMMARY:Vasa: School closed – ASC open
+DESCRIPTION:School is closed / ASC open.\nASC\nWeek 1.
+CATEGORIES:School is closed / ASC open
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20270112-studentsstartregularschedule@skolkompis
+UID:vasa-2026-27-20270111-ascteachersstart@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20270111
+DTEND;VALUE=DATE:20270112
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: School closed – ASC open – Teachers start
+DESCRIPTION:School is closed / ASC open.\nASC\nTeachers start\nWeek 2.
+CATEGORIES:School is closed / ASC open
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20270112-studentsstartregularsche@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20270112
 DTEND;VALUE=DATE:20270113
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: Students start – regular schedule
+SUMMARY:Vasa: Students start - regular schedule
+DESCRIPTION:Students start / end.\nWeek 2.
+CATEGORIES:Students start / end
 END:VEVENT
 BEGIN:VEVENT
 UID:vasa-2026-27-20270201-bookweek@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20270201
+DTEND;VALUE=DATE:20270204
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: Book Week
+DESCRIPTION:Theme day / School lunch.\nWeek 5.
+CATEGORIES:Theme day / School lunch
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20270204-bookweekpyp3tvaornaskor1@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20270204
+DTEND;VALUE=DATE:20270205
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: Book Week – PYP3: Tvåornas Kör 1a lektionen 40 min efter 
+ lunch
+DESCRIPTION:Theme day / School lunch.\nBook Week\nPYP3: Tvåornas Kör 1a l
+ ektionen 40 min efter lunch\nWeek 5.
+CATEGORIES:Theme day / School lunch
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20270205-bookweek@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20270205
 DTEND;VALUE=DATE:20270206
 TRANSP:TRANSPARENT
 SUMMARY:Vasa: Book Week
-DESCRIPTION:Theme week (school lunch).
+DESCRIPTION:Theme day / School lunch.\nWeek 5.
+CATEGORIES:Theme day / School lunch
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20270208-pypdevtalksweek@skolkompis
+UID:vasa-2026-27-20270208-week-pypdevtalksweek612@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20270208
 DTEND;VALUE=DATE:20270213
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: PYP Dev Talks week
-DESCRIPTION:PYP development talks\, week 6.
+SUMMARY:Vasa: PYP Dev Talks Week 6-12
+DESCRIPTION:Week 6 (all week).
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20270301-schoolclosedascopensportsbreak@skolkompis
+UID:vasa-2026-27-20270223-mypsubjecttalks14001800@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20270223
+DTEND;VALUE=DATE:20270225
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: MYP Subject Talks (14.00-18.00)
+DESCRIPTION:Week 8.
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20270225-mypsubjecttalks14001800p@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20270225
+DTEND;VALUE=DATE:20270226
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: MYP Subject Talks (14.00-18.00) – PYP3: Tvåornas Kör 2a l
+ ektion 40 min efter lunch
+DESCRIPTION:MYP Subject Talks (14.00-18.00)\nPYP3: Tvåornas Kör 2a lektio
+ n 40 min efter lunch\nWeek 8.
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20270301-asc@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20270301
 DTEND;VALUE=DATE:20270305
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: School closed – ASC open (sports break)
-DESCRIPTION:Week 9: school closed\, ASC open.
+SUMMARY:Vasa: School closed – ASC open
+DESCRIPTION:School is closed / ASC open.\nASC\nWeek 9.
+CATEGORIES:School is closed / ASC open
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20270305-schoolandascclosedstudyday@skolkompis
+UID:vasa-2026-27-20270305-ascstudyday@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20270305
 DTEND;VALUE=DATE:20270306
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: School and ASC closed (study day)
-DESCRIPTION:ASC study day.
+SUMMARY:Vasa: School & ASC closed – ASC Study Day
+DESCRIPTION:School and ASC are closed.\nASC Study Day\nWeek 9.
+CATEGORIES:School and ASC are closed
 END:VEVENT
 BEGIN:VEVENT
 UID:vasa-2026-27-20270311-piday@skolkompis
@@ -350,49 +650,166 @@ DTSTART;VALUE=DATE:20270311
 DTEND;VALUE=DATE:20270312
 TRANSP:TRANSPARENT
 SUMMARY:Vasa: Pi Day
+DESCRIPTION:Week 10.
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20270312-schoolclosedascopenteacherstud@skolkompis
+UID:vasa-2026-27-20270312-rommeskitripascopenteach@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20270312
 DTEND;VALUE=DATE:20270313
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: School closed – ASC open (teacher study day)
-DESCRIPTION:Teacher study day. Romme ski trip.
+SUMMARY:Vasa: School closed – ASC open – Romme Ski Trip – Teacher Stu
+ dy Day
+DESCRIPTION:School is closed / ASC open.\nRomme Ski Trip\nASC Open\nTeacher
+  Study Day\nWeek 10.
+CATEGORIES:School is closed / ASC open
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20270325-asccloses1500@skolkompis
+UID:vasa-2026-27-20270317-npsvmyp4200min@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20270317
+DTEND;VALUE=DATE:20270318
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: NP - Sv MYP 4 – 200 min
+DESCRIPTION:Nationella Prov / National tests.\nNP - Sv MYP 4\n200 min\nWeek
+  11.
+CATEGORIES:Nationella Prov / National tests
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20270319-npsvmyp4200min@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20270319
+DTEND;VALUE=DATE:20270320
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: NP - Sv MYP 4 – 200 min
+DESCRIPTION:Nationella Prov / National tests.\nNP - Sv MYP 4\n200 min\nWeek
+  11.
+CATEGORIES:Nationella Prov / National tests
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20270315-week-nppyp4march15may21@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20270315
+DTEND;VALUE=DATE:20270522
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: NP - PYP4 – March 15 - May 21
+DESCRIPTION:Nationella Prov / National tests.\nNP - PYP4\nMarch 15 - May 21
+ \nWeek 11 (all week).
+CATEGORIES:Nationella Prov / National tests
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20270325-ascclosing1500@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20270325
 DTEND;VALUE=DATE:20270326
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: ASC closes 15:00
+SUMMARY:Vasa: ASC Closing 15.00
+DESCRIPTION:Week 12.
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20270326-schoolandascclosedlångfredagen@skolkompis
+UID:vasa-2026-27-20270326-langfredagen@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20270326
 DTEND;VALUE=DATE:20270327
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: School and ASC closed – Långfredagen
-DESCRIPTION:Good Friday.
+SUMMARY:Vasa: School & ASC closed – Långfredagen
+DESCRIPTION:School and ASC are closed.\nLångfredagen\nWeek 12.
+CATEGORIES:School and ASC are closed
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20270329-schoolandascclosedannandagpåsk@skolkompis
+UID:vasa-2026-27-20270329-annandagpask@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20270329
 DTEND;VALUE=DATE:20270330
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: School and ASC closed – Annandag påsk
-DESCRIPTION:Easter Monday.
+SUMMARY:Vasa: School & ASC closed – Annandag påsk
+DESCRIPTION:School and ASC are closed.\nAnnandag påsk\nWeek 13.
+CATEGORIES:School and ASC are closed
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20270330-schoolclosedascopeneasterbreak@skolkompis
+UID:vasa-2026-27-20270330-asceasterbreak@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20270330
 DTEND;VALUE=DATE:20270403
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: School closed – ASC open (Easter break)
+SUMMARY:Vasa: School closed – ASC open – Easter break
+DESCRIPTION:School is closed / ASC open.\nASC/ Easter break\nWeek 13.
+CATEGORIES:School is closed / ASC open
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20270405-prao@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20270405
+DTEND;VALUE=DATE:20270410
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: PRAO
+DESCRIPTION:PRAO.\nWeek 14.
+CATEGORIES:PRAO
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20270413-npengmyp49030min@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20270413
+DTEND;VALUE=DATE:20270414
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: NP - Eng MYP 4 – 90+30 min
+DESCRIPTION:Nationella Prov / National tests.\nNP - Eng MYP 4\n90+30 min\nW
+ eek 15.
+CATEGORIES:Nationella Prov / National tests
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20270415-npengmyp480minpyp3tvaorn@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20270415
+DTEND;VALUE=DATE:20270416
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: NP - Eng MYP 4 – 80 min – PYP3: Tvåornas Kör 3e lektion
+  40 min efter lunch
+DESCRIPTION:Nationella Prov / National tests.\nNP - Eng MYP 4\n80 min\nPYP3
+ : Tvåornas Kör 3e lektion 40 min efter lunch\nWeek 15.
+CATEGORIES:Nationella Prov / National tests
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20270416-staffconference@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20270416
+DTEND;VALUE=DATE:20270417
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: Staff Conference?
+DESCRIPTION:Week 15.
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20270419-npengmyp17055min@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20270419
+DTEND;VALUE=DATE:20270420
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: NP - Eng MYP 1 – 70 + 55 min
+DESCRIPTION:Nationella Prov / National tests.\nNP - Eng MYP 1\n70 + 55 min\
+ nWeek 16.
+CATEGORIES:Nationella Prov / National tests
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20270420-npnomyp49090min@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20270420
+DTEND;VALUE=DATE:20270421
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: NP - NO MYP 4 – 90+90 min
+DESCRIPTION:Nationella Prov / National tests.\nNP - NO MYP 4\n90+90 min\nWe
+ ek 16.
+CATEGORIES:Nationella Prov / National tests
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20270421-npengmyp145min@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20270421
+DTEND;VALUE=DATE:20270422
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: NP - Eng MYP 1 – 45 min
+DESCRIPTION:Nationella Prov / National tests.\nNP - Eng MYP 1\n45 min\nWeek
+  16.
+CATEGORIES:Nationella Prov / National tests
 END:VEVENT
 BEGIN:VEVENT
 UID:vasa-2026-27-20270422-celebrationoflearningday@skolkompis
@@ -400,104 +817,224 @@ DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20270422
 DTEND;VALUE=DATE:20270423
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: Celebration of Learning Day
-DESCRIPTION:PYP 6 Exhibition\, MYP Community Project 13:00–17:00. Packed 
- lunch day.
+SUMMARY:Vasa: Celebration of Learning Day – PYP 6 Exhibition – MYP Comm
+ unity Project – 13.00-17.00
+DESCRIPTION:Theme day / Packed lunch day.\nCelebration of Learning Day\nPYP
+  6 Exhibition\nMYP Community Project\n13.00-17.00\nWeek 16.
+CATEGORIES:Theme day / Packed lunch day
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Pack lunch for tomorrow: Celebration of Learning Day
+DESCRIPTION:Packed lunch tomorrow – Celebration of Learning Day – PYP 6
+  Exhibition – MYP Community Project – 13.00-17.00
 TRIGGER:-PT5H
 END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20270419-week-myp4tallinntbd@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20270419
+DTEND;VALUE=DATE:20270424
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: MYP4 Tallinn- TBD
+DESCRIPTION:Week 16 (all week).
 END:VEVENT
 BEGIN:VEVENT
 UID:vasa-2026-27-20270426-ibevaluationvisit@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20270426
-DTEND;VALUE=DATE:20270429
+DTEND;VALUE=DATE:20270427
 TRANSP:TRANSPARENT
 SUMMARY:Vasa: IB Evaluation visit
+DESCRIPTION:Week 17.
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20270430-valborgasccloses1500@skolkompis
+UID:vasa-2026-27-20270427-npsvmyp18080minibevaluat@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20270427
+DTEND;VALUE=DATE:20270428
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: NP - SV MYP 1 – 80 + 80 min – IB Evaluation visit
+DESCRIPTION:Nationella Prov / National tests.\nNP - SV MYP 1\n80 + 80 min\n
+ IB Evaluation visit\nWeek 17.
+CATEGORIES:Nationella Prov / National tests
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20270428-npsomyp4120minibevaluati@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20270428
+DTEND;VALUE=DATE:20270429
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: NP - SO MYP 4 – 120 min – IB Evaluation visit
+DESCRIPTION:Nationella Prov / National tests.\nNP - SO MYP 4\n120 min\nIB E
+ valuation visit\nWeek 17.
+CATEGORIES:Nationella Prov / National tests
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20270429-npsvmyp17060min@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20270429
+DTEND;VALUE=DATE:20270430
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: NP - SV MYP 1 – 70 + 60 min
+DESCRIPTION:Nationella Prov / National tests.\nNP - SV MYP 1\n70 + 60 min\n
+ Week 17.
+CATEGORIES:Nationella Prov / National tests
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20270430-ascclosing1500valborg@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20270430
 DTEND;VALUE=DATE:20270501
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: Valborg – ASC closes 15:00
+SUMMARY:Vasa: ASC Closing 15.00 – Valborg
+DESCRIPTION:ASC Closing 15.00\nValborg\nWeek 17.
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20270505-asccloses1500@skolkompis
+UID:vasa-2026-27-20270504-npsomyp4120min@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20270504
+DTEND;VALUE=DATE:20270505
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: NP - SO MYP 4 – 120 min
+DESCRIPTION:Nationella Prov / National tests.\nNP - SO MYP 4\n120 min\nWeek
+  18.
+CATEGORIES:Nationella Prov / National tests
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20270505-ascclosing1500@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20270505
 DTEND;VALUE=DATE:20270506
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: ASC closes 15:00
+SUMMARY:Vasa: ASC Closing 15.00
+DESCRIPTION:Week 18.
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20270506-schoolandascclosedascensionday@skolkompis
+UID:vasa-2026-27-20270506-ascensionday@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20270506
 DTEND;VALUE=DATE:20270507
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: School and ASC closed – Ascension Day
-DESCRIPTION:Kristi himmelsfärdsdag.
+SUMMARY:Vasa: School & ASC closed – Ascension day
+DESCRIPTION:School and ASC are closed.\nAscension day\nWeek 18.
+CATEGORIES:School and ASC are closed
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20270507-schoolandascclosedbridgeday@skolkompis
+UID:vasa-2026-27-20270507-bridgedayklamdag@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20270507
 DTEND;VALUE=DATE:20270508
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: School and ASC closed – Bridge day
-DESCRIPTION:Klämdag.
+SUMMARY:Vasa: School & ASC closed – Bridge Day / Klämdag
+DESCRIPTION:School and ASC are closed.\nBridge Day / Klämdag\nWeek 18.
+CATEGORIES:School and ASC are closed
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20270511-fritidshemmetsdag2027@skolkompis
+UID:vasa-2026-27-20270511-npmathmyp14080minfritids@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20270511
 DTEND;VALUE=DATE:20270512
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: Fritidshemmets dag 2027
+SUMMARY:Vasa: NP - Math MYP 1 – 40+80 min – Fritidshemmets dag 2027
+DESCRIPTION:Nationella Prov / National tests.\nNP - Math MYP 1\n40+80 min\n
+ Fritidshemmets dag 2027\nWeek 19.
+CATEGORIES:Nationella Prov / National tests
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20270525-globalday@skolkompis
+UID:vasa-2026-27-20270512-npmathmyp44080min@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20270512
+DTEND;VALUE=DATE:20270513
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: NP- Math MYP 4 – 40+80 min
+DESCRIPTION:Nationella Prov / National tests.\nNP- Math MYP 4\n40+80 min\nW
+ eek 19.
+CATEGORIES:Nationella Prov / National tests
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20270513-npmathmyp18040min@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20270513
+DTEND;VALUE=DATE:20270514
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: NP - Math MYP 1 – 80+40 min
+DESCRIPTION:Nationella Prov / National tests.\nNP - Math MYP 1\n80+40 min\n
+ Week 19.
+CATEGORIES:Nationella Prov / National tests
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20270514-npmathmyp44080min@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20270514
+DTEND;VALUE=DATE:20270515
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: NP - Math MYP 4 – 40+80 min
+DESCRIPTION:Nationella Prov / National tests.\nNP - Math MYP 4\n40+80 min\n
+ Week 19.
+CATEGORIES:Nationella Prov / National tests
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20270520-studentorientationdaypyp@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20270520
+DTEND;VALUE=DATE:20270521
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: Student orientation day PYP1
+DESCRIPTION:Week 20.
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20270521-studentorientationdayey@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20270521
+DTEND;VALUE=DATE:20270522
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: Student orientation day EY
+DESCRIPTION:Week 20.
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20270525-globaldayeyp5p6myp@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20270525
 DTEND;VALUE=DATE:20270526
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: Global Day
-DESCRIPTION:EY–PYP5 / PYP6–MYP. Packed lunch day.
+SUMMARY:Vasa: Global Day – EY-P5 / P6-MYP
+DESCRIPTION:Theme day / Packed lunch day.\nGlobal Day\nEY-P5 / P6-MYP\nWeek
+  21.
+CATEGORIES:Theme day / Packed lunch day
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Pack lunch for tomorrow: Global Day
+DESCRIPTION:Packed lunch tomorrow – Global Day – EY-P5 / P6-MYP
 TRIGGER:-PT5H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20270531-sportsday@skolkompis
+UID:vasa-2026-27-20270531-sportsdayeypyp6myp@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20270531
 DTEND;VALUE=DATE:20270601
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: Sports Day
-DESCRIPTION:EY–PYP6 / MYP. Packed lunch day.
+SUMMARY:Vasa: Sports Day – EY-PYP6 / MYP
+DESCRIPTION:Theme day / Packed lunch day.\nSports Day\nEY-PYP6 / MYP\nWeek 
+ 22.
+CATEGORIES:Theme day / Packed lunch day
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Pack lunch for tomorrow: Sports Day
+DESCRIPTION:Packed lunch tomorrow – Sports Day – EY-PYP6 / MYP
 TRIGGER:-PT5H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20270609-gärdetspringouting@skolkompis
+UID:vasa-2026-27-20270609-gardetspringouting@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20270609
 DTEND;VALUE=DATE:20270610
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: Gärdet / Spring Outing
-DESCRIPTION:Packed lunch day.
+SUMMARY:Vasa: Gärdet/Spring Outing
+DESCRIPTION:Theme day / Packed lunch day.\nWeek 23.
+CATEGORIES:Theme day / Packed lunch day
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Pack lunch for tomorrow: Gärdet / Spring Outing
+DESCRIPTION:Packed lunch tomorrow – Gärdet/Spring Outing
 TRIGGER:-PT5H
 END:VALARM
 END:VEVENT
@@ -508,29 +1045,64 @@ DTSTART;VALUE=DATE:20270610
 DTEND;VALUE=DATE:20270611
 TRANSP:TRANSPARENT
 SUMMARY:Vasa: Mentor Day
-DESCRIPTION:Packed lunch day.
+DESCRIPTION:Theme day / Packed lunch day.\nWeek 23.
+CATEGORIES:Theme day / Packed lunch day
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Pack lunch for tomorrow: Mentor Day
+DESCRIPTION:Packed lunch tomorrow – Mentor Day
 TRIGGER:-PT5H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20270611-studentsendlastschoolday@skolkompis
+UID:vasa-2026-27-20270611-studentsend@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20270611
 DTEND;VALUE=DATE:20270612
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: Students end – last school day
+SUMMARY:Vasa: Students end
+DESCRIPTION:Students start / end.\nWeek 23.
+CATEGORIES:Students start / end
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20270614-schoolclosedascopensummer@skolkompis
+UID:vasa-2026-27-20270614-asc@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20270614
-DTEND;VALUE=DATE:20270625
+DTEND;VALUE=DATE:20270617
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: School closed – ASC open (summer)
-DESCRIPTION:Jun 24: ASC closes 15:00.
+SUMMARY:Vasa: School closed – ASC open
+DESCRIPTION:School is closed / ASC open.\nASC\nWeek 24.
+CATEGORIES:School is closed / ASC open
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20270617-ascteacherslastdaystaffp@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20270617
+DTEND;VALUE=DATE:20270618
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: School closed – ASC open – Teachers last day/Staff party?
+DESCRIPTION:School is closed / ASC open.\nASC /Teachers last day/Staff part
+ y?\nWeek 24.
+CATEGORIES:School is closed / ASC open
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20270618-asc@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20270618
+DTEND;VALUE=DATE:20270619
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: School closed – ASC open
+DESCRIPTION:School is closed / ASC open.\nASC\nWeek 24.
+CATEGORIES:School is closed / ASC open
+END:VEVENT
+BEGIN:VEVENT
+UID:vasa-2026-27-20270621-asc@skolkompis
+DTSTAMP:20261013T000000Z
+DTSTART;VALUE=DATE:20270621
+DTEND;VALUE=DATE:20270624
+TRANSP:TRANSPARENT
+SUMMARY:Vasa: School closed – ASC open
+DESCRIPTION:School is closed / ASC open.\nASC\nWeek 25.
+CATEGORIES:School is closed / ASC open
 END:VEVENT
 BEGIN:VEVENT
 UID:vasa-2026-27-20270624-asccloses1500@skolkompis
@@ -538,25 +1110,29 @@ DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20270624
 DTEND;VALUE=DATE:20270625
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: ASC closes 15:00
+SUMMARY:Vasa: School closed – ASC closes 15:00
+DESCRIPTION:School is closed / ASC open.\nASC closes 15:00\nWeek 25.
+CATEGORIES:School is closed / ASC open
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20270625-schoolandascclosedmidsummereve@skolkompis
+UID:vasa-2026-27-20270625-midsummereve@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20270625
 DTEND;VALUE=DATE:20270626
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: School and ASC closed – Midsummer Eve
-DESCRIPTION:Midsommarafton.
+SUMMARY:Vasa: School & ASC closed – Mid-Summer Eve
+DESCRIPTION:School and ASC are closed.\nMid-Summer Eve\nWeek 25.
+CATEGORIES:School and ASC are closed
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20270628-schoolclosedascopensummer@skolkompis
+UID:vasa-2026-27-20270628-asc@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20270628
-DTEND;VALUE=DATE:20270703
+DTEND;VALUE=DATE:20270702
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: School closed – ASC open (summer)
-DESCRIPTION:Jul 2: ASC closes 15:00.
+SUMMARY:Vasa: School closed – ASC open
+DESCRIPTION:School is closed / ASC open.\nASC\nWeek 26.
+CATEGORIES:School is closed / ASC open
 END:VEVENT
 BEGIN:VEVENT
 UID:vasa-2026-27-20270702-asccloses1500@skolkompis
@@ -564,15 +1140,18 @@ DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20270702
 DTEND;VALUE=DATE:20270703
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: ASC closes 15:00
+SUMMARY:Vasa: School closed – ASC closes 15:00
+DESCRIPTION:School is closed / ASC open.\nASC closes 15:00\nWeek 26.
+CATEGORIES:School is closed / ASC open
 END:VEVENT
 BEGIN:VEVENT
-UID:vasa-2026-27-20270705-schoolandascclosedsummer@skolkompis
+UID:vasa-2026-27-20270705-schoolclosed@skolkompis
 DTSTAMP:20261013T000000Z
 DTSTART;VALUE=DATE:20270705
 DTEND;VALUE=DATE:20270731
 TRANSP:TRANSPARENT
-SUMMARY:Vasa: School and ASC closed (summer)
-DESCRIPTION:Weeks 27–30.
+SUMMARY:Vasa: School & ASC closed
+DESCRIPTION:School and ASC are closed.\nSchool Closed\nWeek 27-30.
+CATEGORIES:School and ASC are closed
 END:VEVENT
 END:VCALENDAR
