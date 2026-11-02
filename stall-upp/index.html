@@ -108,6 +108,36 @@ main{max-width:1040px;margin:0 auto;padding:4px 16px 64px}
 .rules ol{margin:.4rem 0 0;padding-left:1.3rem}
 .rules li{margin:.15rem 0}
 .keys{color:var(--soft);font-size:.82rem;margin-top:.6rem}
+.big-score{font-family:"Fredoka",sans-serif;font-weight:700;font-size:3rem;line-height:1.1;text-align:center;color:var(--accent-deep);margin-top:.3rem}
+.verdict{text-align:center;min-height:0;margin:.2rem 0 .2rem}
+.best{text-align:center;margin:0 0 .6rem}
+.results{list-style:none;padding:0;margin:.6rem 0 1rem;display:grid;gap:.35rem}
+.results li,.results button{display:flex;justify-content:space-between;align-items:center;gap:.6rem;width:100%;padding:.35rem .75rem;border-radius:10px;font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.05rem;text-align:left}
+.results li{background:var(--ok-bg)}
+.results li.bad{background:var(--bad-bg);padding:0}
+.results button{border:2px solid transparent;background:none;cursor:pointer}
+.results button:hover{border-color:var(--bad)}
+.results .n{color:var(--soft);font-size:.85rem;min-width:1.4rem}
+.results .eq{flex:1}
+
+/* times-tables test */
+.tab .sym.wide{width:auto;padding:0 .45rem;border-radius:999px;font-size:.95rem}
+.tt-grid{list-style:none;padding:0;margin:0;display:grid;gap:.7rem 2rem;justify-content:center}
+@media (min-width:560px){.tt-grid{grid-template-columns:repeat(2,auto);grid-template-rows:repeat(5,auto);grid-auto-flow:column}}
+.tt-item{display:flex;align-items:center;gap:.6rem;font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.7rem}
+.tt-n{color:var(--soft);font-size:.95rem;min-width:1.6rem;text-align:right}
+.tt-q{min-width:6.2rem;text-align:right}
+.tt-box{width:3.4rem;height:2.9rem;border:2px dashed var(--border);border-radius:10px;background:var(--bg);font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.6rem;color:var(--accent-deep);cursor:pointer;padding:0}
+.tt-box.sel{border-style:solid;border-color:var(--accent);box-shadow:0 0 0 3px var(--hl)}
+.tt-box.ok{border:2px solid var(--accent);background:var(--ok-bg)}
+.tt-box.bad{border:2px solid var(--bad);background:var(--bad-bg);color:var(--bad);text-decoration:line-through}
+.tt-box:disabled{cursor:default}
+.tt-fix{color:var(--bad);font-size:1.3rem}
+.keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:.45rem;max-width:16rem;margin:.2rem 0 1rem}
+.key{border:2px solid var(--border);background:var(--card);border-radius:12px;padding:.5rem 0;font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.45rem;cursor:pointer}
+.key:hover{border-color:var(--accent)}
+.key:active{background:var(--hl)}
+.key:disabled{opacity:.4;cursor:default;border-color:var(--border)}
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -128,12 +158,14 @@ main{max-width:1040px;margin:0 auto;padding:4px 16px 64px}
     <button class="tab" role="tab" data-op="sub"><span class="sym">−</span><span data-ui="sub"></span></button>
     <button class="tab" role="tab" data-op="mul"><span class="sym">×</span><span data-ui="mul"></span></button>
     <button class="tab" role="tab" data-op="div"><span class="sym">÷</span><span data-ui="div"></span></button>
+    <button class="tab" role="tab" data-op="times"><span class="sym wide">9×9</span><span data-ui="times"></span></button>
   </nav>
 
-  <div class="toolbar">
+  <div class="toolbar" id="toolbar">
     <div class="seg" id="modes">
       <button class="pill" data-mode="demo" data-ui="modeDemo"></button>
       <button class="pill" data-mode="practice" data-ui="modePractice"></button>
+      <button class="pill" data-mode="test" data-ui="modeTest"></button>
     </div>
     <div class="seg" id="levels">
       <button class="pill" data-level="0" data-ui="lv0"></button>
@@ -151,7 +183,38 @@ main{max-width:1040px;margin:0 auto;padding:4px 16px 64px}
   </div>
   <p class="err" id="err" role="alert"></p>
 
-  <div class="layout">
+  <div class="layout" id="timesView" hidden>
+    <section class="card">
+      <div class="question" data-ui="timesTitle"></div>
+      <ol class="tt-grid" id="ttGrid"></ol>
+    </section>
+
+    <aside class="card side">
+      <div class="count" id="ttCount"></div>
+      <p class="msg" data-ui="timesHint"></p>
+      <div class="keypad" id="keypad">
+        <button class="key" data-k="1">1</button><button class="key" data-k="2">2</button><button class="key" data-k="3">3</button>
+        <button class="key" data-k="4">4</button><button class="key" data-k="5">5</button><button class="key" data-k="6">6</button>
+        <button class="key" data-k="7">7</button><button class="key" data-k="8">8</button><button class="key" data-k="9">9</button>
+        <button class="key" data-k="del" aria-label="delete">⌫</button><button class="key" data-k="0">0</button><button class="key" data-k="next" aria-label="next question">▶</button>
+      </div>
+      <div class="controls">
+        <button class="btn" id="ttCheckBtn" data-ui="check"></button>
+        <button class="btn ghost" id="ttNewBtn" data-ui="newRound"></button>
+      </div>
+      <div id="ttResult" hidden>
+        <div class="big-score" id="ttScore"></div>
+        <p class="msg done verdict" id="ttVerdict" aria-live="polite"></p>
+        <p class="stars best" id="ttBest"></p>
+      </div>
+      <div class="rules">
+        <h2 data-ui="rules"></h2>
+        <ol id="ttRules"></ol>
+      </div>
+    </aside>
+  </div>
+
+  <div class="layout" id="mainView">
     <section class="card">
       <div class="question" id="question"></div>
       <div class="board-wrap"><div class="board" id="board"></div></div>
@@ -166,6 +229,7 @@ main{max-width:1040px;margin:0 auto;padding:4px 16px 64px}
           <button class="btn" id="nextBtn" data-ui="next"></button>
           <button class="btn ghost" id="playBtn"></button>
           <button class="btn ghost" id="resetBtn" data-ui="restart"></button>
+          <button class="btn ghost" id="backScoreBtn" data-ui="backScore" hidden></button>
         </div>
         <div class="progress"><span id="bar"></span></div>
         <p class="keys" data-ui="keys"></p>
@@ -180,6 +244,31 @@ main{max-width:1040px;margin:0 auto;padding:4px 16px 64px}
         </div>
         <p class="feedback" id="feedback" aria-live="polite"></p>
         <p class="stars" id="stars"></p>
+      </div>
+
+      <div id="testPanel" hidden>
+        <div id="testRun">
+          <div class="count" id="tCount"></div>
+          <p class="msg" data-ui="testHint"></p>
+          <div class="controls">
+            <button class="btn" id="tCheckBtn" data-ui="check"></button>
+            <button class="btn" id="tNextBtn" hidden></button>
+          </div>
+          <p class="feedback" id="tFeedback" aria-live="polite"></p>
+          <div class="progress"><span id="tBar"></span></div>
+          <p class="stars" id="tScore"></p>
+        </div>
+        <div id="testResult" hidden>
+          <div class="big-score" id="rScore"></div>
+          <p class="msg done verdict" id="rVerdict" aria-live="polite"></p>
+          <p class="stars best" id="rBest"></p>
+          <p class="keys" id="rHint" data-ui="reviewHint"></p>
+          <ol class="results" id="rList"></ol>
+          <div class="controls">
+            <button class="btn" id="roundBtn" data-ui="newRound"></button>
+            <button class="btn ghost" id="toPracticeBtn" data-ui="backPractice"></button>
+          </div>
+        </div>
       </div>
 
       <div class="rules">
@@ -211,6 +300,14 @@ var UI = { title:'Column Arithmetic', subtitle:'Learn to set up sums in columns,
     check:'✅ Check', clear:'🧽 Clear', reveal:'💡 Show me',
     allRight:'All correct! Brilliant 🎉', wrong:'{n} box(es) are not right yet – look at the red ones again.', stars:'⭐ {n} solved so far',
     rules:'📌 Remember', carry:'{c} (carried)',
+    modeTest:'📝 Test', testHint:'10 questions. Fill in the dashed boxes and press “Check” – you only get one try per question!',
+    qOf:'Question {i} of {n}', score:'Score: {n}', nextQ:'Next ▶', seeScore:'🏁 See score',
+    testRight:'Correct! ✅', testWrong:'Not quite ❌ – the right digits are now shown in the red boxes.',
+    outOf:'{s} / {n}', v10:'Perfect! 🏆', v8:'Great job! 🎉', v5:'Good effort 💪', v0:'Keep practising 🌱',
+    best:'Best for this level: {s} / {n}', bestTimes:'Best so far: {s} / 100', ttCorrect:'{n} of {t} correct', newBest:'New best! 🥇', remainder:'{q} r {r}',
+    times:'Times tables', timesTitle:'9 × 9 times tables', ttFilled:'{n} of {t} filled in',
+    timesHint:'Tap a box, then tap the numbers to fill in the answer. When all 10 are done, press “Check”.',
+    reviewHint:'Tap a ❌ question to see how it is done.', newRound:'🔁 New round', backPractice:'✏️ Back to practice', backScore:'◀ Back to score',
     errAdd:'Enter two whole numbers from 0 to 99999.', errSub:'Enter whole numbers 0–99999; the first must not be smaller than the second.',
     errMul:'First number 1–9999, second number 1–999.', errDiv:'Number 1–99999, divisor 1–99, and the number must not be smaller than the divisor.' };
 
@@ -262,17 +359,20 @@ var RULES = {
   add:['Line up the places: ones under ones, tens under tens.','Start adding from the ones.','If a column makes 10 or more, write the ones digit and carry 1 to the next column.'],
      sub:['Line up the places.','Start subtracting from the ones.','If the top digit is too small, borrow 1 from the next place – it counts as 10 here.'],
      mul:['Line the numbers up on the right.','Multiply the top number by each digit of the bottom number.','Each row starts under the digit you are multiplying by.','Add the rows together at the end.'],
-     div:['Start from the biggest place, on the left.','Write each answer digit above the last digit you used.','Each remainder must be smaller than the divisor.','If it is too small to divide, write 0 in the answer.']
+     div:['Start from the biggest place, on the left.','Write each answer digit above the last digit you used.','Each remainder must be smaller than the divisor.','If it is too small to divide, write 0 in the answer.'],
+     times:['Swapping is fine: 7 × 8 is the same as 8 × 7.','Build on a fact you know: 7 × 8 = 7 × 7 + 7.','× 9: take 10 times the number, then subtract the number once.','× 5 answers always end in 0 or 5.']
 };
 
-var SYM = { add:'+', sub:'−', mul:'×', div:'÷' };
+var SYM = { add:'+', sub:'−', mul:'×', div:'÷', times:'×' };
 
 /* ---------------- state ---------------- */
 var S = {
   op:'add', mode:'demo', level:0, step:0,
-  board:null, prob:null, timer:null, solved:false, inputs:[],
+  board:null, prob:null, timer:null, solved:false, inputs:[], reviewing:false,
   stars: +(store.get('stallupp-stars') || 0)
 };
+var TEST_LEN = 10;
+var T = null;   // the running (or just finished) test round
 
 function ui(key, params){ return fill(UI[key], params); }
 function fill(t, params){
@@ -563,7 +663,7 @@ function validate(op, a, b){
 var BRACKET = '<svg viewBox="0 0 20 100" preserveAspectRatio="none" aria-hidden="true"><path d="M4 0 Q18 50 4 100"/></svg>';
 
 function render(){
-  var B = S.board, g = $('board'), demo = S.mode === 'demo';
+  var B = S.board, g = $('board'), demo = S.mode === 'demo' || (S.mode === 'test' && T && T.done);
   g.innerHTML = '';
   var nr = 0;
   Object.keys(B.rows).forEach(function(k){ nr = Math.max(nr, +k + 1); });
@@ -623,9 +723,13 @@ function makeInput(small){
 }
 
 function updatePanels(){
-  var demo = S.mode === 'demo', B = S.board;
+  var demo = S.mode === 'demo', test = S.mode === 'test', B = S.board;
   $('demoPanel').hidden = !demo;
-  $('practicePanel').hidden = demo;
+  $('practicePanel').hidden = S.mode !== 'practice';
+  $('testPanel').hidden = !test;
+  $('backScoreBtn').hidden = !S.reviewing;
+  $('newBtn').hidden = $('custom').hidden = test;
+  if (test && T) updateTestPanel();
   if (demo){
     var n = B.steps.length, st = B.steps[S.step], last = S.step === n - 1;
     $('count').textContent = ui('stepOf', { i:S.step + 1, n:n });
@@ -639,13 +743,58 @@ function updatePanels(){
   $('stars').textContent = ui('stars', { n:S.stars });
 }
 
+function answerText(op, a, b){
+  if (op === 'add') return a + b;
+  if (op === 'sub') return a - b;
+  if (op === 'mul') return a * b;
+  var q = Math.floor(a / b), r = a % b;
+  return r ? ui('remainder', { q:q, r:r }) : q;
+}
+/* shared by the column test and the times-tables test */
+function saveBest(round, key){
+  var prev = +(store.get(key) || 0);
+  round.newBest = round.score > prev;
+  round.best = Math.max(prev, round.score);
+  if (round.newBest) store.set(key, round.best);
+}
+function showScore(round, scoreId, verdictId, bestId, bestKey){
+  var pct = round.score / TEST_LEN, toPoints = function(n){ return Math.round(100 * n / TEST_LEN); };
+  var percent = bestKey === 'bestTimes';   // the times-tables test is scored out of 100
+  $(scoreId).textContent = percent ? ui('outOf', { s:toPoints(round.score), n:100 }) : ui('outOf', { s:round.score, n:TEST_LEN });
+  $(verdictId).textContent = ui(pct === 1 ? 'v10' : pct >= .8 ? 'v8' : pct >= .5 ? 'v5' : 'v0');
+  $(bestId).textContent = (round.newBest ? ui('newBest') + ' · ' : '') + ui(bestKey || 'best', { s:percent ? toPoints(round.best) : round.best, n:TEST_LEN });
+}
+function updateTestPanel(){
+  $('testRun').hidden = T.done;
+  $('testResult').hidden = !T.done;
+  if (!T.done){
+    $('tCount').textContent = ui('qOf', { i:T.i + 1, n:TEST_LEN });
+    $('tScore').textContent = ui('score', { n:T.score });
+    $('tBar').style.width = (100 * (T.i + (T.checked ? 1 : 0)) / TEST_LEN) + '%';
+    $('tCheckBtn').hidden = T.checked;
+    $('tNextBtn').hidden = !T.checked;
+    $('tNextBtn').textContent = ui(T.i === TEST_LEN - 1 ? 'seeScore' : 'nextQ');
+    return;
+  }
+  showScore(T, 'rScore', 'rVerdict', 'rBest');
+  $('rHint').hidden = T.score === TEST_LEN;
+  $('rList').innerHTML = T.qs.map(function(q, i){
+    var row = '<span class="n">' + (i + 1) + '.</span><span class="eq">' + q.a + ' ' + SYM[T.op] + ' ' + q.b + ' = ' +
+              answerText(T.op, q.a, q.b) + '</span><span>' + (q.ok ? '✅' : '❌') + '</span>';
+    return q.ok ? '<li>' + row + '</li>' : '<li class="bad"><button type="button" data-q="' + i + '">' + row + '</button></li>';
+  }).join('');
+}
+
 function updateTexts(){
   document.querySelectorAll('[data-ui]').forEach(function(el){ el.textContent = ui(el.dataset.ui); });
   document.querySelectorAll('#tabs .tab').forEach(function(b){ b.setAttribute('aria-selected', b.dataset.op === S.op); });
   document.querySelectorAll('#modes .pill').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.mode === S.mode); });
   document.querySelectorAll('#levels .pill').forEach(function(b){ b.setAttribute('aria-pressed', +b.dataset.level === S.level); });
+  var tt = S.op === 'times';
+  $('toolbar').hidden = $('err').hidden = $('mainView').hidden = tt;
+  $('timesView').hidden = !tt;
   $('opSym').textContent = SYM[S.op];
-  $('rules').innerHTML = RULES[S.op].map(function(t){ return '<li>' + t + '</li>'; }).join('');
+  $(tt ? 'ttRules' : 'rules').innerHTML = RULES[S.op].map(function(t){ return '<li>' + t + '</li>'; }).join('');
   if (S.prob) $('question').textContent = S.prob.a + ' ' + SYM[S.op] + ' ' + S.prob.b + ' = ?';
   updatePanels();
 }
@@ -659,9 +808,131 @@ function setProblem(a, b){
   $('na').value = a; $('nb').value = b; $('err').textContent = '';
   $('feedback').textContent = ''; $('feedback').className = 'feedback';
   render(); updateTexts();
-  if (S.mode === 'practice' && S.inputs[0]) S.inputs[0].el.focus({ preventScroll:true });
+  if (S.mode !== 'demo' && S.inputs[0]) S.inputs[0].el.focus({ preventScroll:true });
 }
-function newProblem(){ var p = generate(S.op, S.level); setProblem(p.a, p.b); }
+function newProblem(){
+  S.reviewing = false;
+  if (S.mode === 'test') return startTest();
+  T = null;
+  var p = generate(S.op, S.level); setProblem(p.a, p.b);
+}
+
+/* ---------------- test rounds ---------------- */
+function startTest(){
+  var qs = [], seen = {}, tries = 0;
+  while (qs.length < TEST_LEN){
+    var p = generate(S.op, S.level), key = p.a + ',' + p.b;
+    if (seen[key] && tries++ < 200) continue;
+    seen[key] = 1;
+    qs.push({ a:p.a, b:p.b, ok:false });
+  }
+  T = { op:S.op, level:S.level, qs:qs, i:0, score:0, checked:false, done:false, best:0, newBest:false };
+  loadQuestion();
+}
+function loadQuestion(){
+  var q = T.qs[T.i];
+  T.checked = false;
+  $('tFeedback').textContent = ''; $('tFeedback').className = 'feedback';
+  setProblem(q.a, q.b);
+}
+function testCheck(){
+  if (!T || T.done || T.checked) return;
+  T.checked = true;
+  var wrong = 0;
+  S.inputs.forEach(function(o){
+    var good = o.el.value.trim() === o.cell.t;
+    if (!good){ wrong++; o.el.value = o.cell.t; }
+    o.el.classList.toggle('ok', good);
+    o.el.classList.toggle('bad', !good);
+  });
+  $('board').querySelectorAll('input').forEach(function(inp){ inp.readOnly = true; });
+  var q = T.qs[T.i];
+  q.ok = !wrong;
+  if (q.ok) T.score++;
+  var fb = $('tFeedback');
+  fb.textContent = ui(q.ok ? 'testRight' : 'testWrong');
+  fb.className = 'feedback ' + (q.ok ? 'good' : 'bad');
+  updatePanels();
+  $('tNextBtn').focus();
+}
+function testNext(){
+  if (!T || !T.checked) return;
+  if (T.i < TEST_LEN - 1){ T.i++; loadQuestion(); return; }
+  saveBest(T, 'stallupp-best-' + T.op + '-' + T.level);
+  T.done = true;
+  showResult();
+  $('roundBtn').focus();
+}
+function showResult(){
+  S.step = S.board.steps.length - 1;   // the board shows the finished solution
+  render(); updateTexts();
+}
+function reviewQuestion(i){
+  var q = T.qs[i];
+  S.reviewing = true; S.mode = 'demo';
+  setProblem(q.a, q.b);
+}
+function backToScore(){
+  stopPlay();
+  S.reviewing = false; S.mode = 'test';
+  showResult();
+}
+
+/* ---------------- times-tables test ---------------- */
+var TT = null;
+function startTimes(){
+  var pairs = [];
+  for (var a = 2; a <= 9; a++) for (var b = a; b <= 9; b++) pairs.push([a, b]);
+  for (var i = pairs.length - 1; i > 0; i--){ var j = rnd(0, i), t = pairs[i]; pairs[i] = pairs[j]; pairs[j] = t; }
+  TT = { qs:pairs.slice(0, TEST_LEN).map(function(p){
+           if (Math.random() < .5) p.reverse();
+           return { a:p[0], b:p[1], v:'', ok:false };
+         }), sel:0, done:false, score:0, best:0, newBest:false };
+  renderTimes();
+}
+function renderTimes(){
+  $('ttGrid').innerHTML = TT.qs.map(function(q, i){
+    var cls = 'tt-box' + (TT.done ? (q.ok ? ' ok' : ' bad') : (i === TT.sel ? ' sel' : ''));
+    return '<li class="tt-item"><span class="tt-n">' + (i + 1) + '.</span><span class="tt-q">' + q.a + ' × ' + q.b + ' =</span>' +
+           '<button type="button" class="' + cls + '" data-i="' + i + '" aria-label="answer ' + (i + 1) + '"' +
+           (TT.done ? ' disabled' : '') + '>' + q.v + '</button>' +
+           (TT.done && !q.ok ? '<span class="tt-fix">' + (q.a * q.b) + '</span>' : '') + '</li>';
+  }).join('');
+  var filled = TT.qs.filter(function(q){ return q.v; }).length;
+  $('ttCount').textContent = TT.done ? ui('ttCorrect', { n:TT.score, t:TEST_LEN }) : ui('ttFilled', { n:filled, t:TEST_LEN });
+  document.querySelectorAll('#keypad .key').forEach(function(k){ k.disabled = TT.done; });
+  $('ttCheckBtn').hidden = TT.done;
+  $('ttResult').hidden = !TT.done;
+  if (TT.done) showScore(TT, 'ttScore', 'ttVerdict', 'ttBest', 'bestTimes');
+}
+function timesPress(k){
+  if (!TT || TT.done) return;
+  var q = TT.qs[TT.sel];
+  if (k === 'del'){
+    if (q.v) q.v = q.v.slice(0, -1);
+    else if (TT.sel > 0) TT.sel--;
+  } else if (k === 'next') TT.sel = (TT.sel + 1) % TEST_LEN;
+  else if (k === 'prev') TT.sel = (TT.sel + TEST_LEN - 1) % TEST_LEN;
+  else {
+    q.v = q.v.length >= 2 ? k : q.v + k;   // a full box starts over
+    if (q.v.length === 2 && TT.sel < TEST_LEN - 1) TT.sel++;
+  }
+  renderTimes();
+}
+function timesCheck(){
+  if (!TT || TT.done) return;
+  TT.score = 0;
+  TT.qs.forEach(function(q){ q.ok = q.v === String(q.a * q.b); if (q.ok) TT.score++; });
+  saveBest(TT, 'stallupp-best-times');
+  TT.done = true;
+  renderTimes();
+  $('ttNewBtn').focus();
+}
+function setTimes(){
+  stopPlay();
+  S.op = 'times'; S.reviewing = false; T = null;
+  startTimes(); updateTexts();
+}
 
 function go(delta){
   var n = S.board.steps.length, s = Math.max(0, Math.min(n - 1, S.step + delta));
@@ -679,8 +950,10 @@ function togglePlay(){
   updatePanels();
 }
 function setMode(m){
-  stopPlay(); S.mode = m; S.step = 0;
+  stopPlay(); S.mode = m; S.step = 0; S.reviewing = false;
   $('feedback').textContent = '';
+  if (m === 'test') return startTest();
+  T = null;
   render(); updateTexts();
   if (m === 'practice' && S.inputs[0]) S.inputs[0].el.focus({ preventScroll:true });
 }
@@ -705,6 +978,7 @@ function check(){
 /* ---------------- events ---------------- */
 $('tabs').addEventListener('click', function(e){
   var b = e.target.closest('[data-op]'); if (!b || b.dataset.op === S.op) return;
+  if (b.dataset.op === 'times') return setTimes();
   S.op = b.dataset.op; newProblem();
 });
 $('modes').addEventListener('click', function(e){
@@ -734,6 +1008,23 @@ $('clearBtn').addEventListener('click', function(){
   render(); if (S.inputs[0]) S.inputs[0].el.focus();
 });
 $('revealBtn').addEventListener('click', function(){ setMode('demo'); });
+$('tCheckBtn').addEventListener('click', testCheck);
+$('tNextBtn').addEventListener('click', testNext);
+$('roundBtn').addEventListener('click', startTest);
+$('toPracticeBtn').addEventListener('click', function(){ setMode('practice'); });
+$('backScoreBtn').addEventListener('click', backToScore);
+$('keypad').addEventListener('click', function(e){
+  var k = e.target.closest('[data-k]'); if (k) timesPress(k.dataset.k);
+});
+$('ttGrid').addEventListener('click', function(e){
+  var b = e.target.closest('[data-i]'); if (!b || !TT || TT.done) return;
+  TT.sel = +b.dataset.i; renderTimes();
+});
+$('ttCheckBtn').addEventListener('click', timesCheck);
+$('ttNewBtn').addEventListener('click', startTimes);
+$('rList').addEventListener('click', function(e){
+  var b = e.target.closest('[data-q]'); if (b && T) reviewQuestion(+b.dataset.q);
+});
 
 $('board').addEventListener('input', function(e){
   var inp = e.target; if (inp.tagName !== 'INPUT') return;
@@ -746,13 +1037,28 @@ $('board').addEventListener('input', function(e){
 });
 $('board').addEventListener('keydown', function(e){
   var inp = e.target; if (inp.tagName !== 'INPUT') return;
-  if (e.key === 'Enter'){ e.preventDefault(); check(); }
+  if (e.key === 'Enter'){
+    e.preventDefault();
+    if (S.mode === 'test'){ if (T && T.checked) testNext(); else testCheck(); }
+    else check();
+  }
   else if (e.key === 'Backspace' && !inp.value && !inp.dataset.small){
     var prev = S.inputs[+inp.dataset.i - 1];
     if (prev){ e.preventDefault(); prev.el.focus(); prev.el.value = ''; }
   }
 });
 document.addEventListener('keydown', function(e){
+  if (S.op === 'times'){
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    if (/^[0-9]$/.test(e.key)) timesPress(e.key);
+    else if (e.key === 'Backspace') timesPress('del');
+    else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') timesPress('next');
+    else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') timesPress('prev');
+    else if (e.key === 'Enter' && document.activeElement.tagName !== 'BUTTON') timesPress('next');
+    else return;
+    e.preventDefault();
+    return;
+  }
   if (S.mode !== 'demo' || /INPUT|TEXTAREA/.test(document.activeElement.tagName)) return;
   if (e.key === 'ArrowRight'){ stopPlay(); go(1); }
   else if (e.key === 'ArrowLeft'){ stopPlay(); go(-1); }
