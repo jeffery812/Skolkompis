@@ -133,6 +133,11 @@ main{max-width:1040px;margin:0 auto;padding:4px 16px 64px}
 .tt-box.bad{border:2px solid var(--bad);background:var(--bad-bg);color:var(--bad);text-decoration:line-through}
 .tt-box:disabled{cursor:default}
 .tt-fix{color:var(--bad);font-size:1.3rem}
+#timesView>.card{display:flex;flex-direction:column;align-self:stretch}
+.tt-timer{margin:auto 0;padding:1.4rem 0 .4rem;display:flex;justify-content:center;align-items:baseline;gap:.6rem;font-family:"Fredoka",sans-serif;color:var(--soft)}
+.tt-timer .lbl{font-size:1.1rem;font-weight:600}
+.tt-timer .t{font-size:3rem;font-weight:700;color:var(--accent-deep);font-variant-numeric:tabular-nums;min-width:4.5ch;text-align:left}
+.tt-timer.done .t{color:var(--accent)}
 .keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:.45rem;max-width:16rem;margin:.2rem 0 1rem}
 .key{border:2px solid var(--border);background:var(--card);border-radius:12px;padding:.5rem 0;font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.45rem;cursor:pointer}
 .key:hover{border-color:var(--accent)}
@@ -187,6 +192,7 @@ main{max-width:1040px;margin:0 auto;padding:4px 16px 64px}
     <section class="card">
       <div class="question" data-ui="timesTitle"></div>
       <ol class="tt-grid" id="ttGrid"></ol>
+      <div class="tt-timer" id="ttTimer" aria-live="off"><span class="lbl">⏱ <span id="ttTimeLbl"></span></span><span class="t" id="ttTime">0:00</span></div>
     </section>
 
     <aside class="card side">
@@ -305,7 +311,7 @@ var UI = { title:'Column Arithmetic', subtitle:'Learn to set up sums in columns,
     testRight:'Correct! ✅', testWrong:'Not quite ❌ – the right digits are now shown in the red boxes.',
     outOf:'{s} / {n}', v10:'Perfect! 🏆', v8:'Great job! 🎉', v5:'Good effort 💪', v0:'Keep practising 🌱',
     best:'Best for this level: {s} / {n}', bestTimes:'Best so far: {s} / 100', ttCorrect:'{n} of {t} correct', newBest:'New best! 🥇', remainder:'{q} r {r}',
-    times:'Times tables', timesTitle:'9 × 9 times tables', ttFilled:'{n} of {t} filled in',
+    times:'Times tables', timesTitle:'9 × 9 times tables', ttFilled:'{n} of {t} filled in', ttTime:'Time', ttTimeDone:'Finished in',
     timesHint:'Tap a box, then tap the numbers to fill in the answer. When all 10 are done, press “Check”.',
     reviewHint:'Tap a ❌ question to see how it is done.', newRound:'🔁 New round', backPractice:'✏️ Back to practice', backScore:'◀ Back to score',
     errAdd:'Enter two whole numbers from 0 to 99999.', errSub:'Enter whole numbers 0–99999; the first must not be smaller than the second.',
@@ -887,8 +893,21 @@ function startTimes(){
   TT = { qs:pairs.slice(0, TEST_LEN).map(function(p){
            if (Math.random() < .5) p.reverse();
            return { a:p[0], b:p[1], v:'', ok:false };
-         }), sel:0, done:false, score:0, best:0, newBest:false };
+         }), sel:0, done:false, score:0, best:0, newBest:false, t0:Date.now(), ms:0 };
+  clearInterval(ttTick);
+  ttTick = setInterval(showTime, 250);
   renderTimes();
+}
+var ttTick = null;
+function fmtTime(ms){
+  var s = Math.floor(ms / 1000);
+  return Math.floor(s / 60) + ':' + ('0' + s % 60).slice(-2);
+}
+function showTime(){
+  if (!TT) return;
+  $('ttTime').textContent = fmtTime(TT.done ? TT.ms : Date.now() - TT.t0);
+  $('ttTimeLbl').textContent = ui(TT.done ? 'ttTimeDone' : 'ttTime');
+  $('ttTimer').classList.toggle('done', TT.done);
 }
 function renderTimes(){
   $('ttGrid').innerHTML = TT.qs.map(function(q, i){
@@ -904,6 +923,7 @@ function renderTimes(){
   $('ttCheckBtn').hidden = TT.done;
   $('ttResult').hidden = !TT.done;
   if (TT.done) showScore(TT, 'ttScore', 'ttVerdict', 'ttBest', 'bestTimes');
+  showTime();
 }
 function timesPress(k){
   if (!TT || TT.done) return;
@@ -924,6 +944,8 @@ function timesCheck(){
   TT.score = 0;
   TT.qs.forEach(function(q){ q.ok = q.v === String(q.a * q.b); if (q.ok) TT.score++; });
   saveBest(TT, 'stallupp-best-times');
+  TT.ms = Date.now() - TT.t0;
+  clearInterval(ttTick);
   TT.done = true;
   renderTimes();
   $('ttNewBtn').focus();
