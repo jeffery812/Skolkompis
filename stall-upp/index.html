@@ -135,7 +135,16 @@ main{max-width:1040px;margin:0 auto;padding:4px 16px 64px}
 .keys{color:var(--soft);font-size:.82rem;margin-top:.6rem}
 .t-stats{display:flex;gap:1.2rem;font-family:"Fredoka",sans-serif;font-weight:600;color:var(--soft);margin-top:.5rem}
 .t-stats b{font-size:1.5rem;color:var(--accent-deep);font-variant-numeric:tabular-nums}
-.t-stats b.hi{color:var(--gold)}
+/* top-3 scores per test */
+.podium{list-style:none;display:flex;flex-wrap:wrap;gap:.45rem;justify-content:center;padding:0;margin:.7rem 0 0;font-family:"Fredoka",sans-serif;flex-basis:100%}
+.top-bar{display:flex;align-items:center;gap:.7rem;margin:0 0 12px;font-family:"Fredoka",sans-serif;font-weight:600;color:var(--soft)}
+.top-bar[hidden]{display:none}
+.top-bar .podium{margin:0;flex-basis:auto;justify-content:flex-start}
+.podium li{display:flex;align-items:center;gap:.3rem;padding:.2rem .75rem .2rem .5rem;border:1.5px solid var(--border);border-radius:999px;background:var(--card);color:var(--soft)}
+.podium li b{font-size:1.2rem;font-weight:700;color:var(--gold);font-variant-numeric:tabular-nums;min-width:2ch;text-align:center}
+.podium li.empty b{color:var(--border)}
+.podium li.me{border-color:var(--gold);background:var(--hl);animation:chosen .5s ease-out}
+.rank{font-weight:600}
 .big-score{font-family:"Fredoka",sans-serif;font-weight:700;font-size:3rem;line-height:1.1;text-align:center;color:var(--accent-deep);margin-top:.3rem}
 .verdict{text-align:center;min-height:0;margin:.2rem 0 .2rem}
 .best{text-align:center;margin:0 0 .6rem}
@@ -177,9 +186,6 @@ main{max-width:1040px;margin:0 auto;padding:4px 16px 64px}
 .tt-timer .t{font-size:3rem;font-weight:700;color:var(--accent-deep);font-variant-numeric:tabular-nums;min-width:4.5ch;text-align:left}
 .tt-timer.done .t{color:var(--accent)}
 .tt-timer{flex-wrap:wrap;row-gap:.2rem}
-.tt-timer .sep{width:1px;height:2.2rem;background:var(--border);margin:0 .6rem;align-self:center}
-.tt-timer .t.hi{color:var(--gold);min-width:0}
-.tt-timer .t.hi.flash{animation:chosen .5s ease-out}
 @media (max-width:559px){.tt-timer .t{font-size:2.2rem}.tt-timer .sep{height:1.6rem;margin:0 .3rem}}
 .tt-break{margin:0 0 .2rem}
 .tt-for{font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.25rem;margin:.3rem 0 .5rem}
@@ -252,7 +258,7 @@ main{max-width:1040px;margin:0 auto;padding:4px 16px 64px}
     <section class="card">
       <div class="question" data-ui="timesTitle"></div>
       <ol class="tt-grid" id="ttGrid"></ol>
-      <div class="tt-timer" id="ttTimer" aria-live="off"><span class="lbl">⏱ <span id="ttTimeLbl"></span></span><span class="t" id="ttTime">0:00</span><span class="sep" aria-hidden="true"></span><span class="lbl">🏆 <span data-ui="ttHi"></span></span><span class="t hi" id="ttHi">0</span></div>
+      <div class="tt-timer" id="ttTimer" aria-live="off"><span class="lbl">⏱ <span id="ttTimeLbl"></span></span><span class="t" id="ttTime">0:00</span><ol class="podium" id="ttTop" aria-label="Top 3"></ol></div>
     </section>
 
     <aside class="card side">
@@ -270,7 +276,7 @@ main{max-width:1040px;margin:0 auto;padding:4px 16px 64px}
         <div class="big-score" id="ttScore"></div>
         <p class="msg done verdict" id="ttVerdict" aria-live="polite"></p>
         <p class="stars best tt-break" id="ttBreak"></p>
-        <p class="stars best" id="ttBest"></p>
+        <p class="stars best rank" id="ttBest"></p>
       </div>
       <div class="rules">
         <h2 data-ui="rules"></h2>
@@ -279,6 +285,7 @@ main{max-width:1040px;margin:0 auto;padding:4px 16px 64px}
     </aside>
   </div>
 
+  <div class="top-bar" id="tTopBar" hidden><span class="lbl">🏆 <span data-ui="top3"></span></span><ol class="podium" id="tTop" aria-label="Top 3"></ol></div>
   <div class="layout" id="mainView">
     <section class="card">
       <div class="question" id="question"></div>
@@ -328,13 +335,13 @@ main{max-width:1040px;margin:0 auto;padding:4px 16px 64px}
           <p class="feedback" id="tFeedback" aria-live="polite"></p>
           <div class="progress"><span id="tBar"></span></div>
           <p class="stars" id="tScore"></p>
-          <div class="t-stats"><span>⏱ <b id="tTime">0:00</b></span><span>🏆 <span data-ui="ttHi"></span> <b class="hi" id="tHi">0</b></span></div>
+          <div class="t-stats"><span>⏱ <b id="tTime">0:00</b></span></div>
         </div>
         <div id="testResult" hidden>
           <div class="big-score" id="rScore"></div>
           <p class="msg done verdict" id="rVerdict" aria-live="polite"></p>
           <p class="stars best tt-break" id="rBreak"></p>
-          <p class="stars best" id="rBest"></p>
+          <p class="stars best rank" id="rBest"></p>
           <p class="keys" id="rHint" data-ui="reviewHint"></p>
           <ol class="results" id="rList"></ol>
           <div class="controls">
@@ -381,7 +388,7 @@ var UI = { title:'Column Arithmetic', subtitle:'Learn to set up sums in columns,
     qOf:'Question {i} of {n}', score:'Correct: {n}', nextQ:'Next ▶', seeScore:'🏁 See score',
     testRight:'Correct! ✅', testWrong:'Not quite ❌ – your digit is in red; the right one is in the green tag above it.',
     v8:'Great job! 🎉', v5:'Good effort 💪', v0:'Keep practising 🌱',
-    bestTimes:'Best so far: {s}', resetBest:'🗑 Clear best scores', resetAsk:'Clear all best scores on this device? This can’t be undone.', resetDone:'Best scores cleared ✓', colTime:'{n} of {t} correct in {m}', ttHi:'Best', tv900:'Superstar! 🏆', ttBreak:'Accuracy {a}% × speed {b}%', ttCorrect:'{n} of {t} correct', newBest:'New best! 🥇', remainder:'{q} r {r}',
+    resetBest:'🗑 Clear best scores', resetAsk:'Clear all best scores on this device? This can’t be undone.', resetDone:'Best scores cleared ✓', colTime:'{n} of {t} correct in {m}', tv900:'Superstar! 🏆', ttBreak:'Accuracy {a}% × speed {b}%', ttCorrect:'{n} of {t} correct', top3:'Top 3', rank0:'🥇 New record!', rank1:'🥈 Your 2nd best ever!', rank2:'🥉 Your 3rd best ever!', noRank:'Not in your top 3 this time – keep going! 💪', remainder:'{q} r {r}',
     times:'Times tables', timesTitle:'9 × 9 times tables', ttFilled:'{n} of {t} filled in', ttTime:'Time', ttTimeDone:'Finished in',
     timesHint:'Tap the right answer. Scored automatically after the 10th.',
     reviewHint:'Tap a ❌ question to see how it is done.', newRound:'🔁 New round', backPractice:'✏️ Back to practice', backScore:'◀ Back to score',
@@ -806,6 +813,7 @@ function updatePanels(){
   $('testPanel').hidden = !test;
   $('backScoreBtn').hidden = !S.reviewing;
   $('newBtn').hidden = $('custom').hidden = test;
+  $('tTopBar').hidden = !(test && T && S.op !== 'times');
   if (test && T) updateTestPanel();
   var pad = $('digitPad');
   pad.hidden = !(S.mode === 'practice' || (test && T && !T.done));
@@ -830,13 +838,28 @@ function answerText(op, a, b){
   var q = Math.floor(a / b), r = a % b;
   return r ? ui('remainder', { q:q, r:r }) : q;
 }
-/* shared by the column test and the times-tables test */
-function saveBest(round, key){
-  var prev = +(store.get(key) || 0);
-  round.newBest = round.score > prev;
-  round.best = Math.max(prev, round.score);
-  if (round.newBest) store.set(key, round.best);
+/* top-3 scores per test, shared by the column tests and the times-tables test.
+   Stored as a JSON list; an older single best (a plain number) becomes 1st place. */
+var MEDALS = ['🥇', '🥈', '🥉'];
+function topGet(key){
+  var v; try { v = JSON.parse(store.get(key) || '[]'); } catch(e){ v = []; }
+  if (typeof v === 'number') v = [v];
+  if (!Array.isArray(v)) v = [];
+  return v.map(Number).filter(function(n){ return n > 0; }).sort(function(a, b){ return b - a; }).slice(0, 3);
 }
+function topAdd(key, score){                 // returns the place reached (0-2), or -1
+  var top = topGet(key).concat(score).sort(function(a, b){ return b - a; }).slice(0, 3);
+  store.set(key, JSON.stringify(top));
+  return top.indexOf(score);
+}
+function showTop(id, key, me){
+  var top = topGet(key);
+  $(id).innerHTML = MEDALS.map(function(m, i){
+    var has = top[i] != null;
+    return '<li class="' + (has ? '' : 'empty') + (i === me ? ' me' : '') + '"><span aria-hidden="true">' + m + '</span><b>' + (has ? top[i] : '–') + '</b></li>';
+  }).join('');
+}
+function rankText(place){ return ui(place >= 0 ? 'rank' + place : 'noRank'); }
 /* column tests: 1–1000 from accuracy × speed. Speed is judged per digit box to fill,
    so long divisions and short additions are scored fairly. Only time spent
    answering counts (the clock pauses after "Check"). */
@@ -858,7 +881,8 @@ function showScore(){
   $('rVerdict').textContent = ui(verdictKey(T.points));
   $('rBreak').textContent = ui('colTime', { n:T.score, t:TEST_LEN, m:fmtTime(T.ms) }) + ' · ' +
                             ui('ttBreak', { a:Math.round(100 * T.score / TEST_LEN), b:Math.round(100 * T.speed) });
-  $('rBest').textContent = (T.newBest ? ui('newBest') + ' · ' : '') + ui('bestTimes', { s:T.best });
+  $('rBest').textContent = rankText(T.place);
+  showTop('tTop', colKey(), T.place);
 }
 function updateTestPanel(){
   $('testRun').hidden = T.done;
@@ -866,7 +890,7 @@ function updateTestPanel(){
   if (!T.done){
     $('tCount').textContent = ui('qOf', { i:T.i + 1, n:TEST_LEN });
     $('tScore').textContent = ui('score', { n:T.score });
-    $('tHi').textContent = +(store.get(colKey()) || 0);
+    showTop('tTop', colKey(), -1);
     showTestTime();
     $('tBar').style.width = (100 * (T.i + (T.checked ? 1 : 0)) / TEST_LEN) + '%';
     $('tCheckBtn').hidden = T.checked;
@@ -924,7 +948,7 @@ function startTest(){
     seen[key] = 1;
     qs.push({ a:p.a, b:p.b, ok:false });
   }
-  T = { op:S.op, level:S.level, qs:qs, i:0, score:0, checked:false, done:false, best:0, newBest:false, ms:0, t0:0, cells:0, points:0, speed:0 };
+  T = { op:S.op, level:S.level, qs:qs, i:0, score:0, checked:false, done:false, place:-1, ms:0, t0:0, cells:0, points:0, speed:0 };
   clearInterval(tTick); tTick = setInterval(showTestTime, 250);
   loadQuestion();
 }
@@ -964,9 +988,7 @@ function testNext(){
   clearInterval(tTick);
   T.speed = colSpeed(T.ms, T.cells);
   T.points = Math.max(1, Math.round(1000 * T.score / TEST_LEN * T.speed));
-  var r = { score:T.points };
-  saveBest(r, colKey());
-  T.best = r.best; T.newBest = r.newBest;
+  T.place = topAdd(colKey(), T.points);
   T.done = true;
   showResult();
   $('roundBtn').focus();
@@ -995,7 +1017,7 @@ function startTimes(){
   TT = { qs:pairs.slice(0, TEST_LEN).map(function(p){
            if (Math.random() < .5) p.reverse();
            return { a:p[0], b:p[1], v:'', ok:false, opts:makeOpts(p[0], p[1]) };
-         }), sel:0, done:false, score:0, best:0, newBest:false, t0:Date.now(), ms:0 };
+         }), sel:0, done:false, score:0, place:-1, t0:Date.now(), ms:0 };
   clearInterval(ttTick);
   ttTick = setInterval(showTime, 250);
   renderTimes();
@@ -1031,7 +1053,6 @@ function showTime(){
   $('ttTime').textContent = fmtTime(TT.done ? TT.ms : Date.now() - TT.t0);
   $('ttTimeLbl').textContent = ui(TT.done ? 'ttTimeDone' : 'ttTime');
   $('ttTimer').classList.toggle('done', TT.done);
-  $('ttHi').textContent = +(store.get('stallupp-best-times-1000') || 0);
 }
 function renderTimes(){
   $('ttGrid').innerHTML = TT.qs.map(function(q, i){
@@ -1058,13 +1079,14 @@ function renderTimes(){
     }).join('');
   }
   $('ttCheckBtn').hidden = TT.done;
+  showTop('ttTop', 'stallupp-best-times-1000', TT.done ? TT.place : -1);
   $('ttResult').hidden = !TT.done;
   if (TT.done){
     var p = TT.points;
     $('ttScore').textContent = p;
     $('ttVerdict').textContent = ui(verdictKey(p));
     $('ttBreak').textContent = ui('ttBreak', { a:Math.round(100 * TT.score / TEST_LEN), b:Math.round(100 * TT.speed) });
-    $('ttBest').textContent = (TT.newBest ? ui('newBest') + ' · ' : '') + ui('bestTimes', { s:TT.best });
+    $('ttBest').textContent = rankText(TT.place);
   }
   showTime();
 }
@@ -1105,10 +1127,7 @@ function timesCheck(){
   TT.ms = Date.now() - TT.t0;
   TT.speed = speedFactor(TT.ms);
   TT.points = Math.max(1, Math.round(TT_MAX * TT.score / TEST_LEN * TT.speed));
-  var r = { score:TT.points };
-  saveBest(r, 'stallupp-best-times-1000');
-  TT.best = r.best; TT.newBest = r.newBest;
-  if (r.newBest){ var hi = $('ttHi'); hi.classList.remove('flash'); void hi.offsetWidth; hi.classList.add('flash'); }
+  TT.place = topAdd('stallupp-best-times-1000', TT.points);
   clearInterval(ttTick);
   TT.done = true;
   renderTimes();
@@ -1230,11 +1249,11 @@ $('resetBestBtn').addEventListener('click', function(){
   try {
     Object.keys(localStorage).forEach(function(k){ if (k.indexOf('stallupp-best-') === 0) localStorage.removeItem(k); });
   } catch(e){}
-  if (TT){ TT.best = 0; TT.newBest = false; }
-  if (T){ T.best = 0; T.newBest = false; }
-  $('ttHi').textContent = 0; $('tHi').textContent = 0;
-  if ($('ttBest')) $('ttBest').textContent = ui('bestTimes', { s:0 });
-  if ($('rBest')) $('rBest').textContent = ui('bestTimes', { s:0 });
+  if (TT) TT.place = -1;
+  if (T) T.place = -1;
+  showTop('ttTop', 'stallupp-best-times-1000', -1);
+  if (T) showTop('tTop', colKey(), -1);
+  $('ttBest').textContent = $('rBest').textContent = '';
   var b = this; b.textContent = ui('resetDone'); b.classList.add('done');
   setTimeout(function(){ b.textContent = ui('resetBest'); b.classList.remove('done'); }, 2500);
 });
