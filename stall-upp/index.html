@@ -138,7 +138,20 @@ main{max-width:1040px;margin:0 auto;padding:4px 16px 64px}
 .tt-timer .lbl{font-size:1.1rem;font-weight:600}
 .tt-timer .t{font-size:3rem;font-weight:700;color:var(--accent-deep);font-variant-numeric:tabular-nums;min-width:4.5ch;text-align:left}
 .tt-timer.done .t{color:var(--accent)}
+.tt-break{margin:0 0 .2rem}
+.tt-for{font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.25rem;margin:.3rem 0 .5rem}
+.tt-for b{color:var(--accent-deep)}
 .keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:.45rem;max-width:16rem;margin:.2rem 0 1rem}
+.keypad .key{font-size:1.6rem;padding:.6rem 0}
+.keypad .key.picked{border-color:var(--accent);background:var(--hl)}
+/* narrow screens: keep the choices pinned at the bottom, next to the questions */
+@media (max-width:859px){
+  #ttPick{position:fixed;left:0;right:0;bottom:0;z-index:5;background:var(--card);border-top:1px solid var(--border);box-shadow:0 -6px 18px rgba(0,0,0,.08);padding:.55rem 14px calc(.6rem + env(safe-area-inset-bottom))}
+  #ttPick .tt-for{text-align:center;margin:0 0 .4rem;font-size:1.15rem}
+  #ttPick .keypad{grid-template-columns:repeat(6,1fr);max-width:30rem;margin:0 auto}
+  #ttPick .keypad .key{font-size:1.35rem;padding:.5rem 0}
+  #timesView{padding-bottom:7.5rem}
+}
 .key{border:2px solid var(--border);background:var(--card);border-radius:12px;padding:.5rem 0;font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.45rem;cursor:pointer}
 .key:hover{border-color:var(--accent)}
 .key:active{background:var(--hl)}
@@ -198,11 +211,9 @@ main{max-width:1040px;margin:0 auto;padding:4px 16px 64px}
     <aside class="card side">
       <div class="count" id="ttCount"></div>
       <p class="msg" data-ui="timesHint"></p>
-      <div class="keypad" id="keypad">
-        <button class="key" data-k="1">1</button><button class="key" data-k="2">2</button><button class="key" data-k="3">3</button>
-        <button class="key" data-k="4">4</button><button class="key" data-k="5">5</button><button class="key" data-k="6">6</button>
-        <button class="key" data-k="7">7</button><button class="key" data-k="8">8</button><button class="key" data-k="9">9</button>
-        <button class="key" data-k="del" aria-label="delete">⌫</button><button class="key" data-k="0">0</button><button class="key" data-k="next" aria-label="next question">▶</button>
+      <div id="ttPick">
+        <div class="tt-for" id="ttFor"></div>
+        <div class="keypad" id="keypad"></div>
       </div>
       <div class="controls">
         <button class="btn" id="ttCheckBtn" data-ui="check"></button>
@@ -211,6 +222,7 @@ main{max-width:1040px;margin:0 auto;padding:4px 16px 64px}
       <div id="ttResult" hidden>
         <div class="big-score" id="ttScore"></div>
         <p class="msg done verdict" id="ttVerdict" aria-live="polite"></p>
+        <p class="stars best tt-break" id="ttBreak"></p>
         <p class="stars best" id="ttBest"></p>
       </div>
       <div class="rules">
@@ -310,9 +322,9 @@ var UI = { title:'Column Arithmetic', subtitle:'Learn to set up sums in columns,
     qOf:'Question {i} of {n}', score:'Score: {n}', nextQ:'Next ▶', seeScore:'🏁 See score',
     testRight:'Correct! ✅', testWrong:'Not quite ❌ – the right digits are now shown in the red boxes.',
     outOf:'{s} / {n}', v10:'Perfect! 🏆', v8:'Great job! 🎉', v5:'Good effort 💪', v0:'Keep practising 🌱',
-    best:'Best for this level: {s} / {n}', bestTimes:'Best so far: {s} / 100', ttCorrect:'{n} of {t} correct', newBest:'New best! 🥇', remainder:'{q} r {r}',
+    best:'Best for this level: {s} / {n}', bestTimes:'Best so far: {s}', ttBreak:'Accuracy {a}% × speed {b}%', ttCorrect:'{n} of {t} correct', newBest:'New best! 🥇', remainder:'{q} r {r}',
     times:'Times tables', timesTitle:'9 × 9 times tables', ttFilled:'{n} of {t} filled in', ttTime:'Time', ttTimeDone:'Finished in',
-    timesHint:'Tap a box, then tap the numbers to fill in the answer. When all 10 are done, press “Check”.',
+    timesHint:'Pick the right answer for each question; the choices change after every answer. Tap a box to go back and change it. When all 10 are done, press “Check”.',
     reviewHint:'Tap a ❌ question to see how it is done.', newRound:'🔁 New round', backPractice:'✏️ Back to practice', backScore:'◀ Back to score',
     errAdd:'Enter two whole numbers from 0 to 99999.', errSub:'Enter whole numbers 0–99999; the first must not be smaller than the second.',
     errMul:'First number 1–9999, second number 1–999.', errDiv:'Number 1–99999, divisor 1–99, and the number must not be smaller than the divisor.' };
@@ -763,12 +775,11 @@ function saveBest(round, key){
   round.best = Math.max(prev, round.score);
   if (round.newBest) store.set(key, round.best);
 }
-function showScore(round, scoreId, verdictId, bestId, bestKey){
-  var pct = round.score / TEST_LEN, toPoints = function(n){ return Math.round(100 * n / TEST_LEN); };
-  var percent = bestKey === 'bestTimes';   // the times-tables test is scored out of 100
-  $(scoreId).textContent = percent ? ui('outOf', { s:toPoints(round.score), n:100 }) : ui('outOf', { s:round.score, n:TEST_LEN });
+function showScore(round, scoreId, verdictId, bestId){
+  var pct = round.score / TEST_LEN;
+  $(scoreId).textContent = ui('outOf', { s:round.score, n:TEST_LEN });
   $(verdictId).textContent = ui(pct === 1 ? 'v10' : pct >= .8 ? 'v8' : pct >= .5 ? 'v5' : 'v0');
-  $(bestId).textContent = (round.newBest ? ui('newBest') + ' · ' : '') + ui(bestKey || 'best', { s:percent ? toPoints(round.best) : round.best, n:TEST_LEN });
+  $(bestId).textContent = (round.newBest ? ui('newBest') + ' · ' : '') + ui('best', { s:round.best, n:TEST_LEN });
 }
 function updateTestPanel(){
   $('testRun').hidden = T.done;
@@ -892,13 +903,32 @@ function startTimes(){
   for (var i = pairs.length - 1; i > 0; i--){ var j = rnd(0, i), t = pairs[i]; pairs[i] = pairs[j]; pairs[j] = t; }
   TT = { qs:pairs.slice(0, TEST_LEN).map(function(p){
            if (Math.random() < .5) p.reverse();
-           return { a:p[0], b:p[1], v:'', ok:false };
+           return { a:p[0], b:p[1], v:'', ok:false, opts:makeOpts(p[0], p[1]) };
          }), sel:0, done:false, score:0, best:0, newBest:false, t0:Date.now(), ms:0 };
   clearInterval(ttTick);
   ttTick = setInterval(showTime, 250);
   renderTimes();
 }
 var ttTick = null;
+var TT_OPTS = 6;
+// score out of 1000 = 1000 × share right × speed.
+// Speed is 1 at 5 s or less and falls in a straight line to 0 at 2 minutes,
+// so every second counts the same. The score never goes below 1.
+var TT_MAX = 1000, TT_FAST = 5, TT_SLOW = 120;
+function speedFactor(ms){
+  return Math.max(0, Math.min(1, (TT_SLOW - ms / 1000) / (TT_SLOW - TT_FAST)));
+}
+// one right answer plus look-alike wrong ones: a neighbouring row or column,
+// swapped digits, or an answer that is off by a little
+function makeOpts(a, b){
+  var c = a * b, near = [a * (b - 1), a * (b + 1), (a - 1) * b, (a + 1) * b, c + 1, c - 1, c + 2, c - 2, c + 10, c - 10];
+  if (c > 9 && c % 10) near.push(+String(c).split('').reverse().join(''));
+  var pool = [];
+  near.forEach(function(n){ if (n > 0 && n !== c && pool.indexOf(n) < 0) pool.push(n); });
+  for (var i = pool.length - 1; i > 0; i--){ var j = rnd(0, i), t = pool[i]; pool[i] = pool[j]; pool[j] = t; }
+  var opts = pool.slice(0, TT_OPTS - 1).concat(c);
+  return opts.sort(function(x, y){ return x - y; });
+}
 function fmtTime(ms){
   var s = Math.floor(ms / 1000);
   return Math.floor(s / 60) + ':' + ('0' + s % 60).slice(-2);
@@ -919,23 +949,38 @@ function renderTimes(){
   }).join('');
   var filled = TT.qs.filter(function(q){ return q.v; }).length;
   $('ttCount').textContent = TT.done ? ui('ttCorrect', { n:TT.score, t:TEST_LEN }) : ui('ttFilled', { n:filled, t:TEST_LEN });
-  document.querySelectorAll('#keypad .key').forEach(function(k){ k.disabled = TT.done; });
+  $('ttPick').hidden = TT.done;
+  if (!TT.done){
+    var cur = TT.qs[TT.sel];
+    $('ttFor').innerHTML = (TT.sel + 1) + '.&nbsp; ' + cur.a + ' × ' + cur.b + ' = <b>' + (cur.v || '?') + '</b>';
+    $('keypad').innerHTML = cur.opts.map(function(n){
+      return '<button type="button" class="key' + (String(n) === cur.v ? ' picked' : '') + '" data-k="' + n + '">' + n + '</button>';
+    }).join('');
+  }
   $('ttCheckBtn').hidden = TT.done;
   $('ttResult').hidden = !TT.done;
-  if (TT.done) showScore(TT, 'ttScore', 'ttVerdict', 'ttBest', 'bestTimes');
+  if (TT.done){
+    var pct = TT.score / TEST_LEN;
+    $('ttScore').textContent = TT.points;
+    $('ttVerdict').textContent = ui(pct === 1 ? 'v10' : pct >= .8 ? 'v8' : pct >= .5 ? 'v5' : 'v0');
+    $('ttBreak').textContent = ui('ttBreak', { a:Math.round(100 * TT.score / TEST_LEN), b:Math.round(100 * TT.speed) });
+    $('ttBest').textContent = (TT.newBest ? ui('newBest') + ' · ' : '') + ui('bestTimes', { s:TT.best });
+  }
   showTime();
 }
 function timesPress(k){
   if (!TT || TT.done) return;
   var q = TT.qs[TT.sel];
-  if (k === 'del'){
-    if (q.v) q.v = q.v.slice(0, -1);
-    else if (TT.sel > 0) TT.sel--;
-  } else if (k === 'next') TT.sel = (TT.sel + 1) % TEST_LEN;
+  if (k === 'del') q.v = '';
+  else if (k === 'next') TT.sel = (TT.sel + 1) % TEST_LEN;
   else if (k === 'prev') TT.sel = (TT.sel + TEST_LEN - 1) % TEST_LEN;
   else {
-    q.v = q.v.length >= 2 ? k : q.v + k;   // a full box starts over
-    if (q.v.length === 2 && TT.sel < TEST_LEN - 1) TT.sel++;
+    q.v = k;
+    // move on to the next question still empty, so its choices come up
+    for (var i = 1; i < TEST_LEN; i++){
+      var n = (TT.sel + i) % TEST_LEN;
+      if (!TT.qs[n].v){ TT.sel = n; break; }
+    }
   }
   renderTimes();
 }
@@ -943,8 +988,12 @@ function timesCheck(){
   if (!TT || TT.done) return;
   TT.score = 0;
   TT.qs.forEach(function(q){ q.ok = q.v === String(q.a * q.b); if (q.ok) TT.score++; });
-  saveBest(TT, 'stallupp-best-times');
   TT.ms = Date.now() - TT.t0;
+  TT.speed = speedFactor(TT.ms);
+  TT.points = Math.max(1, Math.round(TT_MAX * TT.score / TEST_LEN * TT.speed));
+  var r = { score:TT.points };
+  saveBest(r, 'stallupp-best-times-1000');
+  TT.best = r.best; TT.newBest = r.newBest;
   clearInterval(ttTick);
   TT.done = true;
   renderTimes();
@@ -1072,7 +1121,7 @@ $('board').addEventListener('keydown', function(e){
 document.addEventListener('keydown', function(e){
   if (S.op === 'times'){
     if (e.ctrlKey || e.metaKey || e.altKey) return;
-    if (/^[0-9]$/.test(e.key)) timesPress(e.key);
+    if (/^[1-6]$/.test(e.key) && TT && !TT.done) timesPress(String(TT.qs[TT.sel].opts[+e.key - 1]));
     else if (e.key === 'Backspace') timesPress('del');
     else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') timesPress('next');
     else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') timesPress('prev');
