@@ -322,7 +322,7 @@ var UI = { title:'Column Arithmetic', subtitle:'Learn to set up sums in columns,
     qOf:'Question {i} of {n}', score:'Score: {n}', nextQ:'Next ▶', seeScore:'🏁 See score',
     testRight:'Correct! ✅', testWrong:'Not quite ❌ – the right digits are now shown in the red boxes.',
     outOf:'{s} / {n}', v10:'Perfect! 🏆', v8:'Great job! 🎉', v5:'Good effort 💪', v0:'Keep practising 🌱',
-    best:'Best for this level: {s} / {n}', bestTimes:'Best so far: {s}', ttBreak:'Accuracy {a}% × speed {b}%', ttCorrect:'{n} of {t} correct', newBest:'New best! 🥇', remainder:'{q} r {r}',
+    best:'Best for this level: {s} / {n}', bestTimes:'Best so far: {s}', tv900:'Superstar! 🏆', ttBreak:'Accuracy {a}% × speed {b}%', ttCorrect:'{n} of {t} correct', newBest:'New best! 🥇', remainder:'{q} r {r}',
     times:'Times tables', timesTitle:'9 × 9 times tables', ttFilled:'{n} of {t} filled in', ttTime:'Time', ttTimeDone:'Finished in',
     timesHint:'Pick the right answer for each question; the choices change after every answer. Tap a box to go back and change it. When all 10 are done, press “Check”.',
     reviewHint:'Tap a ❌ question to see how it is done.', newRound:'🔁 New round', backPractice:'✏️ Back to practice', backScore:'◀ Back to score',
@@ -960,9 +960,9 @@ function renderTimes(){
   $('ttCheckBtn').hidden = TT.done;
   $('ttResult').hidden = !TT.done;
   if (TT.done){
-    var pct = TT.score / TEST_LEN;
-    $('ttScore').textContent = TT.points;
-    $('ttVerdict').textContent = ui(pct === 1 ? 'v10' : pct >= .8 ? 'v8' : pct >= .5 ? 'v5' : 'v0');
+    var p = TT.points;
+    $('ttScore').textContent = p;
+    $('ttVerdict').textContent = ui(p >= 900 ? 'tv900' : p >= 650 ? 'v8' : p >= 350 ? 'v5' : 'v0');
     $('ttBreak').textContent = ui('ttBreak', { a:Math.round(100 * TT.score / TEST_LEN), b:Math.round(100 * TT.speed) });
     $('ttBest').textContent = (TT.newBest ? ui('newBest') + ' · ' : '') + ui('bestTimes', { s:TT.best });
   }
