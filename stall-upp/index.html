@@ -92,6 +92,8 @@ main{max-width:1040px;margin:0 auto;padding:4px 16px 64px}
 .cell.c input{width:70%;height:100%;font-size:calc(var(--cw)*.38);border-width:1.5px;border-radius:6px}
 .cell input.ok{border:2px solid var(--accent);background:var(--ok-bg)}
 .cell input.bad{border:2px solid var(--bad);background:var(--bad-bg);color:var(--bad)}
+.cell[data-was]{position:relative}
+.cell[data-was]::after{content:attr(data-was);position:absolute;top:-.5em;right:-.45em;font-family:"Fredoka",sans-serif;font-weight:600;font-size:calc(var(--cw)*.55);line-height:1;color:var(--soft);text-decoration:line-through;text-decoration-color:var(--bad);text-decoration-thickness:2px;background:var(--card);border:1.5px solid var(--bad);border-radius:6px;padding:.08em .22em;pointer-events:none}
 
 .side .count{font-family:"Fredoka",sans-serif;color:var(--soft);font-size:.95rem}
 .msg{font-size:1.15rem;line-height:1.55;min-height:5.2em;margin:.4rem 0 1rem}
@@ -109,6 +111,9 @@ main{max-width:1040px;margin:0 auto;padding:4px 16px 64px}
 .rules ol{margin:.4rem 0 0;padding-left:1.3rem}
 .rules li{margin:.15rem 0}
 .keys{color:var(--soft);font-size:.82rem;margin-top:.6rem}
+.t-stats{display:flex;gap:1.2rem;font-family:"Fredoka",sans-serif;font-weight:600;color:var(--soft);margin-top:.5rem}
+.t-stats b{font-size:1.5rem;color:var(--accent-deep);font-variant-numeric:tabular-nums}
+.t-stats b.hi{color:var(--gold)}
 .big-score{font-family:"Fredoka",sans-serif;font-weight:700;font-size:3rem;line-height:1.1;text-align:center;color:var(--accent-deep);margin-top:.3rem}
 .verdict{text-align:center;min-height:0;margin:.2rem 0 .2rem}
 .best{text-align:center;margin:0 0 .6rem}
@@ -295,10 +300,12 @@ main{max-width:1040px;margin:0 auto;padding:4px 16px 64px}
           <p class="feedback" id="tFeedback" aria-live="polite"></p>
           <div class="progress"><span id="tBar"></span></div>
           <p class="stars" id="tScore"></p>
+          <div class="t-stats"><span>⏱ <b id="tTime">0:00</b></span><span>🏆 <span data-ui="ttHi"></span> <b class="hi" id="tHi">0</b></span></div>
         </div>
         <div id="testResult" hidden>
           <div class="big-score" id="rScore"></div>
           <p class="msg done verdict" id="rVerdict" aria-live="polite"></p>
+          <p class="stars best tt-break" id="rBreak"></p>
           <p class="stars best" id="rBest"></p>
           <p class="keys" id="rHint" data-ui="reviewHint"></p>
           <ol class="results" id="rList"></ol>
@@ -339,10 +346,10 @@ var UI = { title:'Column Arithmetic', subtitle:'Learn to set up sums in columns,
     allRight:'All correct! Brilliant 🎉', wrong:'{n} box(es) are not right yet – look at the red ones again.', stars:'⭐ {n} solved so far',
     rules:'📌 Remember', carry:'{c} (carried)',
     modeTest:'📝 Test', testHint:'10 questions. Fill in the dashed boxes and press “Check” – you only get one try per question!',
-    qOf:'Question {i} of {n}', score:'Score: {n}', nextQ:'Next ▶', seeScore:'🏁 See score',
-    testRight:'Correct! ✅', testWrong:'Not quite ❌ – the right digits are now shown in the red boxes.',
-    outOf:'{s} / {n}', v10:'Perfect! 🏆', v8:'Great job! 🎉', v5:'Good effort 💪', v0:'Keep practising 🌱',
-    best:'Best for this level: {s} / {n}', bestTimes:'Best so far: {s}', ttHi:'Best', tv900:'Superstar! 🏆', ttBreak:'Accuracy {a}% × speed {b}%', ttCorrect:'{n} of {t} correct', newBest:'New best! 🥇', remainder:'{q} r {r}',
+    qOf:'Question {i} of {n}', score:'Correct: {n}', nextQ:'Next ▶', seeScore:'🏁 See score',
+    testRight:'Correct! ✅', testWrong:'Not quite ❌ – red boxes now show the right digit; yours is crossed out in the corner.',
+    v8:'Great job! 🎉', v5:'Good effort 💪', v0:'Keep practising 🌱',
+    bestTimes:'Best so far: {s}', colTime:'{n} of {t} correct in {m}', ttHi:'Best', tv900:'Superstar! 🏆', ttBreak:'Accuracy {a}% × speed {b}%', ttCorrect:'{n} of {t} correct', newBest:'New best! 🥇', remainder:'{q} r {r}',
     times:'Times tables', timesTitle:'9 × 9 times tables', ttFilled:'{n} of {t} filled in', ttTime:'Time', ttTimeDone:'Finished in',
     timesHint:'Tap the right answer. Scored automatically after the 10th.',
     reviewHint:'Tap a ❌ question to see how it is done.', newRound:'🔁 New round', backPractice:'✏️ Back to practice', backScore:'◀ Back to score',
@@ -795,11 +802,28 @@ function saveBest(round, key){
   round.best = Math.max(prev, round.score);
   if (round.newBest) store.set(key, round.best);
 }
-function showScore(round, scoreId, verdictId, bestId){
-  var pct = round.score / TEST_LEN;
-  $(scoreId).textContent = ui('outOf', { s:round.score, n:TEST_LEN });
-  $(verdictId).textContent = ui(pct === 1 ? 'v10' : pct >= .8 ? 'v8' : pct >= .5 ? 'v5' : 'v0');
-  $(bestId).textContent = (round.newBest ? ui('newBest') + ' · ' : '') + ui('best', { s:round.best, n:TEST_LEN });
+/* column tests: 1–1000 from accuracy × speed. Speed is judged per digit box to fill,
+   so long divisions and short additions are scored fairly. Only time spent
+   answering counts (the clock pauses after "Check"). */
+var COL_FAST = 2, COL_SLOW = 15;   // seconds per box: <= 2 s is full speed, >= 15 s is zero
+function colSpeed(ms, cells){
+  var per = ms / 1000 / Math.max(1, cells);
+  return Math.max(0, Math.min(1, (COL_SLOW - per) / (COL_SLOW - COL_FAST)));
+}
+function colKey(){ return 'stallupp-best-' + T.op + '-' + T.level + '-1000'; }
+function testMs(){ return T ? T.ms + (T.t0 ? Date.now() - T.t0 : 0) : 0; }
+var tTick = null;
+function showTestTime(){
+  if (!T){ clearInterval(tTick); return; }
+  $('tTime').textContent = fmtTime(testMs());
+}
+function verdictKey(p){ return p >= 900 ? 'tv900' : p >= 650 ? 'v8' : p >= 350 ? 'v5' : 'v0'; }
+function showScore(){
+  $('rScore').textContent = T.points;
+  $('rVerdict').textContent = ui(verdictKey(T.points));
+  $('rBreak').textContent = ui('colTime', { n:T.score, t:TEST_LEN, m:fmtTime(T.ms) }) + ' · ' +
+                            ui('ttBreak', { a:Math.round(100 * T.score / TEST_LEN), b:Math.round(100 * T.speed) });
+  $('rBest').textContent = (T.newBest ? ui('newBest') + ' · ' : '') + ui('bestTimes', { s:T.best });
 }
 function updateTestPanel(){
   $('testRun').hidden = T.done;
@@ -807,13 +831,15 @@ function updateTestPanel(){
   if (!T.done){
     $('tCount').textContent = ui('qOf', { i:T.i + 1, n:TEST_LEN });
     $('tScore').textContent = ui('score', { n:T.score });
+    $('tHi').textContent = +(store.get(colKey()) || 0);
+    showTestTime();
     $('tBar').style.width = (100 * (T.i + (T.checked ? 1 : 0)) / TEST_LEN) + '%';
     $('tCheckBtn').hidden = T.checked;
     $('tNextBtn').hidden = !T.checked;
     $('tNextBtn').textContent = ui(T.i === TEST_LEN - 1 ? 'seeScore' : 'nextQ');
     return;
   }
-  showScore(T, 'rScore', 'rVerdict', 'rBest');
+  showScore();
   $('rHint').hidden = T.score === TEST_LEN;
   $('rList').innerHTML = T.qs.map(function(q, i){
     var row = '<span class="n">' + (i + 1) + '.</span><span class="eq">' + q.a + ' ' + SYM[T.op] + ' ' + q.b + ' = ' +
@@ -863,7 +889,8 @@ function startTest(){
     seen[key] = 1;
     qs.push({ a:p.a, b:p.b, ok:false });
   }
-  T = { op:S.op, level:S.level, qs:qs, i:0, score:0, checked:false, done:false, best:0, newBest:false };
+  T = { op:S.op, level:S.level, qs:qs, i:0, score:0, checked:false, done:false, best:0, newBest:false, ms:0, t0:0, cells:0, points:0, speed:0 };
+  clearInterval(tTick); tTick = setInterval(showTestTime, 250);
   loadQuestion();
 }
 function loadQuestion(){
@@ -871,14 +898,18 @@ function loadQuestion(){
   T.checked = false;
   $('tFeedback').textContent = ''; $('tFeedback').className = 'feedback';
   setProblem(q.a, q.b);
+  T.cells += S.inputs.length;
+  T.t0 = Date.now();
 }
 function testCheck(){
   if (!T || T.done || T.checked) return;
   T.checked = true;
+  T.ms += Date.now() - T.t0; T.t0 = 0;
   var wrong = 0;
   S.inputs.forEach(function(o){
-    var good = o.el.value.trim() === o.cell.t;
-    if (!good){ wrong++; o.el.value = o.cell.t; }
+    var good = digitOf(o.el.value) === o.cell.t;
+    // a wrong box shows the right digit, with what the child typed crossed out in the corner
+    if (!good){ wrong++; o.el.parentNode.dataset.was = o.el.value.trim() || '?'; o.el.value = o.cell.t; }
     o.el.classList.toggle('ok', good);
     o.el.classList.toggle('bad', !good);
   });
@@ -895,7 +926,12 @@ function testCheck(){
 function testNext(){
   if (!T || !T.checked) return;
   if (T.i < TEST_LEN - 1){ T.i++; loadQuestion(); return; }
-  saveBest(T, 'stallupp-best-' + T.op + '-' + T.level);
+  clearInterval(tTick);
+  T.speed = colSpeed(T.ms, T.cells);
+  T.points = Math.max(1, Math.round(1000 * T.score / TEST_LEN * T.speed));
+  var r = { score:T.points };
+  saveBest(r, colKey());
+  T.best = r.best; T.newBest = r.newBest;
   T.done = true;
   showResult();
   $('roundBtn').focus();
@@ -991,7 +1027,7 @@ function renderTimes(){
   if (TT.done){
     var p = TT.points;
     $('ttScore').textContent = p;
-    $('ttVerdict').textContent = ui(p >= 900 ? 'tv900' : p >= 650 ? 'v8' : p >= 350 ? 'v5' : 'v0');
+    $('ttVerdict').textContent = ui(verdictKey(p));
     $('ttBreak').textContent = ui('ttBreak', { a:Math.round(100 * TT.score / TEST_LEN), b:Math.round(100 * TT.speed) });
     $('ttBest').textContent = (TT.newBest ? ui('newBest') + ' · ' : '') + ui('bestTimes', { s:TT.best });
   }
@@ -1076,7 +1112,7 @@ function setMode(m){
 function check(){
   var wrong = 0;
   S.inputs.forEach(function(o){
-    var good = o.el.value.trim() === o.cell.t;
+    var good = digitOf(o.el.value) === o.cell.t;
     o.el.classList.toggle('ok', good);
     o.el.classList.toggle('bad', !good);
     if (!good) wrong++;
@@ -1142,15 +1178,20 @@ $('rList').addEventListener('click', function(e){
   var b = e.target.closest('[data-q]'); if (b && T) reviewQuestion(+b.dataset.q);
 });
 
-$('board').addEventListener('input', function(e){
+// full-width digits (Chinese/Japanese input methods) count as normal digits
+function digitOf(v){ return String(v).replace(/[\uFF10-\uFF19]/g, function(c){ return String.fromCharCode(c.charCodeAt(0) - 0xFEE0); }).replace(/\D/g, '').slice(-1); }
+function boardInput(e){
   var inp = e.target; if (inp.tagName !== 'INPUT') return;
-  inp.value = inp.value.replace(/\D/g, '').slice(-1);
+  if (e.isComposing) return;   // wait until the input method has finished
+  inp.value = digitOf(inp.value);
   inp.classList.remove('ok', 'bad');
   if (inp.value && !inp.dataset.small){
     var nxt = S.inputs[+inp.dataset.i + 1];
     if (nxt) nxt.el.focus();
   }
-});
+}
+$('board').addEventListener('input', boardInput);
+$('board').addEventListener('compositionend', boardInput);
 $('board').addEventListener('keydown', function(e){
   var inp = e.target; if (inp.tagName !== 'INPUT') return;
   if (e.key === 'Enter'){
@@ -1160,7 +1201,7 @@ $('board').addEventListener('keydown', function(e){
   }
   else if (e.key === 'Backspace' && !inp.value && !inp.dataset.small){
     var prev = S.inputs[+inp.dataset.i - 1];
-    if (prev){ e.preventDefault(); prev.el.focus(); prev.el.value = ''; }
+    if (prev){ e.preventDefault(); prev.el.focus(); prev.el.select(); }   // move back, but never wipe a filled box
   }
 });
 document.addEventListener('keydown', function(e){
