@@ -96,6 +96,7 @@ main{max-width:1040px;margin:0 auto;padding:4px 16px 64px}
 .side .count{font-family:"Fredoka",sans-serif;color:var(--soft);font-size:.95rem}
 .msg{font-size:1.15rem;line-height:1.55;min-height:5.2em;margin:.4rem 0 1rem}
 .msg.done{color:var(--accent-deep);font-weight:700}
+.msg.tt-hint{min-height:0;margin-bottom:.5rem}
 .controls{display:flex;flex-wrap:wrap;gap:.5rem}
 .progress{height:6px;border-radius:3px;background:var(--border);margin-top:.9rem;overflow:hidden}
 .progress span{display:block;height:100%;background:var(--accent);transition:width .25s}
@@ -132,6 +133,16 @@ main{max-width:1040px;margin:0 auto;padding:4px 16px 64px}
 .tt-box.ok{border:2px solid var(--accent);background:var(--ok-bg)}
 .tt-box.bad{border:2px solid var(--bad);background:var(--bad-bg);color:var(--bad);text-decoration:line-through}
 .tt-box:disabled{cursor:default}
+.tt-item{border-radius:12px;padding:.15rem .4rem;transition:background .2s}
+.tt-item.cur{background:var(--hl)}
+/* phones: two compact columns so all 10 questions fit above the answer bar */
+@media (max-width:559px){
+  .tt-grid{grid-template-columns:repeat(2,auto);grid-template-rows:repeat(5,auto);grid-auto-flow:column;gap:.45rem .6rem}
+  .tt-item{font-size:1.2rem;gap:.35rem;padding:.15rem .3rem}
+  .tt-n{font-size:.75rem;min-width:1.1rem}
+  .tt-q{min-width:3.9rem}
+  .tt-box{width:2.6rem;height:2.3rem;font-size:1.2rem;scroll-margin:1rem 0 9rem}
+}
 .tt-fix{color:var(--bad);font-size:1.3rem}
 #timesView>.card{display:flex;flex-direction:column;align-self:stretch}
 .tt-timer{margin:auto 0;padding:1.4rem 0 .4rem;display:flex;justify-content:center;align-items:baseline;gap:.6rem;font-family:"Fredoka",sans-serif;color:var(--soft)}
@@ -214,7 +225,7 @@ main{max-width:1040px;margin:0 auto;padding:4px 16px 64px}
 
     <aside class="card side">
       <div class="count" id="ttCount"></div>
-      <p class="msg" data-ui="timesHint"></p>
+      <p class="msg tt-hint" data-ui="timesHint"></p>
       <div id="ttPick">
         <div class="tt-for" id="ttFor"></div>
         <div class="keypad" id="keypad"></div>
@@ -328,7 +339,7 @@ var UI = { title:'Column Arithmetic', subtitle:'Learn to set up sums in columns,
     outOf:'{s} / {n}', v10:'Perfect! 🏆', v8:'Great job! 🎉', v5:'Good effort 💪', v0:'Keep practising 🌱',
     best:'Best for this level: {s} / {n}', bestTimes:'Best so far: {s}', tv900:'Superstar! 🏆', ttBreak:'Accuracy {a}% × speed {b}%', ttCorrect:'{n} of {t} correct', newBest:'New best! 🥇', remainder:'{q} r {r}',
     times:'Times tables', timesTitle:'9 × 9 times tables', ttFilled:'{n} of {t} filled in', ttTime:'Time', ttTimeDone:'Finished in',
-    timesHint:'Pick the right answer for each question; the choices change after every answer. Tap a box to go back and change it. When all 10 are done, press “Check”.',
+    timesHint:'Tap the right answer. Scored automatically after the 10th.',
     reviewHint:'Tap a ❌ question to see how it is done.', newRound:'🔁 New round', backPractice:'✏️ Back to practice', backScore:'◀ Back to score',
     errAdd:'Enter two whole numbers from 0 to 99999.', errSub:'Enter whole numbers 0–99999; the first must not be smaller than the second.',
     errMul:'First number 1–9999, second number 1–999.', errDiv:'Number 1–99999, divisor 1–99, and the number must not be smaller than the divisor.' };
@@ -912,6 +923,8 @@ function startTimes(){
   clearInterval(ttTick);
   ttTick = setInterval(showTime, 250);
   renderTimes();
+  // on a phone, bring the questions up to the top so they all sit above the answer bar
+  if (window.matchMedia && window.matchMedia('(max-width:859px)').matches) $('ttGrid').closest('.card').scrollIntoView({ block:'start', behavior:'smooth' });
 }
 var ttTick = null;
 var TT_OPTS = 4;
@@ -946,7 +959,7 @@ function showTime(){
 function renderTimes(){
   $('ttGrid').innerHTML = TT.qs.map(function(q, i){
     var cls = 'tt-box' + (TT.done ? (q.ok ? ' ok' : ' bad') : (i === TT.sel ? ' sel' : ''));
-    return '<li class="tt-item"><span class="tt-n">' + (i + 1) + '.</span><span class="tt-q">' + q.a + ' × ' + q.b + ' =</span>' +
+    return '<li class="tt-item' + (!TT.done && i === TT.sel ? ' cur' : '') + '"><span class="tt-n">' + (i + 1) + '.</span><span class="tt-q">' + q.a + ' × ' + q.b + ' =</span>' +
            '<button type="button" class="' + cls + '" data-i="' + i + '" aria-label="answer ' + (i + 1) + '"' +
            (TT.done ? ' disabled' : '') + '>' + q.v + '</button>' +
            (TT.done && !q.ok ? '<span class="tt-fix">' + (q.a * q.b) + '</span>' : '') + '</li>';
@@ -956,6 +969,12 @@ function renderTimes(){
   $('ttPick').hidden = TT.done;
   if (!TT.done){
     var cur = TT.qs[TT.sel];
+    if (TT.shown === undefined) TT.shown = TT.sel;  // first render: startTimes handles scrolling
+    if (TT.sel !== TT.shown){
+      TT.shown = TT.sel;
+      var box = $('ttGrid').querySelector('.tt-box.sel');
+      if (box && box.scrollIntoView) box.scrollIntoView({ block:'nearest', behavior:'smooth' });
+    }
     $('ttFor').innerHTML = (TT.sel + 1) + '.&nbsp; ' + cur.a + ' × ' + cur.b + ' = <b>' + (cur.v || '?') + '</b>';
     $('keypad').innerHTML = cur.opts.map(function(n){
       return '<button type="button" class="key' + (String(n) === cur.v ? ' picked' : '') + '" data-k="' + n + '">' + n + '</button>';
@@ -988,6 +1007,8 @@ function timesPress(k){
     setTimeout(function(){
       t.wait = false;
       if (TT !== t || t.done) return;
+      // all 10 answered: check right away
+      if (t.qs.every(function(q){ return q.v; })){ timesCheck(); return; }
       $('keypad').classList.add('fresh');
       // move on to the next question still empty, so its choices come up
       for (var i = 1; i < TEST_LEN; i++){
