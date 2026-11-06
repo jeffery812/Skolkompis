@@ -11,19 +11,19 @@
 :root{
   color-scheme: light dark;
   --bg:#FBF7F0; --card:#FFFFFF; --ink:#2B2320; --soft:#7A6F63;
-  --accent:#1F8A70; --accent-deep:#166B57; --amber:#F2A93B; --hl:#FCE7BF;
+  --accent:#1F8A70; --accent-deep:#166B57; --amber:#F2A93B;--gold:#A86300; --hl:#FCE7BF;
   --bad:#D9534F; --bad-bg:#FBE3E1; --ok-bg:#DDF3EB; --border:#E8E0D4;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --bg:#181310; --card:#231D19; --ink:#F4EFE9; --soft:#B9AEA1;
-    --accent:#3FBFA0; --accent-deep:#63D4B6; --amber:#F5BE5E; --hl:#4A3A1C;
+    --accent:#3FBFA0; --accent-deep:#63D4B6; --amber:#F5BE5E;--gold:#F5BE5E; --hl:#4A3A1C;
     --bad:#FF8A80; --bad-bg:#4A2522; --ok-bg:#1D3F35; --border:#382F28;
   }
 }
 :root[data-theme="dark"]{
   --bg:#181310; --card:#231D19; --ink:#F4EFE9; --soft:#B9AEA1;
-  --accent:#3FBFA0; --accent-deep:#63D4B6; --amber:#F5BE5E; --hl:#4A3A1C;
+  --accent:#3FBFA0; --accent-deep:#63D4B6; --amber:#F5BE5E;--gold:#F5BE5E; --hl:#4A3A1C;
   --bad:#FF8A80; --bad-bg:#4A2522; --ok-bg:#1D3F35; --border:#382F28;
 }
 *{box-sizing:border-box}
@@ -149,6 +149,11 @@ main{max-width:1040px;margin:0 auto;padding:4px 16px 64px}
 .tt-timer .lbl{font-size:1.1rem;font-weight:600}
 .tt-timer .t{font-size:3rem;font-weight:700;color:var(--accent-deep);font-variant-numeric:tabular-nums;min-width:4.5ch;text-align:left}
 .tt-timer.done .t{color:var(--accent)}
+.tt-timer{flex-wrap:wrap;row-gap:.2rem}
+.tt-timer .sep{width:1px;height:2.2rem;background:var(--border);margin:0 .6rem;align-self:center}
+.tt-timer .t.hi{color:var(--gold);min-width:0}
+.tt-timer .t.hi.flash{animation:chosen .5s ease-out}
+@media (max-width:559px){.tt-timer .t{font-size:2.2rem}.tt-timer .sep{height:1.6rem;margin:0 .3rem}}
 .tt-break{margin:0 0 .2rem}
 .tt-for{font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.25rem;margin:.3rem 0 .5rem}
 .tt-for b{color:var(--accent-deep)}
@@ -220,7 +225,7 @@ main{max-width:1040px;margin:0 auto;padding:4px 16px 64px}
     <section class="card">
       <div class="question" data-ui="timesTitle"></div>
       <ol class="tt-grid" id="ttGrid"></ol>
-      <div class="tt-timer" id="ttTimer" aria-live="off"><span class="lbl">⏱ <span id="ttTimeLbl"></span></span><span class="t" id="ttTime">0:00</span></div>
+      <div class="tt-timer" id="ttTimer" aria-live="off"><span class="lbl">⏱ <span id="ttTimeLbl"></span></span><span class="t" id="ttTime">0:00</span><span class="sep" aria-hidden="true"></span><span class="lbl">🏆 <span data-ui="ttHi"></span></span><span class="t hi" id="ttHi">0</span></div>
     </section>
 
     <aside class="card side">
@@ -337,7 +342,7 @@ var UI = { title:'Column Arithmetic', subtitle:'Learn to set up sums in columns,
     qOf:'Question {i} of {n}', score:'Score: {n}', nextQ:'Next ▶', seeScore:'🏁 See score',
     testRight:'Correct! ✅', testWrong:'Not quite ❌ – the right digits are now shown in the red boxes.',
     outOf:'{s} / {n}', v10:'Perfect! 🏆', v8:'Great job! 🎉', v5:'Good effort 💪', v0:'Keep practising 🌱',
-    best:'Best for this level: {s} / {n}', bestTimes:'Best so far: {s}', tv900:'Superstar! 🏆', ttBreak:'Accuracy {a}% × speed {b}%', ttCorrect:'{n} of {t} correct', newBest:'New best! 🥇', remainder:'{q} r {r}',
+    best:'Best for this level: {s} / {n}', bestTimes:'Best so far: {s}', ttHi:'Best', tv900:'Superstar! 🏆', ttBreak:'Accuracy {a}% × speed {b}%', ttCorrect:'{n} of {t} correct', newBest:'New best! 🥇', remainder:'{q} r {r}',
     times:'Times tables', timesTitle:'9 × 9 times tables', ttFilled:'{n} of {t} filled in', ttTime:'Time', ttTimeDone:'Finished in',
     timesHint:'Tap the right answer. Scored automatically after the 10th.',
     reviewHint:'Tap a ❌ question to see how it is done.', newRound:'🔁 New round', backPractice:'✏️ Back to practice', backScore:'◀ Back to score',
@@ -955,6 +960,7 @@ function showTime(){
   $('ttTime').textContent = fmtTime(TT.done ? TT.ms : Date.now() - TT.t0);
   $('ttTimeLbl').textContent = ui(TT.done ? 'ttTimeDone' : 'ttTime');
   $('ttTimer').classList.toggle('done', TT.done);
+  $('ttHi').textContent = +(store.get('stallupp-best-times-1000') || 0);
 }
 function renderTimes(){
   $('ttGrid').innerHTML = TT.qs.map(function(q, i){
@@ -1031,6 +1037,7 @@ function timesCheck(){
   var r = { score:TT.points };
   saveBest(r, 'stallupp-best-times-1000');
   TT.best = r.best; TT.newBest = r.newBest;
+  if (r.newBest){ var hi = $('ttHi'); hi.classList.remove('flash'); void hi.offsetWidth; hi.classList.add('flash'); }
   clearInterval(ttTick);
   TT.done = true;
   renderTimes();
