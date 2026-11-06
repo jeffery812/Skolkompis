@@ -254,11 +254,12 @@ main{max-width:1040px;margin:0 auto;padding:4px 16px 64px}
   </div>
   <p class="err" id="err" role="alert"></p>
 
+  <div class="top-bar" id="ttTopBar" hidden><span class="lbl">🏆 <span data-ui="top3"></span></span><ol class="podium" id="ttTop" aria-label="Top 3"></ol></div>
   <div class="layout" id="timesView" hidden>
     <section class="card">
       <div class="question" data-ui="timesTitle"></div>
       <ol class="tt-grid" id="ttGrid"></ol>
-      <div class="tt-timer" id="ttTimer" aria-live="off"><span class="lbl">⏱ <span id="ttTimeLbl"></span></span><span class="t" id="ttTime">0:00</span><ol class="podium" id="ttTop" aria-label="Top 3"></ol></div>
+      <div class="tt-timer" id="ttTimer" aria-live="off"><span class="lbl">⏱ <span id="ttTimeLbl"></span></span><span class="t" id="ttTime">0:00</span></div>
     </section>
 
     <aside class="card side">
@@ -914,7 +915,7 @@ function updateTexts(){
   document.querySelectorAll('#levels .pill').forEach(function(b){ b.setAttribute('aria-pressed', +b.dataset.level === S.level); });
   var tt = S.op === 'times';
   $('toolbar').hidden = $('err').hidden = $('mainView').hidden = tt;
-  $('timesView').hidden = !tt;
+  $('timesView').hidden = $('ttTopBar').hidden = !tt;
   $('opSym').textContent = SYM[S.op];
   $(tt ? 'ttRules' : 'rules').innerHTML = RULES[S.op].map(function(t){ return '<li>' + t + '</li>'; }).join('');
   if (S.prob) $('question').textContent = S.prob.a + ' ' + SYM[S.op] + ' ' + S.prob.b + ' = ?';
