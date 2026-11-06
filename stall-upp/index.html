@@ -89,12 +89,25 @@ main{max-width:1040px;margin:0 auto;padding:4px 16px 64px}
 @keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 .cell input{width:88%;height:88%;border:2px dashed var(--border);border-radius:10px;background:var(--bg);text-align:center;font-family:"Fredoka",sans-serif;font-weight:600;font-size:calc(var(--cw)*.66);padding:0;color:var(--accent-deep)}
 .cell input:focus{border-style:solid;border-color:var(--accent);outline:none}
+.cell input{caret-color:transparent;scroll-margin:4rem 0 10.5rem}
+.cell input.cur{border-style:solid;border-color:var(--accent);box-shadow:0 0 0 3px var(--hl)}
+.cell input.just{animation:pop .22s ease-out}
 .cell.c input{width:70%;height:100%;font-size:calc(var(--cw)*.38);border-width:1.5px;border-radius:6px}
 .cell input.ok{border:2px solid var(--accent);background:var(--ok-bg)}
 .cell input.bad{border:2px solid var(--bad);background:var(--bad-bg);color:var(--bad)}
-.cell[data-was]{position:relative}
-.cell[data-was]::after{content:attr(data-was);position:absolute;top:-.5em;right:-.45em;font-family:"Fredoka",sans-serif;font-weight:600;font-size:calc(var(--cw)*.55);line-height:1;color:var(--soft);text-decoration:line-through;text-decoration-color:var(--bad);text-decoration-thickness:2px;background:var(--card);border:1.5px solid var(--bad);border-radius:6px;padding:.08em .22em;pointer-events:none}
+.cell[data-fix]{position:relative}
+.cell[data-fix]::after{content:attr(data-fix);position:absolute;top:-.62em;left:0;right:0;margin:0 auto;width:fit-content;font-family:"Fredoka",sans-serif;font-weight:700;font-size:calc(var(--cw)*.55);line-height:1;color:var(--accent-deep);background:var(--ok-bg);border:1.5px solid var(--accent);border-radius:6px;padding:.08em .22em;pointer-events:none;animation:pop .3s ease-out}
 
+/* on-page digit pad: no system keyboard on tablets and phones */
+.digit-pad{display:grid;grid-template-columns:repeat(6,1fr);gap:.5rem;max-width:27rem;margin:1.1rem auto 0;padding:1rem 0 .6rem;border-top:1.5px dashed var(--border);position:sticky;bottom:0;z-index:3;background:var(--card)}
+.digit-pad[hidden]{display:none}
+.digit-pad .key{font-size:1.65rem;padding:.55rem 0;touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;transition:transform .08s,background .08s}
+.digit-pad .key:active{transform:scale(.9)}
+.digit-pad .key.fn{background:var(--bg);color:var(--soft)}
+.digit-pad .key.go{background:var(--accent);border-color:var(--accent);color:#fff}
+.digit-pad .key.go:active{background:var(--accent-deep)}
+.digit-pad.locked .key:not(.go){opacity:.35;pointer-events:none}
+@media (max-width:559px){.digit-pad{gap:.35rem}.digit-pad .key{font-size:1.4rem;padding:.5rem 0;border-radius:10px}}
 .side .count{font-family:"Fredoka",sans-serif;color:var(--soft);font-size:.95rem}
 .msg{font-size:1.15rem;line-height:1.55;min-height:5.2em;margin:.4rem 0 1rem}
 .msg.done{color:var(--accent-deep);font-weight:700}
@@ -261,6 +274,12 @@ main{max-width:1040px;margin:0 auto;padding:4px 16px 64px}
     <section class="card">
       <div class="question" id="question"></div>
       <div class="board-wrap"><div class="board" id="board"></div></div>
+      <div class="digit-pad" id="digitPad" hidden>
+        <button type="button" class="key" data-d="1">1</button><button type="button" class="key" data-d="2">2</button><button type="button" class="key" data-d="3">3</button><button type="button" class="key" data-d="4">4</button><button type="button" class="key" data-d="5">5</button>
+        <button type="button" class="key fn" data-d="back" aria-label="delete">⌫</button>
+        <button type="button" class="key" data-d="6">6</button><button type="button" class="key" data-d="7">7</button><button type="button" class="key" data-d="8">8</button><button type="button" class="key" data-d="9">9</button><button type="button" class="key" data-d="0">0</button>
+        <button type="button" class="key go" data-d="ok" aria-label="check">✓</button>
+      </div>
     </section>
 
     <aside class="card side">
@@ -347,7 +366,7 @@ var UI = { title:'Column Arithmetic', subtitle:'Learn to set up sums in columns,
     rules:'📌 Remember', carry:'{c} (carried)',
     modeTest:'📝 Test', testHint:'10 questions. Fill in the dashed boxes and press “Check” – you only get one try per question!',
     qOf:'Question {i} of {n}', score:'Correct: {n}', nextQ:'Next ▶', seeScore:'🏁 See score',
-    testRight:'Correct! ✅', testWrong:'Not quite ❌ – red boxes now show the right digit; yours is crossed out in the corner.',
+    testRight:'Correct! ✅', testWrong:'Not quite ❌ – your digit is in red; the right one is in the green tag above it.',
     v8:'Great job! 🎉', v5:'Good effort 💪', v0:'Keep practising 🌱',
     bestTimes:'Best so far: {s}', colTime:'{n} of {t} correct in {m}', ttHi:'Best', tv900:'Superstar! 🏆', ttBreak:'Accuracy {a}% × speed {b}%', ttCorrect:'{n} of {t} correct', newBest:'New best! 🥇', remainder:'{q} r {r}',
     times:'Times tables', timesTitle:'9 × 9 times tables', ttFilled:'{n} of {t} filled in', ttTime:'Time', ttTimeDone:'Finished in',
@@ -761,7 +780,7 @@ function render(){
 
 function makeInput(small){
   var inp = document.createElement('input');
-  inp.inputMode = 'numeric'; inp.maxLength = 1; inp.autocomplete = 'off';
+  inp.inputMode = 'none';   // digits come from the on-page pad (a real keyboard still works) inp.maxLength = 1; inp.autocomplete = 'off';
   inp.setAttribute('aria-label', small ? 'carry' : 'digit');
   if (small) inp.dataset.small = '1';
   return inp;
@@ -775,6 +794,9 @@ function updatePanels(){
   $('backScoreBtn').hidden = !S.reviewing;
   $('newBtn').hidden = $('custom').hidden = test;
   if (test && T) updateTestPanel();
+  var pad = $('digitPad');
+  pad.hidden = !(S.mode === 'practice' || (test && T && !T.done));
+  pad.classList.toggle('locked', !!(test && T && T.checked));
   if (demo){
     var n = B.steps.length, st = B.steps[S.step], last = S.step === n - 1;
     $('count').textContent = ui('stepOf', { i:S.step + 1, n:n });
@@ -871,7 +893,7 @@ function setProblem(a, b){
   $('na').value = a; $('nb').value = b; $('err').textContent = '';
   $('feedback').textContent = ''; $('feedback').className = 'feedback';
   render(); updateTexts();
-  if (S.mode !== 'demo' && S.inputs[0]) S.inputs[0].el.focus({ preventScroll:true });
+  if (S.mode !== 'demo' && S.inputs[0]) setCur(S.inputs[0].el, true);
 }
 function newProblem(){
   S.reviewing = false;
@@ -908,8 +930,8 @@ function testCheck(){
   var wrong = 0;
   S.inputs.forEach(function(o){
     var good = digitOf(o.el.value) === o.cell.t;
-    // a wrong box shows the right digit, with what the child typed crossed out in the corner
-    if (!good){ wrong++; o.el.parentNode.dataset.was = o.el.value.trim() || '?'; o.el.value = o.cell.t; }
+    // a wrong box keeps the child's digit in red; the right digit sits in a tag on top
+    if (!good){ wrong++; o.el.parentNode.dataset.fix = o.cell.t; }
     o.el.classList.toggle('ok', good);
     o.el.classList.toggle('bad', !good);
   });
@@ -1106,7 +1128,7 @@ function setMode(m){
   if (m === 'test') return startTest();
   T = null;
   render(); updateTexts();
-  if (m === 'practice' && S.inputs[0]) S.inputs[0].el.focus({ preventScroll:true });
+  if (m === 'practice' && S.inputs[0]) setCur(S.inputs[0].el, true);
 }
 
 function check(){
@@ -1156,7 +1178,7 @@ $('playBtn').addEventListener('click', togglePlay);
 $('checkBtn').addEventListener('click', check);
 $('clearBtn').addEventListener('click', function(){
   $('feedback').textContent = '';
-  render(); if (S.inputs[0]) S.inputs[0].el.focus();
+  render(); if (S.inputs[0]) setCur(S.inputs[0].el, true);
 });
 $('revealBtn').addEventListener('click', function(){ setMode('demo'); });
 $('tCheckBtn').addEventListener('click', testCheck);
@@ -1187,21 +1209,64 @@ function boardInput(e){
   inp.classList.remove('ok', 'bad');
   if (inp.value && !inp.dataset.small){
     var nxt = S.inputs[+inp.dataset.i + 1];
-    if (nxt) nxt.el.focus();
+    if (nxt) setCur(nxt.el, true);
   }
 }
 $('board').addEventListener('input', boardInput);
+$('board').addEventListener('focusin', function(e){ if (e.target.tagName === 'INPUT') setCur(e.target); });
+
+/* ---- on-page digit pad ---- */
+function setCur(inp, focus){
+  if (S.cur && S.cur !== inp) S.cur.classList.remove('cur');
+  S.cur = inp;
+  if (!inp) return;
+  inp.classList.add('cur');
+  if (focus){
+    inp.focus({ preventScroll:true });
+    // keep the active box in view above the pinned pad
+    if (!$('digitPad').hidden && inp.scrollIntoView) inp.scrollIntoView({ block:'nearest', behavior:'smooth' });
+  }
+}
+function padTarget(){
+  if (S.cur && $('board').contains(S.cur)) return S.cur;
+  var empty = S.inputs.filter(function(o){ return !o.el.value; })[0] || S.inputs[0];
+  return empty ? empty.el : null;
+}
+function enterKey(){
+  if (S.mode === 'test'){ if (T && T.checked) testNext(); else testCheck(); }
+  else check();
+}
+function padPress(d){
+  if (d === 'ok') return enterKey();
+  var inp = padTarget(); if (!inp || inp.readOnly) return;
+  if (d === 'back'){
+    if (inp.value){ inp.value = ''; inp.classList.remove('ok', 'bad'); setCur(inp, true); return; }
+    // empty box: the last digit typed is in the box before, so step back and delete it
+    var prev = !inp.dataset.small && S.inputs[+inp.dataset.i - 1];
+    if (prev && !prev.el.readOnly){ prev.el.value = ''; prev.el.classList.remove('ok', 'bad'); setCur(prev.el, true); }
+    return;
+  }
+  setCur(inp);
+  inp.value = d;
+  inp.classList.remove('just'); void inp.offsetWidth; inp.classList.add('just');
+  boardInput({ target:inp });          // same path as typing: tidy, then hop to the next box
+  if (S.cur) S.cur.focus({ preventScroll:true });
+}
+// keep the box focused while tapping the pad (no blur, so no keyboard flicker)
+$('digitPad').addEventListener('mousedown', function(e){ e.preventDefault(); });
+$('digitPad').addEventListener('click', function(e){
+  var k = e.target.closest('[data-d]'); if (k) padPress(k.dataset.d);
+});
 $('board').addEventListener('compositionend', boardInput);
 $('board').addEventListener('keydown', function(e){
   var inp = e.target; if (inp.tagName !== 'INPUT') return;
   if (e.key === 'Enter'){
     e.preventDefault();
-    if (S.mode === 'test'){ if (T && T.checked) testNext(); else testCheck(); }
-    else check();
+    enterKey();
   }
   else if (e.key === 'Backspace' && !inp.value && !inp.dataset.small){
     var prev = S.inputs[+inp.dataset.i - 1];
-    if (prev){ e.preventDefault(); prev.el.focus(); prev.el.select(); }   // move back, but never wipe a filled box
+    if (prev){ e.preventDefault(); setCur(prev.el, true); prev.el.select(); }   // move back, but never wipe a filled box
   }
 });
 document.addEventListener('keydown', function(e){
