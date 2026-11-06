@@ -108,6 +108,11 @@ main{max-width:1040px;margin:0 auto;padding:4px 16px 64px}
 .digit-pad .key.go:active{background:var(--accent-deep)}
 .digit-pad.locked .key:not(.go){opacity:.35;pointer-events:none}
 @media (max-width:559px){.digit-pad{gap:.35rem}.digit-pad .key{font-size:1.4rem;padding:.5rem 0;border-radius:10px}}
+/* phones and portrait tablets: the pad is a fixed bar at the bottom, so the sum never scrolls under it */
+@media (max-width:859px){
+  .digit-pad{position:fixed;left:0;right:0;bottom:0;max-width:none;margin:0;border-top:1px solid var(--border);box-shadow:0 -6px 18px rgba(0,0,0,.08);padding:.55rem max(14px, calc((100vw - 30rem) / 2)) calc(.6rem + env(safe-area-inset-bottom))}
+  #mainView:has(.digit-pad:not([hidden])){padding-bottom:9.5rem}
+}
 .side .count{font-family:"Fredoka",sans-serif;color:var(--soft);font-size:.95rem}
 .msg{font-size:1.15rem;line-height:1.55;min-height:5.2em;margin:.4rem 0 1rem}
 .msg.done{color:var(--accent-deep);font-weight:700}
