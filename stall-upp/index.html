@@ -44,6 +44,10 @@ header.bar{display:flex;align-items:center;justify-content:space-between;flex-wr
 .pill[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 
 main{max-width:1040px;margin:0 auto;padding:4px 16px 64px}
+.page-foot{display:flex;justify-content:center;margin-top:2.2rem}
+.link-btn{border:0;background:none;font:inherit;font-size:.9rem;color:var(--soft);padding:.5rem .8rem;border-radius:999px;cursor:pointer;text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--border)}
+@media (hover:hover){.link-btn:hover{color:var(--bad);text-decoration-color:currentColor}}
+.link-btn.done{color:var(--accent-deep);text-decoration:none}
 .intro h1{font-size:clamp(1.9rem,4vw + 1rem,2.7rem)}
 .intro p{margin:.3rem 0 0;color:var(--soft)}
 
@@ -111,7 +115,7 @@ main{max-width:1040px;margin:0 auto;padding:4px 16px 64px}
 /* phones and portrait tablets: the pad is a fixed bar at the bottom, so the sum never scrolls under it */
 @media (max-width:859px){
   .digit-pad{position:fixed;left:0;right:0;bottom:0;max-width:none;margin:0;border-top:1px solid var(--border);box-shadow:0 -6px 18px rgba(0,0,0,.08);padding:.55rem max(14px, calc((100vw - 30rem) / 2)) calc(.6rem + env(safe-area-inset-bottom))}
-  #mainView:has(.digit-pad:not([hidden])){padding-bottom:9.5rem}
+  main:has(.digit-pad:not([hidden])){padding-bottom:10rem}
 }
 .side .count{font-family:"Fredoka",sans-serif;color:var(--soft);font-size:.95rem}
 .msg{font-size:1.15rem;line-height:1.55;min-height:5.2em;margin:.4rem 0 1rem}
@@ -191,7 +195,7 @@ main{max-width:1040px;margin:0 auto;padding:4px 16px 64px}
   #ttPick .tt-for{text-align:center;margin:0 0 .4rem;font-size:1.15rem}
   #ttPick .keypad{grid-template-columns:repeat(4,1fr);max-width:24rem;margin:0 auto}
   #ttPick .keypad .key{font-size:1.35rem;padding:.5rem 0}
-  #timesView{padding-bottom:7.5rem}
+  main:has(#timesView:not([hidden]) #ttPick:not([hidden])){padding-bottom:9rem}
 }
 .key{border:2px solid var(--border);background:var(--card);border-radius:12px;padding:.5rem 0;font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.45rem;cursor:pointer}
 @media (hover:hover){.key:hover{border-color:var(--accent)}}
@@ -346,6 +350,10 @@ main{max-width:1040px;margin:0 auto;padding:4px 16px 64px}
       </div>
     </aside>
   </div>
+
+  <footer class="page-foot">
+    <button type="button" class="link-btn" id="resetBestBtn" data-ui="resetBest"></button>
+  </footer>
 </main>
 
 <script>
@@ -373,7 +381,7 @@ var UI = { title:'Column Arithmetic', subtitle:'Learn to set up sums in columns,
     qOf:'Question {i} of {n}', score:'Correct: {n}', nextQ:'Next ▶', seeScore:'🏁 See score',
     testRight:'Correct! ✅', testWrong:'Not quite ❌ – your digit is in red; the right one is in the green tag above it.',
     v8:'Great job! 🎉', v5:'Good effort 💪', v0:'Keep practising 🌱',
-    bestTimes:'Best so far: {s}', colTime:'{n} of {t} correct in {m}', ttHi:'Best', tv900:'Superstar! 🏆', ttBreak:'Accuracy {a}% × speed {b}%', ttCorrect:'{n} of {t} correct', newBest:'New best! 🥇', remainder:'{q} r {r}',
+    bestTimes:'Best so far: {s}', resetBest:'🗑 Clear best scores', resetAsk:'Clear all best scores on this device? This can’t be undone.', resetDone:'Best scores cleared ✓', colTime:'{n} of {t} correct in {m}', ttHi:'Best', tv900:'Superstar! 🏆', ttBreak:'Accuracy {a}% × speed {b}%', ttCorrect:'{n} of {t} correct', newBest:'New best! 🥇', remainder:'{q} r {r}',
     times:'Times tables', timesTitle:'9 × 9 times tables', ttFilled:'{n} of {t} filled in', ttTime:'Time', ttTimeDone:'Finished in',
     timesHint:'Tap the right answer. Scored automatically after the 10th.',
     reviewHint:'Tap a ❌ question to see how it is done.', newRound:'🔁 New round', backPractice:'✏️ Back to practice', backScore:'◀ Back to score',
@@ -1217,6 +1225,19 @@ function boardInput(e){
     if (nxt) setCur(nxt.el, true);
   }
 }
+$('resetBestBtn').addEventListener('click', function(){
+  if (!window.confirm(ui('resetAsk'))) return;
+  try {
+    Object.keys(localStorage).forEach(function(k){ if (k.indexOf('stallupp-best-') === 0) localStorage.removeItem(k); });
+  } catch(e){}
+  if (TT){ TT.best = 0; TT.newBest = false; }
+  if (T){ T.best = 0; T.newBest = false; }
+  $('ttHi').textContent = 0; $('tHi').textContent = 0;
+  if ($('ttBest')) $('ttBest').textContent = ui('bestTimes', { s:0 });
+  if ($('rBest')) $('rBest').textContent = ui('bestTimes', { s:0 });
+  var b = this; b.textContent = ui('resetDone'); b.classList.add('done');
+  setTimeout(function(){ b.textContent = ui('resetBest'); b.classList.remove('done'); }, 2500);
+});
 $('board').addEventListener('input', boardInput);
 $('board').addEventListener('focusin', function(e){ if (e.target.tagName === 'INPUT') setCur(e.target); });
 
